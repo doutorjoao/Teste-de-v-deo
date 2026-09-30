@@ -138,7 +138,8 @@ def renderizar_quadro(fonte, cx, cy, lw):
 class Grade:
     """Tratamento de cor tipo cinema: menos saturação, pretos levantados, vinheta, grão."""
 
-    def __init__(self, seed=7):
+    def __init__(self, seed=7, saturacao=0.82, tom=(1.025, 1.0, 0.965)):
+        self.saturacao, self.tom = saturacao, np.float32(tom)
         yy, xx = np.mgrid[0:VH, 0:VW].astype(np.float32)
         r2 = ((xx - VW / 2) / (VW / 2)) ** 2 + ((yy - VH / 2) / (VH / 2)) ** 2
         self.vinheta = (1 - 0.22 * r2 / 2)[..., None]
@@ -148,9 +149,9 @@ class Grade:
 
     def __call__(self, img, i):
         lum = img @ np.float32([0.299, 0.587, 0.114])
-        img = lum[..., None] + (img - lum[..., None]) * 0.82
+        img = lum[..., None] + (img - lum[..., None]) * self.saturacao
         img = img * 0.9 + 0.035
-        img = img * np.float32([1.025, 1.0, 0.965])
+        img = img * self.tom
         img = img * self.vinheta + self.graos[i % len(self.graos)]
         return np.clip(img, 0, 1)
 
@@ -173,11 +174,25 @@ def base_com_legenda(linhas):
     return np.asarray(base).copy()
 
 
-def gerar(saida, idioma, audio):
+def fontes_padrao():
     fontes = preparar_fontes()
     fontes["dupla"] = montar_dupla(fontes["noite_dir"], fontes["noite_esq"])
+    return fontes
+
+
+def balanco(tempo, lw, amp):
+    """Deslocamento lento e irregular, como câmera na mão."""
+    if not amp:
+        return 0.0, 0.0
+    dx = np.sin(2 * np.pi * 0.23 * tempo) + 0.5 * np.sin(2 * np.pi * 0.61 * tempo + 1.7)
+    dy = np.sin(2 * np.pi * 0.19 * tempo + 0.6) + 0.5 * np.sin(2 * np.pi * 0.53 * tempo + 2.9)
+    return amp * lw * dx, amp * lw * ASPECTO * dy
+
+
+def gerar(saida, idioma, audio, fontes=None, planos=PLANOS, grade=None, amp_balanco=0.0):
+    fontes = fontes or fontes_padrao()
     base = base_com_legenda(LEGENDAS[idioma])
-    grade = Grade()
+    grade = grade or Grade()
     total = int(round(DURACAO * FPS))
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-"]
@@ -191,9 +206,11 @@ def gerar(saida, idioma, audio):
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for i in range(total):
         tempo = i / FPS
-        ini_p, fim_p, nome, a, b = next(p for p in PLANOS if p[0] <= tempo < p[1] or p is PLANOS[-1])
+        ini_p, fim_p, nome, a, b = next(p for p in planos if p[0] <= tempo < p[1] or p is planos[-1])
         t = (tempo - ini_p) / (fim_p - ini_p)
-        quadro = renderizar_quadro(fontes[nome], *recorte(fontes[nome], a, b, t))
+        cx, cy, lw = recorte(fontes[nome], a, b, t)
+        dx, dy = balanco(tempo, lw, amp_balanco)
+        quadro = renderizar_quadro(fontes[nome], cx + dx, cy + dy, lw)
         quadro = grade(quadro, i)
         base[VID_Y0:VID_Y0 + VH] = (quadro * 255 + 0.5).astype(np.uint8)
         proc.stdin.write(base.tobytes())
@@ -202,12 +219,11 @@ def gerar(saida, idioma, audio):
         raise SystemExit("ffmpeg falhou")
 
 
-def prancha(saida):
+def prancha(saida, fontes=None, planos=PLANOS):
     """Primeiro e último quadro de cada plano, lado a lado, para conferir enquadramentos."""
-    fontes = preparar_fontes()
-    fontes["dupla"] = montar_dupla(fontes["noite_dir"], fontes["noite_esq"])
+    fontes = fontes or fontes_padrao()
     linhas = []
-    for _, _, nome, a, b in PLANOS:
+    for _, _, nome, a, b in planos:
         par = [renderizar_quadro(fontes[nome], *recorte(fontes[nome], a, b, t)) for t in (0, 1)]
         linhas.append(np.hstack(par))
     img = (np.vstack(linhas) * 255).astype(np.uint8)
