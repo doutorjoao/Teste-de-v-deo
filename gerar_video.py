@@ -189,7 +189,8 @@ def balanco(tempo, lw, amp):
     return amp * lw * dx, amp * lw * ASPECTO * dy
 
 
-def gerar(saida, idioma, audio, fontes=None, planos=PLANOS, grade=None, amp_balanco=0.0):
+def gerar(saida, idioma, audio, fontes=None, planos=PLANOS, grade=None, amp_balanco=0.0, animadas=None):
+    """animadas: {nome: objeto com .quadro(t, t_plano, cam, cam0, largura, altura)} para cenas vivas."""
     fontes = fontes or fontes_padrao()
     base = base_com_legenda(LEGENDAS[idioma])
     grade = grade or Grade()
@@ -210,7 +211,11 @@ def gerar(saida, idioma, audio, fontes=None, planos=PLANOS, grade=None, amp_bala
         t = (tempo - ini_p) / (fim_p - ini_p)
         cx, cy, lw = recorte(fontes[nome], a, b, t)
         dx, dy = balanco(tempo, lw, amp_balanco)
-        quadro = renderizar_quadro(fontes[nome], cx + dx, cy + dy, lw)
+        if animadas and nome in animadas:
+            cam0 = recorte(fontes[nome], a, b, 0)
+            quadro = animadas[nome].quadro(tempo - ini_p, t, (cx + dx, cy + dy, lw), cam0, VW, VH)
+        else:
+            quadro = renderizar_quadro(fontes[nome], cx + dx, cy + dy, lw)
         quadro = grade(quadro, i)
         base[VID_Y0:VID_Y0 + VH] = (quadro * 255 + 0.5).astype(np.uint8)
         proc.stdin.write(base.tobytes())
