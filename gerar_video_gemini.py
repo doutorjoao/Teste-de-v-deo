@@ -10,6 +10,7 @@ clipes/.cache porque é a parte demorada.
 Uso:
     python3 gerar_video_gemini.py                 # legenda em português
     python3 gerar_video_gemini.py --idioma en
+    python3 gerar_video_gemini.py --rostos-chatgpt   # closes com os rostos das cenas do ChatGPT
 """
 import argparse
 import subprocess
@@ -33,6 +34,18 @@ PLANOS = [
     (0.00, 5.43, "andar", (640, 360, 1250), (660, 340, 1060)),
     (5.43, 11.60, "sentar", (640, 370, 1250), (640, 385, 1100)),
     (11.60, gv.DURACAO, "encarar", (640, 360, 1250), (640, 375, 1080)),
+]
+
+
+# Variante com os closes das cenas do ChatGPT (rostos mais parecidos com ele) no lugar do close
+# do Gemini, nos mesmos cortes do meme original. O plano da mesa é espelhado para os olhares
+# baterem com os closes (de terno à direita olhando para a esquerda, de colete à esquerda).
+PLANOS_ROSTOS = [
+    (0.00, 5.43, "andar", (640, 360, 1250), (660, 340, 1060)),
+    (5.43, 9.70, "sentar_espelhado", (640, 370, 1250), (640, 385, 1120)),
+    (9.70, 11.60, "img6", (836, 470, 1500), (880, 400, 1250)),
+    (11.60, 15.27, "img7", (836, 470, 1600), (760, 400, 1200)),
+    (15.27, gv.DURACAO, "fim_espelhado", (640, 370, 1250), (640, 370, 1230)),
 ]
 
 
@@ -61,6 +74,7 @@ if __name__ == "__main__":
     ap.add_argument("--idioma", choices=gv.LEGENDAS, default="pt")
     ap.add_argument("--audio", default=gv.RAIZ / "audio" / "trilha.m4a")
     ap.add_argument("--saida")
+    ap.add_argument("--rostos-chatgpt", action="store_true")
     args = ap.parse_args()
 
     cenas = gp.carregar_cenas()
@@ -71,7 +85,18 @@ if __name__ == "__main__":
         clipes[nome] = Clipe(arq, 0, fim - ini + 1, cor_alvo=alvo, forca=0.7)
         fontes[nome] = clipes[nome].primeiro()
 
+    planos, sufixo = PLANOS, ""
+    if args.rostos_chatgpt:
+        planos, sufixo = PLANOS_ROSTOS, "_closes"
+        sentar = interpolado("sentar", *TRECHOS["sentar"])
+        clipes["sentar_espelhado"] = Clipe(sentar, 0, 3.5, espelhar=True, cor_alvo=alvo, forca=0.7)
+        clipes["fim_espelhado"] = Clipe(sentar, 2.8, 3.4, espelhar=True, cor_alvo=alvo, forca=0.7)
+        clipes.update(gp.montar_animadas({k: cenas[k] for k in ("img6", "img7")}))
+        for nome in ("sentar_espelhado", "fim_espelhado"):
+            fontes[nome] = clipes[nome].primeiro()
+        fontes.update({k: cenas[k] for k in ("img6", "img7")})
+
     grade = GradeEstilo(saturacao=0.92, tom=(1.0, 1.0, 0.99))
     audio = Path(args.audio) if Path(args.audio).exists() else None
-    saida = args.saida or gv.RAIZ / f"video_especialista_gemini_{args.idioma}.mp4"
-    gv.gerar(saida, args.idioma, audio, fontes, PLANOS, grade, amp_balanco=0.0025, animadas=clipes)
+    saida = args.saida or gv.RAIZ / f"video_especialista_gemini{sufixo}_{args.idioma}.mp4"
+    gv.gerar(saida, args.idioma, audio, fontes, planos, grade, amp_balanco=0.0025, animadas=clipes)
