@@ -198,9 +198,10 @@ def gerar(saida, idioma, audio, fontes=None, planos=PLANOS, grade=None, amp_bala
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-"]
     if audio:
-        # apad completa o áudio com silêncio; -shortest então corta no fim do vídeo
-        cmd += ["-i", str(audio), "-map", "0:v", "-map", "1:a", "-af", "apad",
-                "-c:a", "aac", "-b:a", "160k", "-shortest"]
+        # completa o áudio com silêncio até a duração exata do vídeo (apad sem limite com
+        # -shortest enche a fila do ffmpeg quando os quadros demoram a chegar)
+        cmd += ["-i", str(audio), "-map", "0:v", "-map", "1:a", "-af", f"apad=whole_dur={total / FPS}",
+                "-c:a", "aac", "-b:a", "160k"]
     cmd += ["-c:v", "libx264", "-preset", "slow", "-crf", "21", "-maxrate", "8M", "-bufsize", "16M",
             "-pix_fmt", "yuv420p",
             "-movflags", "+faststart", str(saida)]
