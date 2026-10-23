@@ -46,8 +46,8 @@ for k, (clip, a, b, tail) in enumerate(EDL):
     assert sr == SR
     seg = x[int(a * SR):int(b * SR)]
     if k == 0:
-        # distant voice: narrower band, small room + short echo, then a short tail
-        dry = bp(seg, 200, 5200)
+        # light echo: small room + short echo, then a short tail
+        dry = bp(seg, 120, 7500)
         pad = np.concatenate([dry, np.zeros(int(1.2 * SR))])
         n_ir = int(0.9 * SR)
         tt = np.arange(n_ir) / SR
@@ -55,10 +55,10 @@ for k, (clip, a, b, tail) in enumerate(EDL):
         ir = bp(ir, 300, 4200, 2)
         ir[: int(0.012 * SR)] = 0
         wet = fftconvolve(pad, ir)[: len(pad)]
-        wet *= 0.42 * rms(dry) / rms(wet)
-        room = pad * 0.82 + wet
+        wet *= 0.24 * rms(dry) / rms(wet)
+        room = pad * 0.92 + wet
         out = room.copy()
-        for d, g in ((0.21, 0.30), (0.42, 0.13)):
+        for d, g in ((0.21, 0.17), (0.42, 0.07)):
             sh = int(d * SR)
             out[sh:] += g * bp(room[:-sh], 350, 3800, 2)
         out = out[: len(seg) + int(tail * SR)]
