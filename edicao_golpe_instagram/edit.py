@@ -30,7 +30,7 @@ EDL = [
     ("0183", 0.45, 5.75, 0.0),    # 5 conta não volta
     ("0184", 0.70, 6.20, 0.0),    # 6 explicação
     ("0187", 0.60, 7.72, 0.0),    # 7 sinais de alerta
-    ("0181", 0.45, 4.78, 0.50),   # 8 encerramento (segura último quadro)
+    ("0181", 0.45, 4.58, 1.50),   # 8 encerramento (congela em P&B enquanto o eco ressoa)
 ]
 START = []
 _t = 0.0
@@ -327,11 +327,14 @@ CAPTIONS = [
     (7, 0.58, 1.70, "Então, fique ligado."),
     (7, 1.94, 2.86, "Perdeu a conta?"),
     (7, 2.86, 3.90, "Procura um [[advogado]]."),
-    (7, 3.92, 5.30, "Ih, rimou."),
+    (7, 3.92, 9.00, "Ih, rimou."),
 ]
 CAPTIONS_TL = [(T(s, a), min(T(s, b), TOTAL), txt) for s, a, b, txt in CAPTIONS]
 CAP_BOTTOM = 1505
 CAP_CX = 530
+T_BW = T(7, 3.90)                       # "Ih, rimou.": preto e branco + eco
+ECHO_TAPS = (0.36, 0.72, 1.08)          # same delays as the audio echo
+T_RIMOU = T(7, 4.27)
 
 
 def draw_caption(layer, t):
@@ -341,6 +344,15 @@ def draw_caption(layer, t):
             k = ease_out((t - a) / 0.14)
             y = CAP_BOTTOM - spr.height / 2 + 30 + (1 - k) * 16
             put(layer, spr, CAP_CX, y, alpha=k)
+            if txt == "Ih, rimou.":
+                # each audio repeat pops a fainter "rimou…" in the free band above the head
+                echo = text_sprite("rimou…", "ExtraBold", 64, INK, INK, None, False)
+                for n, (d, ex, ey) in enumerate(zip(ECHO_TAPS, (300, 780, 540), (300, 380, 250)), 1):
+                    te = T_RIMOU + d
+                    if t >= te:
+                        ke = ease_back((t - te) / 0.22)
+                        put(layer, echo, ex, ey, alpha=clamp01((t - te) / 0.1) * 0.85 ** n,
+                            scale=(1.0 - 0.12 * (n - 1)) * (0.85 + 0.15 * ke))
 
 
 # ---------------------------------------------------------------- scenes
@@ -500,7 +512,9 @@ def scene7_signals(layer, t):
 
 
 def zoom_for(t):
-    """(z, cx, cy) camera push-ins; only two, both subtle."""
+    """(z, cx, cy) camera push-ins: two subtle ones, plus the comic snap at the end."""
+    if t >= T_BW:
+        return 1.08, 540, 860
     if START[1] <= t < START[2]:
         return 1 + 0.06 * ease_inout((t - T(1, 5.40)) / 0.45), 540, 900
     if START[6] <= t < START[7]:
@@ -560,6 +574,10 @@ def render(out_path=None, stills=None):
         fg, al = held
         base = compose_subject(fg, al)
         base += GRAIN[fi % len(GRAIN)]
+        if t >= T_BW:   # comic beat: hard cut to black and white
+            y = base @ np.array([0.299, 0.587, 0.114], np.float32)
+            y = (y - 128) * 1.12 + 124
+            base = np.repeat(y[..., None], 3, 2)
         img = np.clip(base, 0, 255).astype(np.uint8)
         z, zx, zy = zoom_for(t)
         img = zoom(img, z, zx, zy)

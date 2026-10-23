@@ -64,6 +64,16 @@ for k, (clip, a, b, tail) in enumerate(EDL):
         out = out[: len(seg) + int(tail * SR)]
         out = fades(out, 0.03, 0.09)   # echo tail closes just before the hard cut
         at(voice, START[k], out)
+    elif k == len(EDL) - 1:
+        # "Ih, rimou.": comic echo that rings over the frozen black-and-white frame
+        cut = int((3.90 - a) * SR)
+        at(voice, START[k], fades(seg[:cut], 0.010, 0.010))
+        echo = np.concatenate([fades(seg[cut:], 0.010, 0.03), np.zeros(int(1.8 * SR))])
+        thin = bp(echo.copy(), 250, 4200, 2)
+        for d, g in ((0.36, 0.50), (0.72, 0.30), (1.08, 0.16), (1.44, 0.08)):
+            sh = int(d * SR)
+            echo[sh:] += g * thin[:-sh]
+        at(voice, START[k] + (3.90 - a), echo)
     else:
         at(voice, START[k], fades(seg, 0.010, 0.014))
 
@@ -121,7 +131,8 @@ def env_curve(points):
 t_gone = T(4, 4.95)           # "foi embora": music stops (pausa sonora)
 full = [(0, 0), (mus_on - 0.01, 0), (mus_on + 0.4, 1), (t_gone, 1), (t_gone + 0.12, 0),
         (START[5] - 0.01, 0), (START[5] + 0.6, 0.55), (START[6] - 0.3, 0.55), (START[6] + 0.4, 0.95),
-        (START[7], 0.95), (START[7] + 0.6, 0.45), (TOTAL - 2.0, 0.40), (TOTAL - 0.1, 0), (TOTAL + 1, 0)]
+        (START[7], 0.95), (START[7] + 0.6, 0.45), (T(7, 3.90) - 0.02, 0.45), (T(7, 3.90) + 0.08, 0),
+        (TOTAL + 1, 0)]
 rhythm = [(0, 0), (mus_on - 0.01, 0), (mus_on + 0.4, 1), (t_gone, 1), (t_gone + 0.1, 0),
           (START[6] - 0.01, 0), (START[6] + 0.8, 0.9), (START[7], 0.9), (START[7] + 0.5, 0), (TOTAL + 1, 0)]
 g_full, g_rh = env_curve(full), env_curve(rhythm)
@@ -169,6 +180,7 @@ at(sfx, T(3, 3.40) + 0.20, p_ins * 0.85)
 
 mix = voice + score + sfx
 mix = mix[: int(TOTAL * SR)]
+mix[-int(0.25 * SR):] *= np.linspace(1, 0, int(0.25 * SR))
 mix = np.stack([mix, mix], 1)
 sf.write(f"{S}/mix_raw.wav", mix.astype(np.float32), SR, subtype="FLOAT")
 print("speech rms", speech_rms, "peak", np.max(np.abs(mix)), "dur", len(mix) / SR)
