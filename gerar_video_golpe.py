@@ -7,9 +7,10 @@ Roteiro:
   3. GOLPISTA EXPOSTO  - close no painel: foto, aparelho e cidade
   + cartela final com dicas de como não cair no golpe.
 
-Privacidade: no painel, a foto da pessoa, o mapa, o GPS preciso, os IPs e o nome da
-ferramenta são borrados. As áreas são marcadas uma vez num quadro de referência e
-seguem a tela quadro a quadro por homografia (SIFT + RANSAC). Só a localização por IP
+Privacidade: no painel, a foto da pessoa, o mapa, o GPS preciso, os IPs, o nome da
+ferramenta e a barra de tarefas (ícones dos apps) são borrados. As áreas são marcadas
+uma vez num quadro de referência e seguem a tela quadro a quadro por homografia
+(SIFT + RANSAC). Só a localização por IP
 (nível cidade) fica visível.
 
 A narração entra como trilha, com legenda sincronizada e uma ambiência sintetizada
@@ -62,6 +63,8 @@ BORRAR = {
 }
 # Cabeçalho com o nome da ferramenta (barra de título + logo), marcado no quadro 180 do painel.
 CABECALHO_Q180 = [(-30, 175), (40, 175), (40, 209), (-30, 209)]
+# Barra de tarefas inteira (ícones dos apps, inclusive o da ferramenta), marcada no quadro 1 do painel.
+BARRA_TAREFAS_Q1 = [(-20, 516), (580, 585), (580, 622), (-20, 541)]
 # Destaques animados (não borram nada)
 LOCAL = [(281, 397), (347, 399), (347, 415), (281, 413)]          # "Aracaju, Sergipe, BR"
 
@@ -180,7 +183,8 @@ def expandir(cantos, fator=1.06, px=3):
 
 def borrar(img, cantos, tipo):
     """Borra um quadrilátero: mosaico grosso para foto/mapa, desfoque forte para texto."""
-    cantos = expandir(cantos, 1.08 if tipo in ("foto", "mapa") else 1.12, 3)
+    fator = {"foto": 1.08, "mapa": 1.08, "barra": 1.02}.get(tipo, 1.12)
+    cantos = expandir(cantos, fator, 2 if tipo == "barra" else 3)
     x0, y0 = np.floor(cantos.min(axis=0)).astype(int) - 12
     x1, y1 = np.ceil(cantos.max(axis=0)).astype(int) + 12
     x0, y0 = max(x0, 0), max(y0, 0)
@@ -491,9 +495,9 @@ def gerar_ambiencia(arq):
 def preparar():
     quadros = {nome: ler_quadros(nome) for nome, _ in CLIPES}
     homs = rastrear(quadros)
-    hom_cab = np.linalg.inv(homs["painel"][179])
-    cab_ref = projetar(CABECALHO_Q180, hom_cab)
-    regioes = dict(BORRAR, cabecalho=cab_ref)
+    cab_ref = projetar(CABECALHO_Q180, np.linalg.inv(homs["painel"][179]))
+    barra_ref = projetar(BARRA_TAREFAS_Q1, np.linalg.inv(homs["painel"][0]))
+    regioes = dict(BORRAR, cabecalho=cab_ref, barra=barra_ref)
     trilha = {}
     for nome in ("painel", "close"):
         trilha[nome] = {k: trilhas(homs[nome], p) for k, p in regioes.items()}
@@ -503,7 +507,7 @@ def preparar():
         for i, q in enumerate(quadros[nome]):
             q = q.copy()
             for k in regioes:
-                borrar(q, trilha[nome][k][i], "foto" if k in ("foto", "mapa") else "texto")
+                borrar(q, trilha[nome][k][i], k if k in ("foto", "mapa", "barra") else "texto")
             quadros[nome][i] = q
     return quadros, trilha
 
