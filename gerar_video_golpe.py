@@ -13,8 +13,9 @@ uma vez num quadro de referência e seguem a tela quadro a quadro por homografia
 (SIFT + RANSAC). Só a localização por IP
 (nível cidade) fica visível.
 
-A narração entra como trilha, com legenda sincronizada e uma ambiência sintetizada
-bem baixa por baixo (drone grave, whoosh nos cortes e impacto no título).
+A narração entra como trilha, com legenda sincronizada. Por baixo vai uma música
+sintetizada em musica_golpe.py (clima de investigação, que abaixa sozinha quando a voz
+entra) e efeitos: whoosh nos cortes e impacto no título.
 
 Os arquivos de entrada ficam em golpe/ (fora do git, porque têm os dados sem borrar):
     golpe/chat.mp4  golpe/painel.mp4  golpe/close.mp4  golpe/narracao.m4a
@@ -23,6 +24,7 @@ Uso:
     python3 gerar_video_golpe.py
     python3 gerar_video_golpe.py --preview prev.jpg     # só uma prancha de quadros
     python3 gerar_video_golpe.py --saida outro.mp4
+    python3 gerar_video_golpe.py --so-audio          # refaz só o áudio sobre o último render
 """
 import argparse
 import json
@@ -32,6 +34,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+
+import musica_golpe
 
 RAIZ = Path(__file__).resolve().parent
 ENTRADA = RAIZ / "golpe"
@@ -437,15 +441,12 @@ def etiqueta(d, x, y, txt, cor_fundo, cor_txt=(255, 255, 255), tam=34):
 # ----------------------------------------------------------------------------- áudio
 
 def gerar_ambiencia(arq):
-    """Drone grave + whoosh antes de cada corte + impacto no título, tudo bem baixo."""
+    """Música de fundo + whoosh antes de cada corte + impacto no título."""
     n = int(DURACAO * SR)
-    t = np.arange(n) / SR
     rng = np.random.default_rng(7)
-    trem = 0.6 + 0.4 * np.sin(2 * np.pi * 0.25 * t)
-    drone = (np.sin(2 * np.pi * 55 * t) + 0.5 * np.sin(2 * np.pi * 82.4 * t + 1)
-             + 0.25 * np.sin(2 * np.pi * 110.3 * t)) * trem * 0.05
-    drone *= np.clip(t / 1.5, 0, 1) * np.clip((DURACAO - t) / 2.0, 0, 1)
-    sinal = drone
+    musica = musica_golpe.compor(DURACAO, entrada_batida=CLIPES[1][1], revelacao=18.83,
+                                 inicio_dicas=DICAS_INICIO)
+    sinal = np.zeros(n)
 
     def ruido_filtrado(dur, f0, f1):
         m = int(dur * SR)
@@ -480,7 +481,7 @@ def gerar_ambiencia(arq):
     somar(boom, 0.12, 0.35)
     for _, ini in CLIPES[1:]:
         somar(boom, ini, 0.2)
-    estereo = np.stack([sinal, sinal], axis=1)
+    estereo = musica[:n] * 0.4 + np.stack([sinal, sinal], axis=1)
     pcm = (np.clip(estereo, -1, 1) * 32767).astype("<i2")
     import wave
     with wave.open(str(arq), "wb") as w:
@@ -614,7 +615,12 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--saida", default=str(RAIZ / "video_golpe_falso_advogado.mp4"))
     ap.add_argument("--preview", help="gera só uma prancha de quadros neste arquivo")
+    ap.add_argument("--so-audio", action="store_true", help="reaproveita o vídeo já renderizado")
     args = ap.parse_args()
+    video_mudo = CACHE / "video_mudo.mp4"
+    if args.so_audio:
+        mixar(video_mudo, args.saida)
+        return
 
     quadros, trilha = preparar()
 
@@ -626,9 +632,6 @@ def main():
         return
 
     CACHE.mkdir(parents=True, exist_ok=True)
-    amb = CACHE / "ambiencia.wav"
-    gerar_ambiencia(amb)
-    video_mudo = CACHE / "video_mudo.mp4"
     cmd = ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "slow", "-crf", "18",
            "-pix_fmt", "yuv420p", str(video_mudo)]
@@ -640,18 +643,23 @@ def main():
             print(f"quadro {k}/{total}", flush=True)
     proc.stdin.close()
     proc.wait()
+    mixar(video_mudo, args.saida)
 
-    # narração normalizada por cima da ambiência
+
+def mixar(video_mudo, saida):
+    """Narração normalizada por cima da música, que abaixa (sidechain) quando a voz entra."""
+    amb = CACHE / "ambiencia.wav"
+    gerar_ambiencia(amb)
     filtro = ("[1:a]aresample=48000,highpass=f=70,acompressor=threshold=-20dB:ratio=3:attack=5:release=120,"
-              "loudnorm=I=-15:TP=-1.5:LRA=9,apad[voz];"
-              "[2:a]volume=1.0[amb];[voz][amb]amix=inputs=2:duration=shortest:normalize=0,"
-              "alimiter=limit=0.95[a]")
+              "loudnorm=I=-15:TP=-1.5:LRA=9,apad,asplit[voz][chave];"
+              "[2:a][chave]sidechaincompress=threshold=0.04:ratio=5:attack=15:release=400:makeup=1[amb];"
+              "[voz][amb]amix=inputs=2:duration=shortest:normalize=0,alimiter=limit=0.95[a]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(video_mudo),
                     "-i", str(ENTRADA / "narracao.m4a"), "-i", str(amb),
                     "-filter_complex", filtro, "-map", "0:v", "-map", "[a]",
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", f"{DURACAO}",
-                    "-movflags", "+faststart", args.saida], check=True)
-    print("ok:", args.saida)
+                    "-movflags", "+faststart", saida], check=True)
+    print("ok:", saida)
 
 
 if __name__ == "__main__":
