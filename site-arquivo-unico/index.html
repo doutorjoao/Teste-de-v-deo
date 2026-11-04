@@ -619,6 +619,185 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   body, .method, .triage-section { background: #fff; color: #000; }
 }
 
+/* =========================================================
+   ENFEITES — abertura, rede, cursor, golpes, teste, extras
+   ========================================================= */
+
+/* ---------- Abertura com a logo ---------- */
+.intro { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; background: radial-gradient(600px 400px at 50% 45%, #18150f, #0a0a0b 70%); animation: introOut .8s var(--ease) 1.75s forwards; }
+@keyframes introOut { to { opacity: 0; visibility: hidden; } }
+.intro-inner { text-align: center; padding: 0 20px; }
+.intro-logo { width: min(440px, 82vw); height: auto; overflow: visible; margin: 0 auto 20px; }
+.intro-logo .ih { fill: none; stroke: #c9a55c; stroke-width: 3; stroke-dasharray: 330; stroke-dashoffset: 330; animation: draw 1s var(--ease) .1s forwards; }
+.intro-logo .ih2 { stroke-width: 1.2; animation-delay: .3s; }
+.intro-logo .ic path { fill: none; stroke: #c9a55c; stroke-width: 1.2; stroke-dasharray: 140; stroke-dashoffset: 140; animation: draw .8s var(--ease) .6s forwards; }
+.intro-logo .ic circle { fill: #0a0a0b; stroke: #c9a55c; stroke-width: 1.2; opacity: 0; animation: fadeIn .4s 1.2s forwards; }
+.intro-logo text { font-family: var(--f-display); font-weight: 600; font-size: 50px; fill: #e2c482; letter-spacing: -2px; opacity: 0; animation: fadeIn .6s .7s forwards; }
+.intro-name { font-family: var(--f-caps); font-size: clamp(20px, 3vw, 28px); letter-spacing: .14em; color: var(--text); opacity: 0; animation: riseIn .7s var(--ease) .9s forwards; }
+.intro-sub { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0; animation: riseIn .7s var(--ease) 1.05s forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.has-intro .hero .reveal { transition-delay: calc(var(--i, 0) * 90ms + 1.9s); }
+
+/* ---------- Rede de pontos no topo ---------- */
+.hero-bg .net { position: absolute; inset: 0; width: 100%; height: 100%;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 40%, #000 75%); mask-image: linear-gradient(90deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 40%, #000 75%); }
+
+/* ---------- Cursor dourado (computador) ---------- */
+.cursor-ring, .cursor-dot { position: fixed; left: 0; top: 0; z-index: 9998; pointer-events: none; border-radius: 50%; opacity: 0; transition: opacity .3s, width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease), background-color .3s, border-color .3s; }
+.cursor-ring { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1px solid rgba(201, 165, 92, .75); }
+.cursor-dot { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; background: var(--gold-hi); }
+.cursor-on .cursor-ring, .cursor-on .cursor-dot { opacity: 1; }
+.cursor-ring.is-hover { width: 58px; height: 58px; margin: -29px 0 0 -29px; background: rgba(201, 165, 92, .08); border-color: var(--gold-hi); }
+.cursor-ring.is-down { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+
+/* ---------- Fio dourado de leitura ---------- */
+.read-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 1002; pointer-events: none; }
+.read-progress i { display: block; height: 100%; background: var(--gold-grad); transform-origin: left; transform: scaleX(0); box-shadow: 0 0 10px rgba(201, 165, 92, .6); }
+
+/* ---------- Voltar ao topo ---------- */
+.to-top { position: fixed; right: 20px; bottom: 20px; z-index: 980; width: 50px; height: 50px; display: grid; place-items: center; color: var(--gold-hi); background: rgba(10, 10, 11, .78); border-radius: 50%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .4s, transform .4s var(--ease), visibility .4s; }
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+.to-top svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.to-top .trk { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+.to-top .bar { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 138.23; stroke-dashoffset: 138.23; }
+.to-top span { position: relative; font-size: 18px; transition: transform .3s var(--ease); }
+.to-top:hover span { transform: translateY(-3px); }
+
+/* ---------- Golpes do momento ---------- */
+.golpes-section { background: var(--ink-2); border-block: 1px solid var(--line); overflow: hidden; }
+.car-ctrl { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.car-count { font-family: var(--f-caps); font-size: 13px; letter-spacing: .14em; color: var(--muted); margin-right: 8px; font-variant-numeric: lining-nums tabular-nums; }
+.car-btn { width: 50px; height: 50px; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--gold-hi); font-size: 18px; transition: background-color .3s, border-color .3s, opacity .3s; }
+.car-btn:hover:not(:disabled) { background: rgba(201, 165, 92, .1); border-color: var(--gold-hi); }
+.car-btn:disabled { opacity: .35; cursor: default; }
+.golpes-track {
+  --pad: max(var(--gutter), calc((100vw - 1240px) / 2 + var(--gutter)));
+  display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad);
+  padding: 8px var(--pad) 26px; scrollbar-width: none; cursor: grab; outline-offset: -4px;
+}
+.golpes-track::-webkit-scrollbar { display: none; }
+.golpes-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.golpes-track.is-dragging > * { pointer-events: none; user-select: none; }
+.golpe-card { position: relative; flex: 0 0 clamp(290px, 31vw, 390px); scroll-snap-align: start; display: flex; flex-direction: column; gap: 16px; padding: 30px 28px; background: linear-gradient(160deg, var(--ink-3), var(--ink)); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; transition: border-color .4s; }
+.golpe-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: var(--gold-grad); opacity: 0; transition: opacity .4s; }
+.golpe-card:hover { border-color: var(--line-strong); }
+.golpe-card:hover::before { opacity: .9; }
+.g-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.g-num { font-family: var(--f-display); font-style: italic; font-size: 44px; line-height: 1; color: var(--gold); font-variant-numeric: lining-nums; }
+.g-tag { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 5px 10px; border-radius: 99px; white-space: nowrap; }
+.golpe-card h3 { font-size: 28px; line-height: 1.12; }
+.g-label { font-family: var(--f-caps); font-size: 12px; letter-spacing: .16em; color: var(--gold); margin-bottom: 6px; }
+.g-block p:not(.g-label) { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.g-safe { margin-top: auto; padding: 14px 16px; background: rgba(95, 174, 123, .07); border-left: 2px solid #5fae7b; }
+.g-safe .g-label { color: #86c99c; }
+.g-cta { background: radial-gradient(400px 300px at 100% 0%, rgba(201, 165, 92, .18), transparent 70%), var(--ink-3); border-color: var(--line-strong); }
+.g-cta > p { color: var(--muted); font-size: 15px; }
+.g-cta .btn { margin-top: auto; align-self: flex-start; }
+.car-progress { height: 1px; background: var(--line); }
+.car-progress i { display: block; height: 100%; width: 15%; background: var(--gold); transition: margin-left .2s linear; }
+
+/* ---------- Teste: isso é golpe? ---------- */
+.quiz-section { overflow: hidden; background: radial-gradient(700px 500px at 85% 50%, rgba(201, 165, 92, .08), transparent 70%); }
+.quiz-wrap { display: grid; grid-template-columns: 1fr minmax(0, 400px); gap: clamp(40px, 7vw, 110px); align-items: center; }
+.quiz-note { font-size: 13px; color: var(--faint); margin-top: 18px; max-width: 460px; }
+.quiz { justify-self: center; width: 100%; max-width: 380px; }
+.phone { position: relative; min-height: 610px; padding: 14px 18px 24px; display: flex; flex-direction: column; background: linear-gradient(180deg, #151517, #0d0d0f); border: 1px solid var(--line-strong); border-radius: 44px; box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .95), 0 0 0 8px #141416, 0 0 0 9px var(--line); }
+.phone.shake { animation: shake .45s; }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.phone-bar { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); padding: 2px 10px 14px; }
+.phone-bar .notch { width: 92px; height: 24px; background: #050506; border-radius: 99px; }
+.q-stage { display: flex; flex-direction: column; flex: 1; }
+.q-stage.is-entering { animation: panelIn .5s var(--ease); }
+.q-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 4px 14px; border-bottom: 1px solid var(--line); }
+.q-channel { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--line-strong); padding: 4px 10px; border-radius: 99px; }
+.q-count { font-size: 12px; color: var(--faint); }
+.q-sender { display: flex; align-items: center; gap: 12px; padding: 16px 4px; }
+.q-avatar { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: var(--ink-4); border: 1px solid var(--line-strong); color: var(--gold-hi); font-weight: 600; }
+.q-sender b { display: block; font-weight: 500; font-size: 15px; }
+.q-sender small { font-size: 12px; color: var(--faint); }
+.q-bubble { padding: 16px 18px; background: #202124; border-radius: 4px 18px 18px 18px; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+.q-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+.q-btn { min-height: 54px; border-radius: 14px; font-weight: 500; font-size: 15px; border: 1px solid; transition: transform .2s var(--ease), background-color .25s; }
+.q-golpe { color: #f2b8ad; border-color: rgba(214, 107, 90, .5); background: rgba(214, 107, 90, .08); }
+.q-seguro { color: #ade0bd; border-color: rgba(95, 174, 123, .5); background: rgba(95, 174, 123, .08); }
+.q-golpe:hover { background: rgba(214, 107, 90, .18); transform: translateY(-2px); }
+.q-seguro:hover { background: rgba(95, 174, 123, .18); transform: translateY(-2px); }
+.q-feedback { margin-top: auto; padding: 18px; border-radius: 16px; background: var(--ink-3); border: 1px solid var(--line); animation: panelIn .45s var(--ease); }
+.q-feedback.is-right { border-color: rgba(95, 174, 123, .55); }
+.q-feedback.is-wrong { border-color: rgba(214, 107, 90, .55); }
+.q-verdict { font-family: var(--f-display); font-size: 25px; line-height: 1.15; margin-bottom: 6px; }
+.is-right .q-verdict { color: #ade0bd; }
+.is-wrong .q-verdict { color: #f2b8ad; }
+.q-why { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.q-next { width: 100%; }
+.q-end { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px 6px; text-align: center; animation: panelIn .6s var(--ease); }
+.q-score { font-family: var(--f-display); font-size: 112px; line-height: .9; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: lining-nums; }
+.q-score small { display: block; margin-top: 8px; font-family: var(--f-caps); font-size: 18px; letter-spacing: .2em; -webkit-text-fill-color: var(--gold); color: var(--gold); }
+.q-end-title { font-family: var(--f-display); font-size: 28px; line-height: 1.15; }
+.q-end-text { font-size: 14px; color: var(--muted); }
+.q-end-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; margin: 6px 0 4px; }
+.q-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+.q-dots li { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-4); border: 1px solid var(--line-strong); transition: background-color .3s, transform .3s; }
+.q-dots li.is-current { transform: scale(1.4); border-color: var(--gold-hi); }
+.q-dots li.ok { background: #5fae7b; border-color: #5fae7b; }
+.q-dots li.err { background: #d66b5a; border-color: #d66b5a; }
+
+/* ---------- Faixa do Instagram ---------- */
+.insta-band { padding: 48px 0; border-block: 1px solid var(--line); background: linear-gradient(100deg, rgba(201, 165, 92, .09), transparent 60%), var(--ink-2); }
+.insta-inner { display: flex; align-items: center; gap: 28px; }
+.insta-inner > div { flex: 1; }
+.insta-icon { width: 54px; height: 54px; flex-shrink: 0; fill: none; stroke: var(--gold); stroke-width: 1.2; color: var(--gold); }
+.insta-inner .eyebrow { margin-bottom: 8px; }
+.insta-inner h2 { font-size: clamp(26px, 2.6vw, 36px); text-wrap: balance; }
+
+/* ---------- Vídeo de apresentação ---------- */
+.video-open svg { width: 20px; height: 20px; }
+.video-modal { margin: auto; padding: 0; width: min(960px, 92vw); max-height: 90vh; overflow: visible; color: var(--text); background: #000; border: 1px solid var(--line-strong); }
+.video-modal::backdrop { background: rgba(5, 5, 6, .86); backdrop-filter: blur(6px); }
+.video-modal video { display: block; width: 100%; max-height: 84vh; background: #000; }
+.video-close { position: absolute; top: -52px; right: 0; width: 44px; height: 44px; font-size: 26px; line-height: 1; color: var(--gold-hi); border: 1px solid var(--line-strong); border-radius: 50%; background: rgba(10, 10, 11, .85); }
+
+/* ---------- Salvar contato + QR ---------- */
+.contact-card { display: flex; align-items: center; gap: 26px; max-width: 580px; margin: 48px auto 0; padding: 22px; text-align: left; border: 1px solid var(--line-strong); background: rgba(17, 17, 19, .85); border-radius: 3px; }
+.contact-card .qr { width: 136px; height: 136px; flex-shrink: 0; border-radius: 6px; }
+.cc-title { font-family: var(--f-display); font-size: 26px; line-height: 1.1; margin-bottom: 6px; }
+.cc-text { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.cc-mob { display: none; }
+
+/* ---------- Transição suave entre páginas ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vtOut .3s var(--ease) both; }
+::view-transition-new(root) { animation: vtIn .45s var(--ease) both; }
+@keyframes vtOut { to { opacity: 0; } }
+@keyframes vtIn { from { opacity: 0; } }
+
+@media (max-width: 960px) {
+  .quiz-wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .to-top { display: none; }
+  .hero-bg .net { -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.25), #000 70%); mask-image: linear-gradient(180deg, rgba(0,0,0,.25), #000 70%); }
+  .golpe-card { flex-basis: 84vw; padding: 26px 22px; }
+  .golpe-card h3 { font-size: 26px; }
+  .car-ctrl { margin-top: 24px; }
+  .phone { min-height: 580px; border-radius: 38px; padding-inline: 14px; }
+  .insta-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .contact-card { margin-top: 36px; }
+  .contact-card .qr, .cc-desk { display: none; }
+  .cc-mob { display: inline; }
+}
+
+/* ---------- Página 404 ---------- */
+.e404 { text-align: center; }
+.e404 .container { position: relative; }
+.e404-code { font-family: var(--f-display); font-size: clamp(130px, 22vw, 260px); line-height: .85; font-variant-numeric: lining-nums; background: var(--gold-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 9s ease-in-out infinite; margin-bottom: 18px; }
+.e404 h1 { font-size: clamp(38px, 5vw, 66px); margin-bottom: 18px; text-wrap: balance; }
+.e404 .lead { margin: 0 auto 34px; }
+.e404 .hero-actions { justify-content: center; }
+.e404 .hero-bg .net { -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%); }
+.site-footer .brand-sub .long { display: none; }
+
 </style>
   <script>document.documentElement.classList.add('js');</script>
 
@@ -646,6 +825,26 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   </script>
 </head>
 <body>
+  <script>
+  /* Abertura com a logo: só na primeira visita da sessão e nunca para quem prefere menos movimento */
+  (function () {
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || sessionStorage.getItem('jp-intro')) return;
+      sessionStorage.setItem('jp-intro', '1');
+    } catch (e) { return; }
+    document.documentElement.classList.add('has-intro');
+    document.body.insertAdjacentHTML('afterbegin',
+      '<div class="intro" aria-hidden="true"><div class="intro-inner">' +
+      '<svg class="intro-logo" viewBox="-130 -4 360 124">' +
+      '<g class="ic"><path d="M3 45H-38l-12-12h-62"/><path d="M3 58H-98"/><path d="M3 71H-38l-12 12h-52"/>' +
+      '<path d="M97 45h41l12-12h62"/><path d="M97 58h101"/><path d="M97 71h41l12 12h52"/>' +
+      '<circle cx="-116" cy="33" r="4"/><circle cx="-102" cy="58" r="4"/><circle cx="-106" cy="83" r="4"/>' +
+      '<circle cx="216" cy="33" r="4"/><circle cx="202" cy="58" r="4"/><circle cx="206" cy="83" r="4"/></g>' +
+      '<path class="ih" d="M50 2 97 29v58l-47 27L3 87V29z"/><path class="ih ih2" d="M50 10 90 33v50l-40 23-40-23V33z"/>' +
+      '<text x="50" y="75" text-anchor="middle">JP</text></svg>' +
+      '<p class="intro-name">João Pedro Gomes</p><p class="intro-sub">Direito Digital · Crimes Cibernéticos</p></div></div>');
+  })();
+  </script>
   <!-- Sprite: gradientes, logo e ícones reutilizáveis -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
@@ -688,11 +887,11 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
       <nav class="main-nav" aria-label="Principal">
         <ul>
           <li><a href="#atuacao">Atuação</a></li>
+          <li><a href="#golpes">Golpes</a></li>
           <li><a href="#prazos">Prazos</a></li>
           <li><a href="#metodo">Método</a></li>
           <li><a href="#triagem">Triagem</a></li>
           <li><a href="#sobre">Quem somos</a></li>
-          <li><a href="#artigos">Artigos</a></li>
           <li><a href="#duvidas">Dúvidas</a></li>
         </ul>
       </nav>
@@ -706,12 +905,14 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   <nav class="mobile-nav" id="mobileNav" aria-label="Menu do celular">
     <ul>
       <li><a href="#atuacao">Atuação <small>01</small></a></li>
-      <li><a href="#prazos">Prazos <small>02</small></a></li>
-      <li><a href="#metodo">Método <small>03</small></a></li>
-      <li><a href="#triagem">Triagem do caso <small>04</small></a></li>
-      <li><a href="#sobre">Quem somos <small>05</small></a></li>
-      <li><a href="#artigos">Artigos <small>06</small></a></li>
-      <li><a href="#duvidas">Dúvidas <small>07</small></a></li>
+      <li><a href="#golpes">Golpes do momento <small>02</small></a></li>
+      <li><a href="#teste">Isso é golpe? <small>03</small></a></li>
+      <li><a href="#prazos">Prazos <small>04</small></a></li>
+      <li><a href="#metodo">Método <small>05</small></a></li>
+      <li><a href="#triagem">Triagem do caso <small>06</small></a></li>
+      <li><a href="#sobre">Quem somos <small>07</small></a></li>
+      <li><a href="#artigos">Artigos <small>08</small></a></li>
+      <li><a href="#duvidas">Dúvidas <small>09</small></a></li>
     </ul>
     <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer">
       <svg aria-hidden="true"><use href="#i-wpp"/></svg> Falar com o advogado
@@ -722,7 +923,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true"><canvas class="net"></canvas></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="hero-kicker reveal">Advocacia <span class="dot" aria-hidden="true"></span> Direito Digital <span class="dot" aria-hidden="true"></span> OAB/SE 17.295</p>
@@ -860,6 +1061,117 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
             <p>Medidas para a retirada de conteúdos ofensivos, falsos ou íntimos divulgados sem autorização.</p>
             <span class="area-go">Organizar este caso</span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GOLPES DO MOMENTO ===================== -->
+    <section class="section golpes-section" id="golpes" aria-labelledby="golpes-title">
+      <div class="container">
+        <div class="section-head split reveal">
+          <div>
+            <p class="eyebrow">Golpes do momento</p>
+            <h2 class="section-title" id="golpes-title">Conheça os golpes <em>antes que eles cheguem até você.</em></h2>
+            <p class="lead">Os golpes mudam rápido, mas seguem padrões. Veja como os mais comuns funcionam e o que fazer para se proteger.</p>
+          </div>
+          <div class="car-ctrl">
+            <span class="car-count" data-car-count>01 / 08</span>
+            <button class="car-btn" type="button" data-car="-1" aria-label="Golpe anterior">←</button>
+            <button class="car-btn" type="button" data-car="1" aria-label="Próximo golpe">→</button>
+          </div>
+        </div>
+      </div>
+      <div class="golpes-track" data-car-track tabindex="0" role="region" aria-label="Golpes do momento: role para o lado para ver todos">
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">01</span><span class="g-tag">Ligação · WhatsApp</span></div>
+            <h3>Falsa central do banco</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Alguém liga dizendo ser do seu banco e avisa sobre uma compra suspeita. Para “proteger” o dinheiro, pede um Pix para uma “conta segura” ou a instalação de um aplicativo de acesso remoto.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Nenhum banco pede transferência para conta segura nem instalação de aplicativos. Desligue e ligue você mesmo para o número que está no verso do cartão.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">02</span><span class="g-tag">SMS · WhatsApp</span></div>
+            <h3>Clonagem de WhatsApp</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Golpistas pedem o código de seis dígitos que chega por SMS, fingindo ser de uma entrega, pesquisa ou sorteio. Com ele, ativam o seu WhatsApp em outro aparelho e pedem dinheiro aos seus contatos.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Nunca repasse códigos de verificação. Ative a confirmação em duas etapas em Configurações › Conta.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">03</span><span class="g-tag">WhatsApp</span></div>
+            <h3>Parente com número novo</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Uma mensagem com a foto de um familiar diz “troquei de número”. Pouco depois, chega um pedido de Pix urgente para pagar uma conta.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Antes de transferir, ligue para o número antigo ou peça uma chamada de vídeo. Urgência é sinal de alerta.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">04</span><span class="g-tag">E-mail · Direct</span></div>
+            <h3>Perfil “excluído por direitos autorais”</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Uma mensagem que imita a Meta avisa que seu perfil será excluído e envia um link para “recorrer”. A página copia sua senha e o código de acesso.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Avisos oficiais aparecem dentro do próprio aplicativo. Não faça login por links recebidos em mensagens.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">05</span><span class="g-tag">E-mail · Mensagem</span></div>
+            <h3>Boleto adulterado</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Boletos falsos ou alterados chegam com visual idêntico ao original, mas o pagamento vai para outra pessoa.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Antes de pagar, confira se o nome e o CNPJ do beneficiário são da empresa correta. Prefira emitir o boleto no site ou aplicativo oficial.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">06</span><span class="g-tag">Redes sociais · Telegram</span></div>
+            <h3>Tarefas pagas e falsas vagas</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>A oferta promete renda extra para curtir vídeos ou avaliar produtos. Os primeiros valores são pagos; depois, pedem depósitos para liberar “tarefas premium”, e o dinheiro não volta.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Trabalho de verdade não exige que você pague para trabalhar. Desconfie de ganhos fáceis e rápidos.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">07</span><span class="g-tag">Anúncios patrocinados</span></div>
+            <h3>Loja falsa</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Anúncios levam a sites que imitam lojas conhecidas, com preços muito abaixo do mercado e pagamento apenas via Pix.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Confira o endereço do site, o CNPJ e a reputação da loja. Prefira pagar com cartão de crédito, que permite contestação.</p></div>
+          </article>
+          <article class="golpe-card g-cta">
+            <div class="g-top"><span class="g-num">?</span><span class="g-tag">Aconteceu com você</span></div>
+            <h3>Caiu em um golpe?</h3>
+            <p>Comunique o banco imediatamente, registre um boletim de ocorrência e preserve as conversas e os comprovantes. Depois, organize o seu relato na triagem.</p>
+            <a class="btn btn-gold" href="#triagem" data-incident="golpe">Organizar meu caso <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+      </div>
+      <div class="container"><div class="car-progress" aria-hidden="true"><i data-car-bar></i></div></div>
+    </section>
+
+    <!-- ===================== TESTE: ISSO É GOLPE? ===================== -->
+    <section class="section quiz-section" id="teste" aria-labelledby="teste-title">
+      <div class="container quiz-wrap">
+        <div class="quiz-aside reveal">
+          <p class="eyebrow">Teste rápido</p>
+          <h2 class="section-title" id="teste-title">Isso é golpe? <em>Faça o teste.</em></h2>
+          <p class="lead">Sete mensagens inspiradas em situações reais. Para cada uma, decida: é golpe ou é seguro?</p>
+          <p class="quiz-note">Mensagens fictícias, criadas para fins educativos. Nomes e endereços não correspondem a empresas reais.</p>
+        </div>
+        <div class="quiz reveal" style="--i:1" data-quiz>
+          <div class="phone">
+            <div class="phone-bar" aria-hidden="true"><span>9:41</span><span class="notch"></span><span>●●●</span></div>
+            <div class="q-stage" data-q-stage>
+              <div class="q-head"><span class="q-channel" data-q-channel>SMS</span><span class="q-count" data-q-count>1 de 7</span></div>
+              <div class="q-sender"><span class="q-avatar" data-q-avatar aria-hidden="true">B</span><div><b data-q-from>Banco</b><small>agora</small></div></div>
+              <p class="q-bubble" data-q-msg></p>
+              <div class="q-actions" data-q-actions>
+                <button class="q-btn q-golpe" type="button" data-answer="golpe">É golpe</button>
+                <button class="q-btn q-seguro" type="button" data-answer="seguro">É seguro</button>
+              </div>
+              <div class="q-feedback" data-q-feedback aria-live="polite" hidden>
+                <p class="q-verdict" data-q-verdict></p>
+                <p class="q-why" data-q-why></p>
+                <button class="btn btn-gold q-next" type="button" data-q-next>Próxima mensagem →</button>
+              </div>
+            </div>
+            <div class="q-end" data-q-end hidden>
+              <p class="q-score"><span data-q-score>0</span><small>de 7</small></p>
+              <p class="q-end-title" data-q-end-title></p>
+              <p class="q-end-text" data-q-end-text></p>
+              <div class="q-end-actions">
+                <a class="btn btn-gold" data-q-share href="https://wa.me/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> Desafiar alguém</a>
+                <button class="btn btn-line" type="button" data-q-restart>Refazer o teste</button>
+              </div>
+              <a class="text-link" href="#triagem" data-incident="golpe">Caí em um golpe. E agora? <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <ol class="q-dots" data-q-dots aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
         </div>
       </div>
     </section>
@@ -1109,6 +1421,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
           <div class="channels">
             <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> WhatsApp</a>
             <a class="btn btn-line" href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Instagram @advogadoohacker</a>
+            <button class="btn btn-line video-open" type="button" data-video-src="" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m10 8.5 5.5 3.5-5.5 3.5z" fill="currentColor"/></svg> Assistir à apresentação</button>
           </div>
         </div>
       </div>
@@ -1133,8 +1446,21 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
       </div>
     </section>
 
+    <!-- ===================== INSTAGRAM ===================== -->
+    <section class="insta-band" aria-labelledby="insta-title">
+      <div class="container insta-inner reveal">
+        <svg class="insta-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>
+        <div>
+          <p class="eyebrow no-rule">No Instagram</p>
+          <h2 id="insta-title">Golpes, direitos e segurança digital, <em class="gold-text">explicados toda semana.</em></h2>
+        </div>
+        <a class="btn btn-line" href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Seguir @advogadoohacker <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <!-- POSTS: quando quiser mostrar posts aqui, envie os prints e links de 3 posts para montar os cards. -->
+    </section>
+
     <!-- ===================== ARTIGOS ===================== -->
-    <section class="section" id="artigos" aria-labelledby="artigos-title" style="padding-top:0">
+    <section class="section" id="artigos" aria-labelledby="artigos-title">
       <div class="container">
         <div class="section-head split reveal">
           <div>
@@ -1227,6 +1553,14 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
           <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> Falar com o advogado</a>
           <a class="btn btn-line" href="#triagem">Fazer a triagem</a>
         </div>
+        <div class="contact-card">
+          <svg class="qr" viewBox="0 0 61 61" role="img" aria-label="QR code: aponte a câmera do celular para salvar o contato" shape-rendering="crispEdges"><rect width="61" height="61" fill="#f3eee3"/><path fill="#0a0a0b" d="M4 4h7v1h-7zM13 4h1v1h-1zM18 4h2v1h-2zM21 4h2v1h-2zM24 4h7v1h-7zM32 4h1v1h-1zM34 4h2v1h-2zM37 4h3v1h-3zM41 4h2v1h-2zM46 4h1v1h-1zM50 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h4v1h-4zM19 5h1v1h-1zM21 5h1v1h-1zM23 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM33 5h1v1h-1zM36 5h2v1h-2zM40 5h1v1h-1zM42 5h2v1h-2zM46 5h2v1h-2zM50 5h1v1h-1zM56 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM17 6h3v1h-3zM22 6h1v1h-1zM25 6h1v1h-1zM27 6h1v1h-1zM31 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM38 6h2v1h-2zM43 6h3v1h-3zM47 6h1v1h-1zM50 6h1v1h-1zM52 6h3v1h-3zM56 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM13 7h4v1h-4zM23 7h1v1h-1zM27 7h1v1h-1zM29 7h2v1h-2zM32 7h2v1h-2zM41 7h2v1h-2zM45 7h2v1h-2zM48 7h1v1h-1zM50 7h1v1h-1zM52 7h3v1h-3zM56 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h8v1h-8zM24 8h1v1h-1zM26 8h9v1h-9zM36 8h2v1h-2zM39 8h1v1h-1zM42 8h2v1h-2zM45 8h2v1h-2zM50 8h1v1h-1zM52 8h3v1h-3zM56 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM17 9h2v1h-2zM20 9h4v1h-4zM28 9h1v1h-1zM32 9h11v1h-11zM45 9h2v1h-2zM50 9h1v1h-1zM56 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM32 10h1v1h-1zM34 10h1v1h-1zM36 10h1v1h-1zM38 10h1v1h-1zM40 10h1v1h-1zM42 10h1v1h-1zM44 10h1v1h-1zM46 10h1v1h-1zM48 10h1v1h-1zM50 10h7v1h-7zM12 11h1v1h-1zM14 11h1v1h-1zM16 11h2v1h-2zM21 11h2v1h-2zM24 11h2v1h-2zM27 11h2v1h-2zM32 11h1v1h-1zM34 11h3v1h-3zM39 11h7v1h-7zM48 11h1v1h-1zM4 12h2v1h-2zM7 12h1v1h-1zM10 12h2v1h-2zM14 12h2v1h-2zM19 12h2v1h-2zM25 12h8v1h-8zM34 12h1v1h-1zM37 12h2v1h-2zM40 12h9v1h-9zM50 12h3v1h-3zM54 12h2v1h-2zM5 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM24 13h2v1h-2zM27 13h1v1h-1zM29 13h1v1h-1zM32 13h2v1h-2zM35 13h2v1h-2zM40 13h1v1h-1zM42 13h1v1h-1zM44 13h2v1h-2zM47 13h1v1h-1zM51 13h5v1h-5zM4 14h1v1h-1zM7 14h1v1h-1zM10 14h7v1h-7zM18 14h2v1h-2zM21 14h3v1h-3zM25 14h3v1h-3zM31 14h1v1h-1zM34 14h1v1h-1zM38 14h5v1h-5zM44 14h1v1h-1zM46 14h2v1h-2zM51 14h3v1h-3zM55 14h1v1h-1zM4 15h1v1h-1zM6 15h3v1h-3zM11 15h1v1h-1zM14 15h3v1h-3zM18 15h2v1h-2zM26 15h1v1h-1zM29 15h1v1h-1zM31 15h1v1h-1zM33 15h1v1h-1zM35 15h1v1h-1zM38 15h1v1h-1zM40 15h1v1h-1zM46 15h1v1h-1zM49 15h1v1h-1zM54 15h1v1h-1zM5 16h7v1h-7zM14 16h1v1h-1zM18 16h1v1h-1zM21 16h3v1h-3zM25 16h2v1h-2zM28 16h1v1h-1zM31 16h2v1h-2zM35 16h3v1h-3zM39 16h2v1h-2zM42 16h6v1h-6zM49 16h1v1h-1zM51 16h4v1h-4zM4 17h1v1h-1zM8 17h1v1h-1zM12 17h2v1h-2zM15 17h2v1h-2zM18 17h3v1h-3zM22 17h1v1h-1zM25 17h1v1h-1zM29 17h3v1h-3zM35 17h2v1h-2zM38 17h3v1h-3zM43 17h1v1h-1zM45 17h1v1h-1zM50 17h1v1h-1zM53 17h4v1h-4zM10 18h3v1h-3zM15 18h4v1h-4zM21 18h3v1h-3zM26 18h2v1h-2zM30 18h4v1h-4zM37 18h1v1h-1zM39 18h1v1h-1zM41 18h2v1h-2zM47 18h2v1h-2zM50 18h1v1h-1zM54 18h1v1h-1zM56 18h1v1h-1zM4 19h1v1h-1zM7 19h3v1h-3zM11 19h1v1h-1zM13 19h2v1h-2zM17 19h3v1h-3zM26 19h2v1h-2zM31 19h6v1h-6zM39 19h1v1h-1zM41 19h1v1h-1zM44 19h1v1h-1zM46 19h1v1h-1zM53 19h1v1h-1zM7 20h2v1h-2zM10 20h2v1h-2zM13 20h1v1h-1zM22 20h1v1h-1zM24 20h2v1h-2zM27 20h1v1h-1zM29 20h1v1h-1zM32 20h1v1h-1zM35 20h3v1h-3zM39 20h2v1h-2zM45 20h3v1h-3zM49 20h1v1h-1zM51 20h2v1h-2zM55 20h2v1h-2zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM12 21h3v1h-3zM17 21h2v1h-2zM20 21h2v1h-2zM23 21h3v1h-3zM27 21h7v1h-7zM35 21h1v1h-1zM41 21h1v1h-1zM44 21h1v1h-1zM47 21h2v1h-2zM52 21h1v1h-1zM54 21h2v1h-2zM4 22h3v1h-3zM8 22h1v1h-1zM10 22h3v1h-3zM14 22h1v1h-1zM16 22h1v1h-1zM18 22h1v1h-1zM21 22h5v1h-5zM28 22h2v1h-2zM31 22h2v1h-2zM34 22h1v1h-1zM36 22h2v1h-2zM40 22h1v1h-1zM44 22h1v1h-1zM46 22h2v1h-2zM49 22h2v1h-2zM54 22h3v1h-3zM5 23h3v1h-3zM11 23h1v1h-1zM15 23h1v1h-1zM21 23h2v1h-2zM26 23h1v1h-1zM29 23h1v1h-1zM32 23h9v1h-9zM42 23h5v1h-5zM50 23h1v1h-1zM52 23h2v1h-2zM4 24h2v1h-2zM10 24h1v1h-1zM16 24h1v1h-1zM20 24h1v1h-1zM22 24h1v1h-1zM25 24h3v1h-3zM30 24h1v1h-1zM32 24h4v1h-4zM38 24h1v1h-1zM40 24h1v1h-1zM42 24h1v1h-1zM44 24h1v1h-1zM46 24h7v1h-7zM55 24h2v1h-2zM5 25h1v1h-1zM8 25h1v1h-1zM11 25h4v1h-4zM16 25h1v1h-1zM18 25h1v1h-1zM21 25h2v1h-2zM25 25h2v1h-2zM28 25h2v1h-2zM31 25h1v1h-1zM40 25h1v1h-1zM45 25h1v1h-1zM47 25h1v1h-1zM53 25h3v1h-3zM8 26h1v1h-1zM10 26h2v1h-2zM13 26h1v1h-1zM15 26h1v1h-1zM17 26h3v1h-3zM21 26h1v1h-1zM23 26h2v1h-2zM29 26h1v1h-1zM31 26h1v1h-1zM36 26h1v1h-1zM38 26h2v1h-2zM41 26h1v1h-1zM43 26h3v1h-3zM48 26h1v1h-1zM51 26h3v1h-3zM4 27h2v1h-2zM7 27h1v1h-1zM11 27h1v1h-1zM13 27h4v1h-4zM18 27h2v1h-2zM22 27h1v1h-1zM27 27h1v1h-1zM30 27h2v1h-2zM33 27h1v1h-1zM37 27h1v1h-1zM40 27h3v1h-3zM44 27h1v1h-1zM46 27h1v1h-1zM48 27h2v1h-2zM54 27h1v1h-1zM4 28h1v1h-1zM7 28h6v1h-6zM18 28h4v1h-4zM24 28h3v1h-3zM28 28h5v1h-5zM35 28h3v1h-3zM40 28h2v1h-2zM43 28h2v1h-2zM47 28h10v1h-10zM4 29h1v1h-1zM7 29h2v1h-2zM12 29h1v1h-1zM14 29h1v1h-1zM16 29h2v1h-2zM19 29h3v1h-3zM23 29h2v1h-2zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM37 29h2v1h-2zM40 29h2v1h-2zM47 29h2v1h-2zM52 29h2v1h-2zM55 29h2v1h-2zM6 30h1v1h-1zM8 30h1v1h-1zM10 30h1v1h-1zM12 30h2v1h-2zM16 30h1v1h-1zM19 30h2v1h-2zM24 30h5v1h-5zM30 30h1v1h-1zM32 30h4v1h-4zM42 30h2v1h-2zM45 30h2v1h-2zM48 30h1v1h-1zM50 30h1v1h-1zM52 30h2v1h-2zM55 30h2v1h-2zM7 31h2v1h-2zM12 31h4v1h-4zM19 31h1v1h-1zM22 31h1v1h-1zM24 31h1v1h-1zM27 31h2v1h-2zM32 31h2v1h-2zM35 31h2v1h-2zM39 31h5v1h-5zM45 31h4v1h-4zM52 31h1v1h-1zM4 32h1v1h-1zM6 32h7v1h-7zM14 32h5v1h-5zM21 32h5v1h-5zM28 32h7v1h-7zM36 32h2v1h-2zM40 32h3v1h-3zM45 32h11v1h-11zM5 33h1v1h-1zM7 33h1v1h-1zM11 33h3v1h-3zM16 33h1v1h-1zM22 33h1v1h-1zM24 33h1v1h-1zM26 33h1v1h-1zM28 33h1v1h-1zM31 33h1v1h-1zM33 33h1v1h-1zM36 33h1v1h-1zM39 33h2v1h-2zM42 33h1v1h-1zM48 33h3v1h-3zM54 33h1v1h-1zM56 33h1v1h-1zM4 34h7v1h-7zM13 34h3v1h-3zM17 34h1v1h-1zM19 34h1v1h-1zM22 34h1v1h-1zM24 34h1v1h-1zM26 34h1v1h-1zM29 34h1v1h-1zM35 34h1v1h-1zM39 34h1v1h-1zM41 34h1v1h-1zM43 34h3v1h-3zM47 34h1v1h-1zM49 34h4v1h-4zM56 34h1v1h-1zM4 35h1v1h-1zM7 35h1v1h-1zM9 35h1v1h-1zM13 35h1v1h-1zM18 35h1v1h-1zM23 35h1v1h-1zM25 35h1v1h-1zM27 35h4v1h-4zM32 35h1v1h-1zM34 35h1v1h-1zM37 35h7v1h-7zM46 35h2v1h-2zM50 35h1v1h-1zM52 35h2v1h-2zM56 35h1v1h-1zM4 36h1v1h-1zM6 36h1v1h-1zM8 36h3v1h-3zM14 36h5v1h-5zM20 36h4v1h-4zM25 36h3v1h-3zM33 36h1v1h-1zM35 36h1v1h-1zM38 36h1v1h-1zM40 36h6v1h-6zM48 36h2v1h-2zM51 36h2v1h-2zM4 37h3v1h-3zM8 37h1v1h-1zM14 37h1v1h-1zM16 37h2v1h-2zM20 37h1v1h-1zM23 37h1v1h-1zM25 37h1v1h-1zM28 37h3v1h-3zM32 37h2v1h-2zM36 37h1v1h-1zM39 37h3v1h-3zM43 37h1v1h-1zM45 37h1v1h-1zM47 37h3v1h-3zM54 37h2v1h-2zM5 38h1v1h-1zM8 38h1v1h-1zM10 38h1v1h-1zM12 38h1v1h-1zM14 38h2v1h-2zM18 38h1v1h-1zM20 38h3v1h-3zM24 38h1v1h-1zM28 38h3v1h-3zM32 38h2v1h-2zM35 38h1v1h-1zM38 38h1v1h-1zM40 38h2v1h-2zM43 38h1v1h-1zM45 38h1v1h-1zM47 38h1v1h-1zM49 38h1v1h-1zM52 38h4v1h-4zM5 39h1v1h-1zM8 39h1v1h-1zM13 39h2v1h-2zM20 39h5v1h-5zM26 39h1v1h-1zM28 39h2v1h-2zM31 39h1v1h-1zM35 39h1v1h-1zM40 39h1v1h-1zM42 39h1v1h-1zM44 39h1v1h-1zM48 39h2v1h-2zM53 39h4v1h-4zM5 40h4v1h-4zM10 40h1v1h-1zM13 40h1v1h-1zM15 40h1v1h-1zM18 40h1v1h-1zM20 40h5v1h-5zM26 40h1v1h-1zM28 40h1v1h-1zM30 40h1v1h-1zM33 40h1v1h-1zM35 40h2v1h-2zM38 40h1v1h-1zM40 40h1v1h-1zM42 40h1v1h-1zM44 40h3v1h-3zM48 40h1v1h-1zM50 40h1v1h-1zM52 40h2v1h-2zM56 40h1v1h-1zM4 41h2v1h-2zM7 41h2v1h-2zM12 41h5v1h-5zM18 41h1v1h-1zM20 41h4v1h-4zM25 41h4v1h-4zM30 41h1v1h-1zM35 41h2v1h-2zM38 41h4v1h-4zM45 41h1v1h-1zM47 41h2v1h-2zM51 41h1v1h-1zM4 42h1v1h-1zM7 42h1v1h-1zM9 42h2v1h-2zM14 42h1v1h-1zM16 42h1v1h-1zM20 42h1v1h-1zM23 42h1v1h-1zM25 42h4v1h-4zM33 42h1v1h-1zM35 42h3v1h-3zM39 42h1v1h-1zM41 42h4v1h-4zM47 42h8v1h-8zM56 42h1v1h-1zM4 43h1v1h-1zM6 43h2v1h-2zM9 43h1v1h-1zM11 43h3v1h-3zM15 43h2v1h-2zM19 43h1v1h-1zM21 43h5v1h-5zM29 43h1v1h-1zM31 43h1v1h-1zM33 43h2v1h-2zM36 43h1v1h-1zM40 43h2v1h-2zM44 43h3v1h-3zM49 43h1v1h-1zM55 43h2v1h-2zM5 44h1v1h-1zM8 44h1v1h-1zM10 44h1v1h-1zM12 44h1v1h-1zM16 44h4v1h-4zM21 44h1v1h-1zM23 44h2v1h-2zM27 44h2v1h-2zM30 44h1v1h-1zM32 44h1v1h-1zM35 44h2v1h-2zM39 44h5v1h-5zM47 44h1v1h-1zM49 44h6v1h-6zM7 45h3v1h-3zM11 45h1v1h-1zM14 45h1v1h-1zM18 45h2v1h-2zM25 45h1v1h-1zM27 45h2v1h-2zM30 45h2v1h-2zM33 45h1v1h-1zM42 45h4v1h-4zM48 45h2v1h-2zM51 45h1v1h-1zM53 45h1v1h-1zM55 45h1v1h-1zM4 46h2v1h-2zM7 46h4v1h-4zM13 46h1v1h-1zM16 46h5v1h-5zM22 46h1v1h-1zM25 46h1v1h-1zM29 46h1v1h-1zM34 46h1v1h-1zM39 46h5v1h-5zM45 46h4v1h-4zM50 46h4v1h-4zM55 46h2v1h-2zM5 47h2v1h-2zM11 47h2v1h-2zM15 47h1v1h-1zM19 47h2v1h-2zM23 47h2v1h-2zM26 47h9v1h-9zM36 47h3v1h-3zM40 47h2v1h-2zM45 47h1v1h-1zM48 47h1v1h-1zM51 47h3v1h-3zM55 47h2v1h-2zM7 48h1v1h-1zM10 48h3v1h-3zM14 48h1v1h-1zM17 48h2v1h-2zM22 48h1v1h-1zM26 48h7v1h-7zM35 48h1v1h-1zM39 48h2v1h-2zM44 48h3v1h-3zM48 48h6v1h-6zM55 48h1v1h-1zM12 49h1v1h-1zM17 49h3v1h-3zM21 49h2v1h-2zM25 49h1v1h-1zM27 49h2v1h-2zM32 49h1v1h-1zM36 49h1v1h-1zM40 49h1v1h-1zM43 49h1v1h-1zM45 49h1v1h-1zM48 49h1v1h-1zM52 49h2v1h-2zM56 49h1v1h-1zM4 50h7v1h-7zM12 50h1v1h-1zM15 50h2v1h-2zM19 50h2v1h-2zM22 50h5v1h-5zM28 50h1v1h-1zM30 50h1v1h-1zM32 50h1v1h-1zM36 50h1v1h-1zM38 50h1v1h-1zM40 50h1v1h-1zM44 50h2v1h-2zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM54 50h1v1h-1zM4 51h1v1h-1zM10 51h1v1h-1zM13 51h2v1h-2zM16 51h3v1h-3zM20 51h2v1h-2zM24 51h3v1h-3zM28 51h1v1h-1zM32 51h2v1h-2zM38 51h1v1h-1zM40 51h5v1h-5zM48 51h1v1h-1zM52 51h1v1h-1zM54 51h3v1h-3zM4 52h1v1h-1zM6 52h3v1h-3zM10 52h1v1h-1zM13 52h1v1h-1zM15 52h1v1h-1zM17 52h2v1h-2zM20 52h1v1h-1zM22 52h4v1h-4zM28 52h5v1h-5zM34 52h1v1h-1zM36 52h2v1h-2zM39 52h2v1h-2zM42 52h4v1h-4zM47 52h9v1h-9zM4 53h1v1h-1zM6 53h3v1h-3zM10 53h1v1h-1zM12 53h4v1h-4zM25 53h2v1h-2zM31 53h1v1h-1zM35 53h2v1h-2zM38 53h1v1h-1zM41 53h1v1h-1zM44 53h1v1h-1zM48 53h2v1h-2zM51 53h1v1h-1zM53 53h1v1h-1zM55 53h2v1h-2zM4 54h1v1h-1zM6 54h3v1h-3zM10 54h1v1h-1zM13 54h1v1h-1zM16 54h3v1h-3zM22 54h2v1h-2zM32 54h1v1h-1zM37 54h1v1h-1zM40 54h1v1h-1zM42 54h1v1h-1zM44 54h2v1h-2zM49 54h2v1h-2zM52 54h1v1h-1zM55 54h1v1h-1zM4 55h1v1h-1zM10 55h1v1h-1zM12 55h1v1h-1zM16 55h3v1h-3zM20 55h2v1h-2zM23 55h1v1h-1zM25 55h5v1h-5zM32 55h1v1h-1zM35 55h2v1h-2zM38 55h1v1h-1zM40 55h2v1h-2zM44 55h2v1h-2zM47 55h2v1h-2zM51 55h2v1h-2zM55 55h1v1h-1zM4 56h7v1h-7zM12 56h2v1h-2zM16 56h1v1h-1zM20 56h3v1h-3zM24 56h2v1h-2zM27 56h5v1h-5zM33 56h2v1h-2zM36 56h7v1h-7zM46 56h2v1h-2zM52 56h1v1h-1zM54 56h2v1h-2z"/></svg>
+          <div class="cc-copy">
+            <p class="cc-title">Salve o contato no celular</p>
+            <p class="cc-text"><span class="cc-desk">Aponte a câmera do celular para o código ou baixe</span><span class="cc-mob">Baixe</span> o cartão com nome, OAB, WhatsApp e site.</p>
+            <a class="btn btn-gold" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3ASantos%3BJo%C3%A3o%20Pedro%20Gomes%20dos%3B%3BDr.%3B%0AFN%3AJo%C3%A3o%20Pedro%20Gomes%20dos%20Santos%0AORG%3AJo%C3%A3o%20Pedro%20Gomes%20%E2%80%94%20Direito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0ATITLE%3AAdvogado%20%E2%80%94%20OAB%2FSE%2017.295%0ATEL%3BTYPE%3DCELL%2CVOICE%3A%2B5579999100875%0AEMAIL%3BTYPE%3DINTERNET%3Ajoaopedrogomes2322%40gmail.com%0AURL%3Ahttps%3A%2F%2Fjoaopedrogomesadvhacker.adv.br%2F%0AX-SOCIALPROFILE%3BTYPE%3Dinstagram%3Ahttps%3A%2F%2Finstagram.com%2Fadvogadoohacker%0AADR%3BTYPE%3DWORK%3A%3B%3B%3BAracaju%3BSE%3B%3BBrasil%0ANOTE%3ADireito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0AEND%3AVCARD%0A" download="Joao-Pedro-Gomes-Advogado.vcf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Salvar contato</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1249,12 +1583,15 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
             <li><a href="mailto:joaopedrogomes2322@gmail.com">joaopedrogomes2322@gmail.com</a></li>
             <li><a href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Instagram @advogadoohacker</a></li>
             <li>Aracaju/SE · atendimento digital</li>
+            <li><a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3ASantos%3BJo%C3%A3o%20Pedro%20Gomes%20dos%3B%3BDr.%3B%0AFN%3AJo%C3%A3o%20Pedro%20Gomes%20dos%20Santos%0AORG%3AJo%C3%A3o%20Pedro%20Gomes%20%E2%80%94%20Direito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0ATITLE%3AAdvogado%20%E2%80%94%20OAB%2FSE%2017.295%0ATEL%3BTYPE%3DCELL%2CVOICE%3A%2B5579999100875%0AEMAIL%3BTYPE%3DINTERNET%3Ajoaopedrogomes2322%40gmail.com%0AURL%3Ahttps%3A%2F%2Fjoaopedrogomesadvhacker.adv.br%2F%0AX-SOCIALPROFILE%3BTYPE%3Dinstagram%3Ahttps%3A%2F%2Finstagram.com%2Fadvogadoohacker%0AADR%3BTYPE%3DWORK%3A%3B%3B%3BAracaju%3BSE%3B%3BBrasil%0ANOTE%3ADireito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0AEND%3AVCARD%0A" download="Joao-Pedro-Gomes-Advogado.vcf">Salvar contato no celular</a></li>
           </ul>
         </div>
         <div>
           <h2>Navegação</h2>
           <ul>
             <li><a href="#atuacao">Áreas de atuação</a></li>
+            <li><a href="#golpes">Golpes do momento</a></li>
+            <li><a href="#teste">Teste: isso é golpe?</a></li>
             <li><a href="#prazos">Prazos</a></li>
             <li><a href="#metodo">Método</a></li>
             <li><a href="#triagem">Triagem do caso</a></li>
@@ -1284,6 +1621,21 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
     <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> WhatsApp</a>
   </div>
 
+  <!-- Fio dourado de leitura -->
+  <div class="read-progress" aria-hidden="true"><i></i></div>
+
+  <!-- Voltar ao topo, com anel de progresso -->
+  <a class="to-top" href="#inicio" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="22"/><circle class="bar" cx="24" cy="24" r="22"/></svg>
+    <span aria-hidden="true">↑</span>
+  </a>
+
+  <!-- Janela do vídeo de apresentação -->
+  <dialog class="video-modal" aria-label="Vídeo de apresentação">
+    <button class="video-close" type="button" aria-label="Fechar vídeo">×</button>
+    <video controls playsinline preload="none"></video>
+  </dialog>
+
   <!-- Som ambiente: desligado por padrão; o botão só aparece se o arquivo existir -->
   <audio id="ambient" src="musica-fundo.mp3" preload="metadata" loop></audio>
   <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Ativar som ambiente">
@@ -1304,7 +1656,10 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   var wppLink = function (text) { return 'https://wa.me/' + WPP + '?text=' + encodeURIComponent(text); };
 
   /* ---------- Entrada da página ---------- */
-  requestAnimationFrame(function () { document.body.classList.add('is-loaded'); });
+  // com a abertura ativa, a entrada do topo espera a logo terminar
+  setTimeout(function () {
+    requestAnimationFrame(function () { document.body.classList.add('is-loaded'); });
+  }, root.classList.contains('has-intro') ? 1850 : 0);
 
   /* ---------- Ano no rodapé ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -1708,6 +2063,334 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 
     show(1);
   }
+  /* =========================================================
+     ENFEITES
+     ========================================================= */
+  var finePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+  var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+
+  /* ---------- Abertura: remove a camada depois da animação ---------- */
+  var introEl = $('.intro');
+  if (introEl) {
+    introEl.addEventListener('animationend', function (e) { if (e.target === introEl) introEl.remove(); });
+    setTimeout(function () { if (introEl.parentNode) introEl.remove(); }, 4000);
+  }
+
+  /* ---------- Fio de leitura + voltar ao topo ---------- */
+  var readBar = $('.read-progress i');
+  var toTop = $('.to-top');
+  var toTopBar = toTop ? $('.bar', toTop) : null;
+  var progRaf = 0;
+  function updateProgress() {
+    progRaf = 0;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (readBar) readBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    if (toTop) {
+      toTop.classList.toggle('is-visible', window.scrollY > 700);
+      if (toTopBar) toTopBar.style.strokeDashoffset = (138.23 * (1 - p)).toFixed(2);
+    }
+  }
+  window.addEventListener('scroll', function () { if (!progRaf) progRaf = requestAnimationFrame(updateProgress); }, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ---------- Rede de pontos dourados no topo ---------- */
+  var net = $('.hero-bg .net');
+  if (net && net.getContext && hero) {
+    var nctx = net.getContext('2d');
+    var pts = [], NW = 0, NH = 0, mouse = { x: -9999, y: -9999 }, netOn = false, netRaf = 0;
+    var LINK = 130, MLINK = 190;
+    var sizeNet = function () {
+      var r = net.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      NW = r.width; NH = r.height;
+      net.width = Math.round(NW * dpr); net.height = Math.round(NH * dpr);
+      nctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(90, Math.max(28, NW * NH / 15000)));
+      pts = [];
+      for (var i = 0; i < n; i++) {
+        pts.push({ x: Math.random() * NW, y: Math.random() * NH, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() * 1.3 + .6 });
+      }
+    };
+    var drawNet = function () {
+      nctx.clearRect(0, 0, NW, NH);
+      var i, j, a, b, dx, dy, d;
+      for (i = 0; i < pts.length; i++) {
+        a = pts[i];
+        if (!reduceMotion) {
+          a.x += a.vx; a.y += a.vy;
+          if (a.x < 0 || a.x > NW) a.vx *= -1;
+          if (a.y < 0 || a.y > NH) a.vy *= -1;
+          dx = mouse.x - a.x; dy = mouse.y - a.y; d = Math.sqrt(dx * dx + dy * dy);
+          if (d < MLINK && d > 1) { a.x += dx / d * .25; a.y += dy / d * .25; }
+        }
+      }
+      nctx.lineWidth = 1;
+      for (i = 0; i < pts.length; i++) {
+        a = pts[i];
+        for (j = i + 1; j < pts.length; j++) {
+          b = pts[j]; dx = a.x - b.x; dy = a.y - b.y; d = dx * dx + dy * dy;
+          if (d < LINK * LINK) {
+            nctx.strokeStyle = 'rgba(201,165,92,' + ((1 - Math.sqrt(d) / LINK) * .32).toFixed(3) + ')';
+            nctx.beginPath(); nctx.moveTo(a.x, a.y); nctx.lineTo(b.x, b.y); nctx.stroke();
+          }
+        }
+        dx = a.x - mouse.x; dy = a.y - mouse.y; d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MLINK) {
+          nctx.strokeStyle = 'rgba(234,211,155,' + ((1 - d / MLINK) * .55).toFixed(3) + ')';
+          nctx.beginPath(); nctx.moveTo(a.x, a.y); nctx.lineTo(mouse.x, mouse.y); nctx.stroke();
+        }
+        nctx.fillStyle = 'rgba(234,211,155,.75)';
+        nctx.beginPath(); nctx.arc(a.x, a.y, a.r, 0, 6.2832); nctx.fill();
+      }
+      if (netOn && !reduceMotion) netRaf = requestAnimationFrame(drawNet);
+    };
+    var setNet = function (on) {
+      if (on === netOn) return;
+      netOn = on;
+      cancelAnimationFrame(netRaf);
+      if (on) netRaf = requestAnimationFrame(drawNet);
+    };
+    sizeNet();
+    if (reduceMotion) drawNet();
+    var heroVisible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; setNet(heroVisible && !document.hidden); }).observe(hero);
+    }
+    document.addEventListener('visibilitychange', function () { setNet(heroVisible && !document.hidden); });
+    setNet(true);
+    hero.addEventListener('pointermove', function (e) { var r = net.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+    hero.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
+    var netResize = 0;
+    window.addEventListener('resize', function () { clearTimeout(netResize); netResize = setTimeout(function () { sizeNet(); if (reduceMotion) drawNet(); }, 200); });
+  }
+
+  /* ---------- Títulos pequenos que se "decodificam" ---------- */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&@';
+    var decode = function (el) {
+      var text = el.textContent, len = text.length, t0 = performance.now(), dur = 650 + len * 14;
+      var sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = text;
+      var vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+      el.textContent = ''; el.appendChild(sr); el.appendChild(vis);
+      var tick = function (now) {
+        var k = Math.min(1, (now - t0) / dur), out = '';
+        for (var i = 0; i < len; i++) {
+          var c = text.charAt(i);
+          out += (/[\s·\/:?]/.test(c) || i / len < k * 1.2 - .2) ? c : GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
+        }
+        vis.textContent = out;
+        if (k < 1) requestAnimationFrame(tick); else el.textContent = text;
+      };
+      requestAnimationFrame(tick);
+    };
+    var decIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { decIO.unobserve(en.target); decode(en.target); } });
+    }, { threshold: 0.8 });
+    $$('.eyebrow').forEach(function (el) { if (!el.children.length) decIO.observe(el); });
+  }
+
+  /* ---------- Cursor dourado (só mouse) ---------- */
+  if (finePointer && !reduceMotion) {
+    var ring = document.createElement('div'); ring.className = 'cursor-ring'; ring.setAttribute('aria-hidden', 'true');
+    var dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ring); document.body.appendChild(dot);
+    var cx = 0, cy = 0, rx = 0, ry = 0, cOn = false;
+    var follow = function () {
+      rx += (cx - rx) * .2; ry += (cy - ry) * .2;
+      ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+      if (cOn) requestAnimationFrame(follow);
+    };
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      cx = e.clientX; cy = e.clientY;
+      dot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (!cOn) { cOn = true; rx = cx; ry = cy; root.classList.add('cursor-on'); requestAnimationFrame(follow); }
+    });
+    document.documentElement.addEventListener('mouseleave', function () { cOn = false; root.classList.remove('cursor-on'); });
+    document.addEventListener('pointerover', function (e) {
+      ring.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button, summary, label, [data-tilt], .area, .golpes-track')));
+    });
+    document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); });
+    document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); });
+  }
+
+  /* ---------- Cards com inclinação 3D ---------- */
+  if (finePointer && !reduceMotion) {
+    $$('.area, .article, [data-tilt]').forEach(function (el) {
+      var leaveT = 0;
+      el.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse' || (el.closest('.is-dragging'))) return;
+        clearTimeout(leaveT);
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        el.style.transition = 'transform .2s ease-out';
+        el.style.transform = 'perspective(900px) rotateX(' + (-py * 6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg) translateY(-3px)';
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.transition = 'transform .6s cubic-bezier(.2,.7,.2,1)';
+        el.style.transform = '';
+        leaveT = setTimeout(function () { el.style.transition = ''; }, 650);
+      });
+    });
+  }
+
+  /* ---------- Carrossel "Golpes do momento" ---------- */
+  var track = $('[data-car-track]');
+  if (track) {
+    var gCards = $$('.golpe-card', track);
+    var gCount = $('[data-car-count]'), gBar = $('[data-car-bar]');
+    var gPrev = $('[data-car="-1"]'), gNext = $('[data-car="1"]');
+    var stepW = function () { return gCards[0].getBoundingClientRect().width + 22; };
+    var gRaf = 0;
+    var gUpdate = function () {
+      gRaf = 0;
+      var max = track.scrollWidth - track.clientWidth;
+      var i = Math.min(gCards.length - 1, Math.round(track.scrollLeft / stepW()));
+      if (track.scrollLeft >= max - 4) i = gCards.length - 1;
+      if (gCount) gCount.textContent = pad2(i + 1) + ' / ' + pad2(gCards.length);
+      if (gPrev) gPrev.disabled = track.scrollLeft <= 4;
+      if (gNext) gNext.disabled = track.scrollLeft >= max - 4;
+      if (gBar) {
+        gBar.style.width = (track.clientWidth / track.scrollWidth * 100).toFixed(2) + '%';
+        gBar.style.marginLeft = (track.scrollLeft / track.scrollWidth * 100).toFixed(2) + '%';
+      }
+    };
+    var gGo = function (dir) { track.scrollBy({ left: dir * stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); };
+    [gPrev, gNext].forEach(function (b) { if (b) b.addEventListener('click', function () { gGo(Number(b.dataset.car)); }); });
+    track.addEventListener('scroll', function () { if (!gRaf) gRaf = requestAnimationFrame(gUpdate); }, { passive: true });
+    window.addEventListener('resize', gUpdate);
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); gGo(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); gGo(-1); }
+    });
+    // arrastar com o mouse
+    var dragX = 0, dragSL = 0, dragging = false, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('a, button')) return;
+      dragging = true; moved = false; dragX = e.clientX; dragSL = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - dragX;
+      if (!moved && Math.abs(dx) > 5) { moved = true; track.classList.add('is-dragging'); }
+      if (moved) track.scrollLeft = dragSL - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!dragging) return;
+      dragging = false;
+      if (moved) {
+        track.classList.remove('is-dragging');
+        var target = Math.round(track.scrollLeft / stepW()) * stepW();
+        track.scrollTo({ left: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    });
+    gUpdate();
+  }
+
+  /* ---------- Teste: isso é golpe? ---------- */
+  var quiz = $('[data-quiz]');
+  if (quiz) {
+    var Q = [
+      { ch: 'SMS', from: 'BANCO', av: 'B', ans: 'golpe',
+        msg: 'BANCO: identificamos um acesso suspeito na sua conta. Para evitar o bloqueio, regularize em até 2h: atualiza-cadastro-seguro.com',
+        why: 'Bancos não enviam links para “regularizar” a conta. Urgência, ameaça de bloqueio e endereço estranho são sinais clássicos de golpe.' },
+      { ch: 'WhatsApp', from: '+55 11 9•••• ••••', av: '?', ans: 'golpe',
+        msg: 'Oi mãe, troquei de número 😊 salva esse aqui. Preciso pagar um boleto hoje e meu app travou, consegue fazer um Pix pra mim? Amanhã te devolvo',
+        why: 'É o golpe do “número novo”. Antes de qualquer transferência, ligue para o número antigo ou peça uma chamada de vídeo.' },
+      { ch: 'Notificação', from: 'App do seu banco', av: '✓', ans: 'seguro',
+        msg: 'Compra aprovada no cartão final 4321: R$ 32,50 em PADARIA CENTRAL. Não reconhece? Abra o aplicativo e toque em “Contestar”.',
+        why: 'Notificação informativa, sem link e sem pedir dados. Ela orienta a resolver pelo próprio aplicativo, que é o caminho seguro.' },
+      { ch: 'E-mail', from: 'Suporte de Direitos Autorais', av: 'M', ans: 'golpe',
+        msg: 'Seu perfil do Instagram violou nossas diretrizes de direitos autorais e será excluído em 24 horas. Para recorrer, confirme seus dados: appeal-center-meta.com',
+        why: 'Avisos reais aparecem dentro do aplicativo. O prazo curto e o link externo pedindo login servem para roubar a senha e o código de acesso.' },
+      { ch: 'SMS', from: 'WhatsApp', av: 'W', ans: 'seguro',
+        msg: 'Seu código do WhatsApp: 482-913. Não compartilhe esse código com ninguém.',
+        why: 'Se foi você quem pediu o código (ao instalar o WhatsApp num celular novo), a mensagem é legítima. O perigo está em repassar o código a alguém.' },
+      { ch: 'WhatsApp', from: 'Entregas Express', av: 'E', ans: 'golpe',
+        msg: 'Olá! Enviei por engano um código de 6 dígitos por SMS para o seu número. Pode me dizer qual chegou para eu concluir a sua entrega?',
+        why: 'Ninguém precisa do código que chega no seu celular. Repassá-lo permite que golpistas ativem o seu WhatsApp em outro aparelho.' },
+      { ch: 'Ligação', from: 'Central de Segurança', av: '☎', ans: 'golpe',
+        msg: '“Detectamos uma invasão na sua conta. Para proteger o seu saldo, transfira os valores para a conta segura que vou informar enquanto bloqueamos o acesso.”',
+        why: 'Não existe “conta segura”. Desligue e ligue você mesmo para o número oficial do banco, que está no verso do cartão.' }
+    ];
+    var qi = 0, score = 0;
+    var qs = function (k) { return $('[data-q-' + k + ']', quiz); };
+    var stage = qs('stage'), endEl = qs('end'), fb = qs('feedback'), actions = qs('actions');
+    var dots = $$('[data-q-dots] li', quiz), phone = $('.phone', quiz);
+    var renderQ = function () {
+      var q = Q[qi];
+      qs('channel').textContent = q.ch;
+      qs('count').textContent = (qi + 1) + ' de ' + Q.length;
+      qs('avatar').textContent = q.av;
+      qs('from').textContent = q.from;
+      qs('msg').textContent = q.msg;
+      actions.hidden = false; fb.hidden = true;
+      stage.classList.remove('is-entering'); void stage.offsetWidth; stage.classList.add('is-entering');
+      dots.forEach(function (d, i) { d.classList.toggle('is-current', i === qi); });
+    };
+    var answer = function (val) {
+      var q = Q[qi], right = val === q.ans;
+      if (right) score++;
+      actions.hidden = true; fb.hidden = false;
+      fb.classList.toggle('is-right', right); fb.classList.toggle('is-wrong', !right);
+      qs('verdict').textContent = (right ? 'Acertou! ' : 'Quase. ') + (q.ans === 'golpe' ? 'É golpe.' : 'É seguro.');
+      qs('why').textContent = q.why;
+      qs('next').textContent = qi < Q.length - 1 ? 'Próxima mensagem →' : 'Ver resultado →';
+      dots[qi].classList.add(right ? 'ok' : 'err');
+      if (!right && !reduceMotion) { phone.classList.remove('shake'); void phone.offsetWidth; phone.classList.add('shake'); }
+      qs('next').focus({ preventScroll: true });
+    };
+    var finish = function () {
+      stage.hidden = true; endEl.hidden = false;
+      dots.forEach(function (d) { d.classList.remove('is-current'); });
+      qs('score').textContent = score;
+      var title, text;
+      if (score === Q.length) { title = 'Excelente! Você identificou todas.'; text = 'Compartilhe o teste com quem precisa ficar mais atento.'; }
+      else if (score >= 5) { title = 'Muito bem!'; text = 'Você tem bom olho, mas os golpes são feitos para enganar. Os detalhes fazem diferença.'; }
+      else { title = 'Atenção redobrada.'; text = 'Os golpes são cada vez mais convincentes. Releia os “Golpes do momento” e desconfie de urgência.'; }
+      qs('end-title').textContent = title;
+      qs('end-text').textContent = text;
+      qs('share').href = 'https://wa.me/?text=' + encodeURIComponent('Fiz o teste “Isso é golpe?” e acertei ' + score + ' de ' + Q.length + '. Duvido você acertar todas: https://joaopedrogomesadvhacker.adv.br/#teste');
+      qs('restart').focus({ preventScroll: true });
+    };
+    quiz.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-answer]');
+      if (b) { answer(b.dataset.answer); return; }
+      if (e.target.closest('[data-q-next]')) { if (qi < Q.length - 1) { qi++; renderQ(); } else finish(); return; }
+      if (e.target.closest('[data-q-restart]')) {
+        qi = 0; score = 0; endEl.hidden = true; stage.hidden = false;
+        dots.forEach(function (d) { d.classList.remove('ok', 'err'); });
+        renderQ();
+      }
+    });
+    renderQ();
+  }
+
+  /* ---------- Vídeo de apresentação (aparece só se o arquivo existir) ---------- */
+  var vBtn = $('.video-open'), vModal = $('.video-modal');
+  // para ativar: coloque o nome do arquivo em data-video-src (ex.: video-apresentacao.mp4) no index.html
+  if (vBtn && vModal && vBtn.dataset.videoSrc && /^https?:$/.test(location.protocol) && typeof fetch === 'function' && vModal.showModal) {
+    var vSrc = vBtn.dataset.videoSrc, vEl = $('video', vModal), musicWas = false;
+    fetch(vSrc, { method: 'HEAD' }).then(function (r) { if (r.ok) vBtn.hidden = false; }).catch(function () {});
+    vBtn.addEventListener('click', function () {
+      if (!vEl.getAttribute('src')) vEl.src = vSrc;
+      var amb = $('#ambient');
+      musicWas = !!(amb && !amb.paused);
+      if (musicWas) amb.pause();
+      vModal.showModal();
+      var pr = vEl.play(); if (pr && pr.catch) pr.catch(function () {});
+    });
+    var closeV = function () { vModal.close(); };
+    $('.video-close', vModal).addEventListener('click', closeV);
+    vModal.addEventListener('click', function (e) { if (e.target === vModal) closeV(); });
+    vModal.addEventListener('close', function () {
+      vEl.pause();
+      var amb = $('#ambient');
+      if (musicWas && amb) { var p2 = amb.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+    });
+  }
+
 })();
 
 </script>

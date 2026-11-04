@@ -58,6 +58,26 @@
   </script>
 </head>
 <body>
+  <script>
+  /* Abertura com a logo: só na primeira visita da sessão e nunca para quem prefere menos movimento */
+  (function () {
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || sessionStorage.getItem('jp-intro')) return;
+      sessionStorage.setItem('jp-intro', '1');
+    } catch (e) { return; }
+    document.documentElement.classList.add('has-intro');
+    document.body.insertAdjacentHTML('afterbegin',
+      '<div class="intro" aria-hidden="true"><div class="intro-inner">' +
+      '<svg class="intro-logo" viewBox="-130 -4 360 124">' +
+      '<g class="ic"><path d="M3 45H-38l-12-12h-62"/><path d="M3 58H-98"/><path d="M3 71H-38l-12 12h-52"/>' +
+      '<path d="M97 45h41l12-12h62"/><path d="M97 58h101"/><path d="M97 71h41l12 12h52"/>' +
+      '<circle cx="-116" cy="33" r="4"/><circle cx="-102" cy="58" r="4"/><circle cx="-106" cy="83" r="4"/>' +
+      '<circle cx="216" cy="33" r="4"/><circle cx="202" cy="58" r="4"/><circle cx="206" cy="83" r="4"/></g>' +
+      '<path class="ih" d="M50 2 97 29v58l-47 27L3 87V29z"/><path class="ih ih2" d="M50 10 90 33v50l-40 23-40-23V33z"/>' +
+      '<text x="50" y="75" text-anchor="middle">JP</text></svg>' +
+      '<p class="intro-name">João Pedro Gomes</p><p class="intro-sub">Direito Digital · Crimes Cibernéticos</p></div></div>');
+  })();
+  </script>
   <!-- Sprite: gradientes, logo e ícones reutilizáveis -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
@@ -100,11 +120,11 @@
       <nav class="main-nav" aria-label="Principal">
         <ul>
           <li><a href="#atuacao">Atuação</a></li>
+          <li><a href="#golpes">Golpes</a></li>
           <li><a href="#prazos">Prazos</a></li>
           <li><a href="#metodo">Método</a></li>
           <li><a href="#triagem">Triagem</a></li>
           <li><a href="#sobre">Quem somos</a></li>
-          <li><a href="#artigos">Artigos</a></li>
           <li><a href="#duvidas">Dúvidas</a></li>
         </ul>
       </nav>
@@ -118,12 +138,14 @@
   <nav class="mobile-nav" id="mobileNav" aria-label="Menu do celular">
     <ul>
       <li><a href="#atuacao">Atuação <small>01</small></a></li>
-      <li><a href="#prazos">Prazos <small>02</small></a></li>
-      <li><a href="#metodo">Método <small>03</small></a></li>
-      <li><a href="#triagem">Triagem do caso <small>04</small></a></li>
-      <li><a href="#sobre">Quem somos <small>05</small></a></li>
-      <li><a href="#artigos">Artigos <small>06</small></a></li>
-      <li><a href="#duvidas">Dúvidas <small>07</small></a></li>
+      <li><a href="#golpes">Golpes do momento <small>02</small></a></li>
+      <li><a href="#teste">Isso é golpe? <small>03</small></a></li>
+      <li><a href="#prazos">Prazos <small>04</small></a></li>
+      <li><a href="#metodo">Método <small>05</small></a></li>
+      <li><a href="#triagem">Triagem do caso <small>06</small></a></li>
+      <li><a href="#sobre">Quem somos <small>07</small></a></li>
+      <li><a href="#artigos">Artigos <small>08</small></a></li>
+      <li><a href="#duvidas">Dúvidas <small>09</small></a></li>
     </ul>
     <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer">
       <svg aria-hidden="true"><use href="#i-wpp"/></svg> Falar com o advogado
@@ -134,7 +156,7 @@
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true"><canvas class="net"></canvas></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="hero-kicker reveal">Advocacia <span class="dot" aria-hidden="true"></span> Direito Digital <span class="dot" aria-hidden="true"></span> OAB/SE 17.295</p>
@@ -272,6 +294,117 @@
             <p>Medidas para a retirada de conteúdos ofensivos, falsos ou íntimos divulgados sem autorização.</p>
             <span class="area-go">Organizar este caso</span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GOLPES DO MOMENTO ===================== -->
+    <section class="section golpes-section" id="golpes" aria-labelledby="golpes-title">
+      <div class="container">
+        <div class="section-head split reveal">
+          <div>
+            <p class="eyebrow">Golpes do momento</p>
+            <h2 class="section-title" id="golpes-title">Conheça os golpes <em>antes que eles cheguem até você.</em></h2>
+            <p class="lead">Os golpes mudam rápido, mas seguem padrões. Veja como os mais comuns funcionam e o que fazer para se proteger.</p>
+          </div>
+          <div class="car-ctrl">
+            <span class="car-count" data-car-count>01 / 08</span>
+            <button class="car-btn" type="button" data-car="-1" aria-label="Golpe anterior">←</button>
+            <button class="car-btn" type="button" data-car="1" aria-label="Próximo golpe">→</button>
+          </div>
+        </div>
+      </div>
+      <div class="golpes-track" data-car-track tabindex="0" role="region" aria-label="Golpes do momento: role para o lado para ver todos">
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">01</span><span class="g-tag">Ligação · WhatsApp</span></div>
+            <h3>Falsa central do banco</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Alguém liga dizendo ser do seu banco e avisa sobre uma compra suspeita. Para “proteger” o dinheiro, pede um Pix para uma “conta segura” ou a instalação de um aplicativo de acesso remoto.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Nenhum banco pede transferência para conta segura nem instalação de aplicativos. Desligue e ligue você mesmo para o número que está no verso do cartão.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">02</span><span class="g-tag">SMS · WhatsApp</span></div>
+            <h3>Clonagem de WhatsApp</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Golpistas pedem o código de seis dígitos que chega por SMS, fingindo ser de uma entrega, pesquisa ou sorteio. Com ele, ativam o seu WhatsApp em outro aparelho e pedem dinheiro aos seus contatos.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Nunca repasse códigos de verificação. Ative a confirmação em duas etapas em Configurações › Conta.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">03</span><span class="g-tag">WhatsApp</span></div>
+            <h3>Parente com número novo</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Uma mensagem com a foto de um familiar diz “troquei de número”. Pouco depois, chega um pedido de Pix urgente para pagar uma conta.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Antes de transferir, ligue para o número antigo ou peça uma chamada de vídeo. Urgência é sinal de alerta.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">04</span><span class="g-tag">E-mail · Direct</span></div>
+            <h3>Perfil “excluído por direitos autorais”</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Uma mensagem que imita a Meta avisa que seu perfil será excluído e envia um link para “recorrer”. A página copia sua senha e o código de acesso.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Avisos oficiais aparecem dentro do próprio aplicativo. Não faça login por links recebidos em mensagens.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">05</span><span class="g-tag">E-mail · Mensagem</span></div>
+            <h3>Boleto adulterado</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Boletos falsos ou alterados chegam com visual idêntico ao original, mas o pagamento vai para outra pessoa.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Antes de pagar, confira se o nome e o CNPJ do beneficiário são da empresa correta. Prefira emitir o boleto no site ou aplicativo oficial.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">06</span><span class="g-tag">Redes sociais · Telegram</span></div>
+            <h3>Tarefas pagas e falsas vagas</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>A oferta promete renda extra para curtir vídeos ou avaliar produtos. Os primeiros valores são pagos; depois, pedem depósitos para liberar “tarefas premium”, e o dinheiro não volta.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Trabalho de verdade não exige que você pague para trabalhar. Desconfie de ganhos fáceis e rápidos.</p></div>
+          </article>
+          <article class="golpe-card" data-tilt>
+            <div class="g-top"><span class="g-num">07</span><span class="g-tag">Anúncios patrocinados</span></div>
+            <h3>Loja falsa</h3>
+            <div class="g-block"><p class="g-label">Como funciona</p><p>Anúncios levam a sites que imitam lojas conhecidas, com preços muito abaixo do mercado e pagamento apenas via Pix.</p></div>
+            <div class="g-block g-safe"><p class="g-label">Como se proteger</p><p>Confira o endereço do site, o CNPJ e a reputação da loja. Prefira pagar com cartão de crédito, que permite contestação.</p></div>
+          </article>
+          <article class="golpe-card g-cta">
+            <div class="g-top"><span class="g-num">?</span><span class="g-tag">Aconteceu com você</span></div>
+            <h3>Caiu em um golpe?</h3>
+            <p>Comunique o banco imediatamente, registre um boletim de ocorrência e preserve as conversas e os comprovantes. Depois, organize o seu relato na triagem.</p>
+            <a class="btn btn-gold" href="#triagem" data-incident="golpe">Organizar meu caso <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+      </div>
+      <div class="container"><div class="car-progress" aria-hidden="true"><i data-car-bar></i></div></div>
+    </section>
+
+    <!-- ===================== TESTE: ISSO É GOLPE? ===================== -->
+    <section class="section quiz-section" id="teste" aria-labelledby="teste-title">
+      <div class="container quiz-wrap">
+        <div class="quiz-aside reveal">
+          <p class="eyebrow">Teste rápido</p>
+          <h2 class="section-title" id="teste-title">Isso é golpe? <em>Faça o teste.</em></h2>
+          <p class="lead">Sete mensagens inspiradas em situações reais. Para cada uma, decida: é golpe ou é seguro?</p>
+          <p class="quiz-note">Mensagens fictícias, criadas para fins educativos. Nomes e endereços não correspondem a empresas reais.</p>
+        </div>
+        <div class="quiz reveal" style="--i:1" data-quiz>
+          <div class="phone">
+            <div class="phone-bar" aria-hidden="true"><span>9:41</span><span class="notch"></span><span>●●●</span></div>
+            <div class="q-stage" data-q-stage>
+              <div class="q-head"><span class="q-channel" data-q-channel>SMS</span><span class="q-count" data-q-count>1 de 7</span></div>
+              <div class="q-sender"><span class="q-avatar" data-q-avatar aria-hidden="true">B</span><div><b data-q-from>Banco</b><small>agora</small></div></div>
+              <p class="q-bubble" data-q-msg></p>
+              <div class="q-actions" data-q-actions>
+                <button class="q-btn q-golpe" type="button" data-answer="golpe">É golpe</button>
+                <button class="q-btn q-seguro" type="button" data-answer="seguro">É seguro</button>
+              </div>
+              <div class="q-feedback" data-q-feedback aria-live="polite" hidden>
+                <p class="q-verdict" data-q-verdict></p>
+                <p class="q-why" data-q-why></p>
+                <button class="btn btn-gold q-next" type="button" data-q-next>Próxima mensagem →</button>
+              </div>
+            </div>
+            <div class="q-end" data-q-end hidden>
+              <p class="q-score"><span data-q-score>0</span><small>de 7</small></p>
+              <p class="q-end-title" data-q-end-title></p>
+              <p class="q-end-text" data-q-end-text></p>
+              <div class="q-end-actions">
+                <a class="btn btn-gold" data-q-share href="https://wa.me/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> Desafiar alguém</a>
+                <button class="btn btn-line" type="button" data-q-restart>Refazer o teste</button>
+              </div>
+              <a class="text-link" href="#triagem" data-incident="golpe">Caí em um golpe. E agora? <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <ol class="q-dots" data-q-dots aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
         </div>
       </div>
     </section>
@@ -521,6 +654,7 @@
           <div class="channels">
             <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> WhatsApp</a>
             <a class="btn btn-line" href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Instagram @advogadoohacker</a>
+            <button class="btn btn-line video-open" type="button" data-video-src="" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m10 8.5 5.5 3.5-5.5 3.5z" fill="currentColor"/></svg> Assistir à apresentação</button>
           </div>
         </div>
       </div>
@@ -545,8 +679,21 @@
       </div>
     </section>
 
+    <!-- ===================== INSTAGRAM ===================== -->
+    <section class="insta-band" aria-labelledby="insta-title">
+      <div class="container insta-inner reveal">
+        <svg class="insta-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>
+        <div>
+          <p class="eyebrow no-rule">No Instagram</p>
+          <h2 id="insta-title">Golpes, direitos e segurança digital, <em class="gold-text">explicados toda semana.</em></h2>
+        </div>
+        <a class="btn btn-line" href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Seguir @advogadoohacker <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <!-- POSTS: quando quiser mostrar posts aqui, envie os prints e links de 3 posts para montar os cards. -->
+    </section>
+
     <!-- ===================== ARTIGOS ===================== -->
-    <section class="section" id="artigos" aria-labelledby="artigos-title" style="padding-top:0">
+    <section class="section" id="artigos" aria-labelledby="artigos-title">
       <div class="container">
         <div class="section-head split reveal">
           <div>
@@ -639,6 +786,14 @@
           <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> Falar com o advogado</a>
           <a class="btn btn-line" href="#triagem">Fazer a triagem</a>
         </div>
+        <div class="contact-card">
+          <svg class="qr" viewBox="0 0 61 61" role="img" aria-label="QR code: aponte a câmera do celular para salvar o contato" shape-rendering="crispEdges"><rect width="61" height="61" fill="#f3eee3"/><path fill="#0a0a0b" d="M4 4h7v1h-7zM13 4h1v1h-1zM18 4h2v1h-2zM21 4h2v1h-2zM24 4h7v1h-7zM32 4h1v1h-1zM34 4h2v1h-2zM37 4h3v1h-3zM41 4h2v1h-2zM46 4h1v1h-1zM50 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h4v1h-4zM19 5h1v1h-1zM21 5h1v1h-1zM23 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM33 5h1v1h-1zM36 5h2v1h-2zM40 5h1v1h-1zM42 5h2v1h-2zM46 5h2v1h-2zM50 5h1v1h-1zM56 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM17 6h3v1h-3zM22 6h1v1h-1zM25 6h1v1h-1zM27 6h1v1h-1zM31 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM38 6h2v1h-2zM43 6h3v1h-3zM47 6h1v1h-1zM50 6h1v1h-1zM52 6h3v1h-3zM56 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM13 7h4v1h-4zM23 7h1v1h-1zM27 7h1v1h-1zM29 7h2v1h-2zM32 7h2v1h-2zM41 7h2v1h-2zM45 7h2v1h-2zM48 7h1v1h-1zM50 7h1v1h-1zM52 7h3v1h-3zM56 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h8v1h-8zM24 8h1v1h-1zM26 8h9v1h-9zM36 8h2v1h-2zM39 8h1v1h-1zM42 8h2v1h-2zM45 8h2v1h-2zM50 8h1v1h-1zM52 8h3v1h-3zM56 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM17 9h2v1h-2zM20 9h4v1h-4zM28 9h1v1h-1zM32 9h11v1h-11zM45 9h2v1h-2zM50 9h1v1h-1zM56 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM32 10h1v1h-1zM34 10h1v1h-1zM36 10h1v1h-1zM38 10h1v1h-1zM40 10h1v1h-1zM42 10h1v1h-1zM44 10h1v1h-1zM46 10h1v1h-1zM48 10h1v1h-1zM50 10h7v1h-7zM12 11h1v1h-1zM14 11h1v1h-1zM16 11h2v1h-2zM21 11h2v1h-2zM24 11h2v1h-2zM27 11h2v1h-2zM32 11h1v1h-1zM34 11h3v1h-3zM39 11h7v1h-7zM48 11h1v1h-1zM4 12h2v1h-2zM7 12h1v1h-1zM10 12h2v1h-2zM14 12h2v1h-2zM19 12h2v1h-2zM25 12h8v1h-8zM34 12h1v1h-1zM37 12h2v1h-2zM40 12h9v1h-9zM50 12h3v1h-3zM54 12h2v1h-2zM5 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM24 13h2v1h-2zM27 13h1v1h-1zM29 13h1v1h-1zM32 13h2v1h-2zM35 13h2v1h-2zM40 13h1v1h-1zM42 13h1v1h-1zM44 13h2v1h-2zM47 13h1v1h-1zM51 13h5v1h-5zM4 14h1v1h-1zM7 14h1v1h-1zM10 14h7v1h-7zM18 14h2v1h-2zM21 14h3v1h-3zM25 14h3v1h-3zM31 14h1v1h-1zM34 14h1v1h-1zM38 14h5v1h-5zM44 14h1v1h-1zM46 14h2v1h-2zM51 14h3v1h-3zM55 14h1v1h-1zM4 15h1v1h-1zM6 15h3v1h-3zM11 15h1v1h-1zM14 15h3v1h-3zM18 15h2v1h-2zM26 15h1v1h-1zM29 15h1v1h-1zM31 15h1v1h-1zM33 15h1v1h-1zM35 15h1v1h-1zM38 15h1v1h-1zM40 15h1v1h-1zM46 15h1v1h-1zM49 15h1v1h-1zM54 15h1v1h-1zM5 16h7v1h-7zM14 16h1v1h-1zM18 16h1v1h-1zM21 16h3v1h-3zM25 16h2v1h-2zM28 16h1v1h-1zM31 16h2v1h-2zM35 16h3v1h-3zM39 16h2v1h-2zM42 16h6v1h-6zM49 16h1v1h-1zM51 16h4v1h-4zM4 17h1v1h-1zM8 17h1v1h-1zM12 17h2v1h-2zM15 17h2v1h-2zM18 17h3v1h-3zM22 17h1v1h-1zM25 17h1v1h-1zM29 17h3v1h-3zM35 17h2v1h-2zM38 17h3v1h-3zM43 17h1v1h-1zM45 17h1v1h-1zM50 17h1v1h-1zM53 17h4v1h-4zM10 18h3v1h-3zM15 18h4v1h-4zM21 18h3v1h-3zM26 18h2v1h-2zM30 18h4v1h-4zM37 18h1v1h-1zM39 18h1v1h-1zM41 18h2v1h-2zM47 18h2v1h-2zM50 18h1v1h-1zM54 18h1v1h-1zM56 18h1v1h-1zM4 19h1v1h-1zM7 19h3v1h-3zM11 19h1v1h-1zM13 19h2v1h-2zM17 19h3v1h-3zM26 19h2v1h-2zM31 19h6v1h-6zM39 19h1v1h-1zM41 19h1v1h-1zM44 19h1v1h-1zM46 19h1v1h-1zM53 19h1v1h-1zM7 20h2v1h-2zM10 20h2v1h-2zM13 20h1v1h-1zM22 20h1v1h-1zM24 20h2v1h-2zM27 20h1v1h-1zM29 20h1v1h-1zM32 20h1v1h-1zM35 20h3v1h-3zM39 20h2v1h-2zM45 20h3v1h-3zM49 20h1v1h-1zM51 20h2v1h-2zM55 20h2v1h-2zM4 21h1v1h-1zM6 21h1v1h-1zM8 21h1v1h-1zM12 21h3v1h-3zM17 21h2v1h-2zM20 21h2v1h-2zM23 21h3v1h-3zM27 21h7v1h-7zM35 21h1v1h-1zM41 21h1v1h-1zM44 21h1v1h-1zM47 21h2v1h-2zM52 21h1v1h-1zM54 21h2v1h-2zM4 22h3v1h-3zM8 22h1v1h-1zM10 22h3v1h-3zM14 22h1v1h-1zM16 22h1v1h-1zM18 22h1v1h-1zM21 22h5v1h-5zM28 22h2v1h-2zM31 22h2v1h-2zM34 22h1v1h-1zM36 22h2v1h-2zM40 22h1v1h-1zM44 22h1v1h-1zM46 22h2v1h-2zM49 22h2v1h-2zM54 22h3v1h-3zM5 23h3v1h-3zM11 23h1v1h-1zM15 23h1v1h-1zM21 23h2v1h-2zM26 23h1v1h-1zM29 23h1v1h-1zM32 23h9v1h-9zM42 23h5v1h-5zM50 23h1v1h-1zM52 23h2v1h-2zM4 24h2v1h-2zM10 24h1v1h-1zM16 24h1v1h-1zM20 24h1v1h-1zM22 24h1v1h-1zM25 24h3v1h-3zM30 24h1v1h-1zM32 24h4v1h-4zM38 24h1v1h-1zM40 24h1v1h-1zM42 24h1v1h-1zM44 24h1v1h-1zM46 24h7v1h-7zM55 24h2v1h-2zM5 25h1v1h-1zM8 25h1v1h-1zM11 25h4v1h-4zM16 25h1v1h-1zM18 25h1v1h-1zM21 25h2v1h-2zM25 25h2v1h-2zM28 25h2v1h-2zM31 25h1v1h-1zM40 25h1v1h-1zM45 25h1v1h-1zM47 25h1v1h-1zM53 25h3v1h-3zM8 26h1v1h-1zM10 26h2v1h-2zM13 26h1v1h-1zM15 26h1v1h-1zM17 26h3v1h-3zM21 26h1v1h-1zM23 26h2v1h-2zM29 26h1v1h-1zM31 26h1v1h-1zM36 26h1v1h-1zM38 26h2v1h-2zM41 26h1v1h-1zM43 26h3v1h-3zM48 26h1v1h-1zM51 26h3v1h-3zM4 27h2v1h-2zM7 27h1v1h-1zM11 27h1v1h-1zM13 27h4v1h-4zM18 27h2v1h-2zM22 27h1v1h-1zM27 27h1v1h-1zM30 27h2v1h-2zM33 27h1v1h-1zM37 27h1v1h-1zM40 27h3v1h-3zM44 27h1v1h-1zM46 27h1v1h-1zM48 27h2v1h-2zM54 27h1v1h-1zM4 28h1v1h-1zM7 28h6v1h-6zM18 28h4v1h-4zM24 28h3v1h-3zM28 28h5v1h-5zM35 28h3v1h-3zM40 28h2v1h-2zM43 28h2v1h-2zM47 28h10v1h-10zM4 29h1v1h-1zM7 29h2v1h-2zM12 29h1v1h-1zM14 29h1v1h-1zM16 29h2v1h-2zM19 29h3v1h-3zM23 29h2v1h-2zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM37 29h2v1h-2zM40 29h2v1h-2zM47 29h2v1h-2zM52 29h2v1h-2zM55 29h2v1h-2zM6 30h1v1h-1zM8 30h1v1h-1zM10 30h1v1h-1zM12 30h2v1h-2zM16 30h1v1h-1zM19 30h2v1h-2zM24 30h5v1h-5zM30 30h1v1h-1zM32 30h4v1h-4zM42 30h2v1h-2zM45 30h2v1h-2zM48 30h1v1h-1zM50 30h1v1h-1zM52 30h2v1h-2zM55 30h2v1h-2zM7 31h2v1h-2zM12 31h4v1h-4zM19 31h1v1h-1zM22 31h1v1h-1zM24 31h1v1h-1zM27 31h2v1h-2zM32 31h2v1h-2zM35 31h2v1h-2zM39 31h5v1h-5zM45 31h4v1h-4zM52 31h1v1h-1zM4 32h1v1h-1zM6 32h7v1h-7zM14 32h5v1h-5zM21 32h5v1h-5zM28 32h7v1h-7zM36 32h2v1h-2zM40 32h3v1h-3zM45 32h11v1h-11zM5 33h1v1h-1zM7 33h1v1h-1zM11 33h3v1h-3zM16 33h1v1h-1zM22 33h1v1h-1zM24 33h1v1h-1zM26 33h1v1h-1zM28 33h1v1h-1zM31 33h1v1h-1zM33 33h1v1h-1zM36 33h1v1h-1zM39 33h2v1h-2zM42 33h1v1h-1zM48 33h3v1h-3zM54 33h1v1h-1zM56 33h1v1h-1zM4 34h7v1h-7zM13 34h3v1h-3zM17 34h1v1h-1zM19 34h1v1h-1zM22 34h1v1h-1zM24 34h1v1h-1zM26 34h1v1h-1zM29 34h1v1h-1zM35 34h1v1h-1zM39 34h1v1h-1zM41 34h1v1h-1zM43 34h3v1h-3zM47 34h1v1h-1zM49 34h4v1h-4zM56 34h1v1h-1zM4 35h1v1h-1zM7 35h1v1h-1zM9 35h1v1h-1zM13 35h1v1h-1zM18 35h1v1h-1zM23 35h1v1h-1zM25 35h1v1h-1zM27 35h4v1h-4zM32 35h1v1h-1zM34 35h1v1h-1zM37 35h7v1h-7zM46 35h2v1h-2zM50 35h1v1h-1zM52 35h2v1h-2zM56 35h1v1h-1zM4 36h1v1h-1zM6 36h1v1h-1zM8 36h3v1h-3zM14 36h5v1h-5zM20 36h4v1h-4zM25 36h3v1h-3zM33 36h1v1h-1zM35 36h1v1h-1zM38 36h1v1h-1zM40 36h6v1h-6zM48 36h2v1h-2zM51 36h2v1h-2zM4 37h3v1h-3zM8 37h1v1h-1zM14 37h1v1h-1zM16 37h2v1h-2zM20 37h1v1h-1zM23 37h1v1h-1zM25 37h1v1h-1zM28 37h3v1h-3zM32 37h2v1h-2zM36 37h1v1h-1zM39 37h3v1h-3zM43 37h1v1h-1zM45 37h1v1h-1zM47 37h3v1h-3zM54 37h2v1h-2zM5 38h1v1h-1zM8 38h1v1h-1zM10 38h1v1h-1zM12 38h1v1h-1zM14 38h2v1h-2zM18 38h1v1h-1zM20 38h3v1h-3zM24 38h1v1h-1zM28 38h3v1h-3zM32 38h2v1h-2zM35 38h1v1h-1zM38 38h1v1h-1zM40 38h2v1h-2zM43 38h1v1h-1zM45 38h1v1h-1zM47 38h1v1h-1zM49 38h1v1h-1zM52 38h4v1h-4zM5 39h1v1h-1zM8 39h1v1h-1zM13 39h2v1h-2zM20 39h5v1h-5zM26 39h1v1h-1zM28 39h2v1h-2zM31 39h1v1h-1zM35 39h1v1h-1zM40 39h1v1h-1zM42 39h1v1h-1zM44 39h1v1h-1zM48 39h2v1h-2zM53 39h4v1h-4zM5 40h4v1h-4zM10 40h1v1h-1zM13 40h1v1h-1zM15 40h1v1h-1zM18 40h1v1h-1zM20 40h5v1h-5zM26 40h1v1h-1zM28 40h1v1h-1zM30 40h1v1h-1zM33 40h1v1h-1zM35 40h2v1h-2zM38 40h1v1h-1zM40 40h1v1h-1zM42 40h1v1h-1zM44 40h3v1h-3zM48 40h1v1h-1zM50 40h1v1h-1zM52 40h2v1h-2zM56 40h1v1h-1zM4 41h2v1h-2zM7 41h2v1h-2zM12 41h5v1h-5zM18 41h1v1h-1zM20 41h4v1h-4zM25 41h4v1h-4zM30 41h1v1h-1zM35 41h2v1h-2zM38 41h4v1h-4zM45 41h1v1h-1zM47 41h2v1h-2zM51 41h1v1h-1zM4 42h1v1h-1zM7 42h1v1h-1zM9 42h2v1h-2zM14 42h1v1h-1zM16 42h1v1h-1zM20 42h1v1h-1zM23 42h1v1h-1zM25 42h4v1h-4zM33 42h1v1h-1zM35 42h3v1h-3zM39 42h1v1h-1zM41 42h4v1h-4zM47 42h8v1h-8zM56 42h1v1h-1zM4 43h1v1h-1zM6 43h2v1h-2zM9 43h1v1h-1zM11 43h3v1h-3zM15 43h2v1h-2zM19 43h1v1h-1zM21 43h5v1h-5zM29 43h1v1h-1zM31 43h1v1h-1zM33 43h2v1h-2zM36 43h1v1h-1zM40 43h2v1h-2zM44 43h3v1h-3zM49 43h1v1h-1zM55 43h2v1h-2zM5 44h1v1h-1zM8 44h1v1h-1zM10 44h1v1h-1zM12 44h1v1h-1zM16 44h4v1h-4zM21 44h1v1h-1zM23 44h2v1h-2zM27 44h2v1h-2zM30 44h1v1h-1zM32 44h1v1h-1zM35 44h2v1h-2zM39 44h5v1h-5zM47 44h1v1h-1zM49 44h6v1h-6zM7 45h3v1h-3zM11 45h1v1h-1zM14 45h1v1h-1zM18 45h2v1h-2zM25 45h1v1h-1zM27 45h2v1h-2zM30 45h2v1h-2zM33 45h1v1h-1zM42 45h4v1h-4zM48 45h2v1h-2zM51 45h1v1h-1zM53 45h1v1h-1zM55 45h1v1h-1zM4 46h2v1h-2zM7 46h4v1h-4zM13 46h1v1h-1zM16 46h5v1h-5zM22 46h1v1h-1zM25 46h1v1h-1zM29 46h1v1h-1zM34 46h1v1h-1zM39 46h5v1h-5zM45 46h4v1h-4zM50 46h4v1h-4zM55 46h2v1h-2zM5 47h2v1h-2zM11 47h2v1h-2zM15 47h1v1h-1zM19 47h2v1h-2zM23 47h2v1h-2zM26 47h9v1h-9zM36 47h3v1h-3zM40 47h2v1h-2zM45 47h1v1h-1zM48 47h1v1h-1zM51 47h3v1h-3zM55 47h2v1h-2zM7 48h1v1h-1zM10 48h3v1h-3zM14 48h1v1h-1zM17 48h2v1h-2zM22 48h1v1h-1zM26 48h7v1h-7zM35 48h1v1h-1zM39 48h2v1h-2zM44 48h3v1h-3zM48 48h6v1h-6zM55 48h1v1h-1zM12 49h1v1h-1zM17 49h3v1h-3zM21 49h2v1h-2zM25 49h1v1h-1zM27 49h2v1h-2zM32 49h1v1h-1zM36 49h1v1h-1zM40 49h1v1h-1zM43 49h1v1h-1zM45 49h1v1h-1zM48 49h1v1h-1zM52 49h2v1h-2zM56 49h1v1h-1zM4 50h7v1h-7zM12 50h1v1h-1zM15 50h2v1h-2zM19 50h2v1h-2zM22 50h5v1h-5zM28 50h1v1h-1zM30 50h1v1h-1zM32 50h1v1h-1zM36 50h1v1h-1zM38 50h1v1h-1zM40 50h1v1h-1zM44 50h2v1h-2zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM54 50h1v1h-1zM4 51h1v1h-1zM10 51h1v1h-1zM13 51h2v1h-2zM16 51h3v1h-3zM20 51h2v1h-2zM24 51h3v1h-3zM28 51h1v1h-1zM32 51h2v1h-2zM38 51h1v1h-1zM40 51h5v1h-5zM48 51h1v1h-1zM52 51h1v1h-1zM54 51h3v1h-3zM4 52h1v1h-1zM6 52h3v1h-3zM10 52h1v1h-1zM13 52h1v1h-1zM15 52h1v1h-1zM17 52h2v1h-2zM20 52h1v1h-1zM22 52h4v1h-4zM28 52h5v1h-5zM34 52h1v1h-1zM36 52h2v1h-2zM39 52h2v1h-2zM42 52h4v1h-4zM47 52h9v1h-9zM4 53h1v1h-1zM6 53h3v1h-3zM10 53h1v1h-1zM12 53h4v1h-4zM25 53h2v1h-2zM31 53h1v1h-1zM35 53h2v1h-2zM38 53h1v1h-1zM41 53h1v1h-1zM44 53h1v1h-1zM48 53h2v1h-2zM51 53h1v1h-1zM53 53h1v1h-1zM55 53h2v1h-2zM4 54h1v1h-1zM6 54h3v1h-3zM10 54h1v1h-1zM13 54h1v1h-1zM16 54h3v1h-3zM22 54h2v1h-2zM32 54h1v1h-1zM37 54h1v1h-1zM40 54h1v1h-1zM42 54h1v1h-1zM44 54h2v1h-2zM49 54h2v1h-2zM52 54h1v1h-1zM55 54h1v1h-1zM4 55h1v1h-1zM10 55h1v1h-1zM12 55h1v1h-1zM16 55h3v1h-3zM20 55h2v1h-2zM23 55h1v1h-1zM25 55h5v1h-5zM32 55h1v1h-1zM35 55h2v1h-2zM38 55h1v1h-1zM40 55h2v1h-2zM44 55h2v1h-2zM47 55h2v1h-2zM51 55h2v1h-2zM55 55h1v1h-1zM4 56h7v1h-7zM12 56h2v1h-2zM16 56h1v1h-1zM20 56h3v1h-3zM24 56h2v1h-2zM27 56h5v1h-5zM33 56h2v1h-2zM36 56h7v1h-7zM46 56h2v1h-2zM52 56h1v1h-1zM54 56h2v1h-2z"/></svg>
+          <div class="cc-copy">
+            <p class="cc-title">Salve o contato no celular</p>
+            <p class="cc-text"><span class="cc-desk">Aponte a câmera do celular para o código ou baixe</span><span class="cc-mob">Baixe</span> o cartão com nome, OAB, WhatsApp e site.</p>
+            <a class="btn btn-gold" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3ASantos%3BJo%C3%A3o%20Pedro%20Gomes%20dos%3B%3BDr.%3B%0AFN%3AJo%C3%A3o%20Pedro%20Gomes%20dos%20Santos%0AORG%3AJo%C3%A3o%20Pedro%20Gomes%20%E2%80%94%20Direito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0ATITLE%3AAdvogado%20%E2%80%94%20OAB%2FSE%2017.295%0ATEL%3BTYPE%3DCELL%2CVOICE%3A%2B5579999100875%0AEMAIL%3BTYPE%3DINTERNET%3Ajoaopedrogomes2322%40gmail.com%0AURL%3Ahttps%3A%2F%2Fjoaopedrogomesadvhacker.adv.br%2F%0AX-SOCIALPROFILE%3BTYPE%3Dinstagram%3Ahttps%3A%2F%2Finstagram.com%2Fadvogadoohacker%0AADR%3BTYPE%3DWORK%3A%3B%3B%3BAracaju%3BSE%3B%3BBrasil%0ANOTE%3ADireito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0AEND%3AVCARD%0A" download="Joao-Pedro-Gomes-Advogado.vcf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Salvar contato</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -661,12 +816,15 @@
             <li><a href="mailto:joaopedrogomes2322@gmail.com">joaopedrogomes2322@gmail.com</a></li>
             <li><a href="https://instagram.com/advogadoohacker" target="_blank" rel="noopener noreferrer">Instagram @advogadoohacker</a></li>
             <li>Aracaju/SE · atendimento digital</li>
+            <li><a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3ASantos%3BJo%C3%A3o%20Pedro%20Gomes%20dos%3B%3BDr.%3B%0AFN%3AJo%C3%A3o%20Pedro%20Gomes%20dos%20Santos%0AORG%3AJo%C3%A3o%20Pedro%20Gomes%20%E2%80%94%20Direito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0ATITLE%3AAdvogado%20%E2%80%94%20OAB%2FSE%2017.295%0ATEL%3BTYPE%3DCELL%2CVOICE%3A%2B5579999100875%0AEMAIL%3BTYPE%3DINTERNET%3Ajoaopedrogomes2322%40gmail.com%0AURL%3Ahttps%3A%2F%2Fjoaopedrogomesadvhacker.adv.br%2F%0AX-SOCIALPROFILE%3BTYPE%3Dinstagram%3Ahttps%3A%2F%2Finstagram.com%2Fadvogadoohacker%0AADR%3BTYPE%3DWORK%3A%3B%3B%3BAracaju%3BSE%3B%3BBrasil%0ANOTE%3ADireito%20Digital%20e%20Crimes%20Cibern%C3%A9ticos%0AEND%3AVCARD%0A" download="Joao-Pedro-Gomes-Advogado.vcf">Salvar contato no celular</a></li>
           </ul>
         </div>
         <div>
           <h2>Navegação</h2>
           <ul>
             <li><a href="#atuacao">Áreas de atuação</a></li>
+            <li><a href="#golpes">Golpes do momento</a></li>
+            <li><a href="#teste">Teste: isso é golpe?</a></li>
             <li><a href="#prazos">Prazos</a></li>
             <li><a href="#metodo">Método</a></li>
             <li><a href="#triagem">Triagem do caso</a></li>
@@ -695,6 +853,21 @@
     <a class="btn btn-line" href="#triagem">Triagem</a>
     <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> WhatsApp</a>
   </div>
+
+  <!-- Fio dourado de leitura -->
+  <div class="read-progress" aria-hidden="true"><i></i></div>
+
+  <!-- Voltar ao topo, com anel de progresso -->
+  <a class="to-top" href="#inicio" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="22"/><circle class="bar" cx="24" cy="24" r="22"/></svg>
+    <span aria-hidden="true">↑</span>
+  </a>
+
+  <!-- Janela do vídeo de apresentação -->
+  <dialog class="video-modal" aria-label="Vídeo de apresentação">
+    <button class="video-close" type="button" aria-label="Fechar vídeo">×</button>
+    <video controls playsinline preload="none"></video>
+  </dialog>
 
   <!-- Som ambiente: desligado por padrão; o botão só aparece se o arquivo existir -->
   <audio id="ambient" src="musica-fundo.mp3" preload="metadata" loop></audio>

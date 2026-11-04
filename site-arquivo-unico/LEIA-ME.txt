@@ -14,6 +14,17 @@ Se só o index.html for enviado, o site já aparece completo. Os outros arquivos
 - favicon.ico, icon-512.png, apple-touch-icon.png ... ícone da aba e do celular
 - treinamento.html, privacidade.html ... páginas linkadas no rodapé
 - musica-fundo.mp3 ........ som ambiente (botão no canto da tela; sem o arquivo, o botão não aparece)
+- 404.html ................ página exibida quando alguém digita um endereço que não existe
+- .htaccess ............... arquivo OCULTO que liga a página 404 (veja abaixo)
+
+SOBRE O .htaccess (arquivo oculto)
+No Gerenciador de Arquivos, ative "Mostrar arquivos ocultos" em Configurações para vê-lo.
+Se já existir um .htaccess na hospedagem, baixe uma cópia dele antes de extrair o zip:
+ao extrair, o arquivo novo substitui o antigo.
+
+VÍDEO DE APRESENTAÇÃO (opcional)
+Envie o vídeo (ex.: video-apresentacao.mp4) para a mesma pasta e peça para ativar o botão
+"Assistir à apresentação" na seção Quem somos.
 
 Para atualizar a prévia no WhatsApp depois de publicar:
 https://developers.facebook.com/tools/debug/ → cole o endereço do site → "Coletar novamente".

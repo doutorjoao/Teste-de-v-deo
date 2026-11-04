@@ -10,7 +10,10 @@
   var wppLink = function (text) { return 'https://wa.me/' + WPP + '?text=' + encodeURIComponent(text); };
 
   /* ---------- Entrada da página ---------- */
-  requestAnimationFrame(function () { document.body.classList.add('is-loaded'); });
+  // com a abertura ativa, a entrada do topo espera a logo terminar
+  setTimeout(function () {
+    requestAnimationFrame(function () { document.body.classList.add('is-loaded'); });
+  }, root.classList.contains('has-intro') ? 1850 : 0);
 
   /* ---------- Ano no rodapé ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -414,4 +417,332 @@
 
     show(1);
   }
+  /* =========================================================
+     ENFEITES
+     ========================================================= */
+  var finePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+  var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+
+  /* ---------- Abertura: remove a camada depois da animação ---------- */
+  var introEl = $('.intro');
+  if (introEl) {
+    introEl.addEventListener('animationend', function (e) { if (e.target === introEl) introEl.remove(); });
+    setTimeout(function () { if (introEl.parentNode) introEl.remove(); }, 4000);
+  }
+
+  /* ---------- Fio de leitura + voltar ao topo ---------- */
+  var readBar = $('.read-progress i');
+  var toTop = $('.to-top');
+  var toTopBar = toTop ? $('.bar', toTop) : null;
+  var progRaf = 0;
+  function updateProgress() {
+    progRaf = 0;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (readBar) readBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    if (toTop) {
+      toTop.classList.toggle('is-visible', window.scrollY > 700);
+      if (toTopBar) toTopBar.style.strokeDashoffset = (138.23 * (1 - p)).toFixed(2);
+    }
+  }
+  window.addEventListener('scroll', function () { if (!progRaf) progRaf = requestAnimationFrame(updateProgress); }, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ---------- Rede de pontos dourados no topo ---------- */
+  var net = $('.hero-bg .net');
+  if (net && net.getContext && hero) {
+    var nctx = net.getContext('2d');
+    var pts = [], NW = 0, NH = 0, mouse = { x: -9999, y: -9999 }, netOn = false, netRaf = 0;
+    var LINK = 130, MLINK = 190;
+    var sizeNet = function () {
+      var r = net.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      NW = r.width; NH = r.height;
+      net.width = Math.round(NW * dpr); net.height = Math.round(NH * dpr);
+      nctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(90, Math.max(28, NW * NH / 15000)));
+      pts = [];
+      for (var i = 0; i < n; i++) {
+        pts.push({ x: Math.random() * NW, y: Math.random() * NH, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() * 1.3 + .6 });
+      }
+    };
+    var drawNet = function () {
+      nctx.clearRect(0, 0, NW, NH);
+      var i, j, a, b, dx, dy, d;
+      for (i = 0; i < pts.length; i++) {
+        a = pts[i];
+        if (!reduceMotion) {
+          a.x += a.vx; a.y += a.vy;
+          if (a.x < 0 || a.x > NW) a.vx *= -1;
+          if (a.y < 0 || a.y > NH) a.vy *= -1;
+          dx = mouse.x - a.x; dy = mouse.y - a.y; d = Math.sqrt(dx * dx + dy * dy);
+          if (d < MLINK && d > 1) { a.x += dx / d * .25; a.y += dy / d * .25; }
+        }
+      }
+      nctx.lineWidth = 1;
+      for (i = 0; i < pts.length; i++) {
+        a = pts[i];
+        for (j = i + 1; j < pts.length; j++) {
+          b = pts[j]; dx = a.x - b.x; dy = a.y - b.y; d = dx * dx + dy * dy;
+          if (d < LINK * LINK) {
+            nctx.strokeStyle = 'rgba(201,165,92,' + ((1 - Math.sqrt(d) / LINK) * .32).toFixed(3) + ')';
+            nctx.beginPath(); nctx.moveTo(a.x, a.y); nctx.lineTo(b.x, b.y); nctx.stroke();
+          }
+        }
+        dx = a.x - mouse.x; dy = a.y - mouse.y; d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MLINK) {
+          nctx.strokeStyle = 'rgba(234,211,155,' + ((1 - d / MLINK) * .55).toFixed(3) + ')';
+          nctx.beginPath(); nctx.moveTo(a.x, a.y); nctx.lineTo(mouse.x, mouse.y); nctx.stroke();
+        }
+        nctx.fillStyle = 'rgba(234,211,155,.75)';
+        nctx.beginPath(); nctx.arc(a.x, a.y, a.r, 0, 6.2832); nctx.fill();
+      }
+      if (netOn && !reduceMotion) netRaf = requestAnimationFrame(drawNet);
+    };
+    var setNet = function (on) {
+      if (on === netOn) return;
+      netOn = on;
+      cancelAnimationFrame(netRaf);
+      if (on) netRaf = requestAnimationFrame(drawNet);
+    };
+    sizeNet();
+    if (reduceMotion) drawNet();
+    var heroVisible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; setNet(heroVisible && !document.hidden); }).observe(hero);
+    }
+    document.addEventListener('visibilitychange', function () { setNet(heroVisible && !document.hidden); });
+    setNet(true);
+    hero.addEventListener('pointermove', function (e) { var r = net.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+    hero.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
+    var netResize = 0;
+    window.addEventListener('resize', function () { clearTimeout(netResize); netResize = setTimeout(function () { sizeNet(); if (reduceMotion) drawNet(); }, 200); });
+  }
+
+  /* ---------- Títulos pequenos que se "decodificam" ---------- */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&@';
+    var decode = function (el) {
+      var text = el.textContent, len = text.length, t0 = performance.now(), dur = 650 + len * 14;
+      var sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = text;
+      var vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+      el.textContent = ''; el.appendChild(sr); el.appendChild(vis);
+      var tick = function (now) {
+        var k = Math.min(1, (now - t0) / dur), out = '';
+        for (var i = 0; i < len; i++) {
+          var c = text.charAt(i);
+          out += (/[\s·\/:?]/.test(c) || i / len < k * 1.2 - .2) ? c : GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
+        }
+        vis.textContent = out;
+        if (k < 1) requestAnimationFrame(tick); else el.textContent = text;
+      };
+      requestAnimationFrame(tick);
+    };
+    var decIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { decIO.unobserve(en.target); decode(en.target); } });
+    }, { threshold: 0.8 });
+    $$('.eyebrow').forEach(function (el) { if (!el.children.length) decIO.observe(el); });
+  }
+
+  /* ---------- Cursor dourado (só mouse) ---------- */
+  if (finePointer && !reduceMotion) {
+    var ring = document.createElement('div'); ring.className = 'cursor-ring'; ring.setAttribute('aria-hidden', 'true');
+    var dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ring); document.body.appendChild(dot);
+    var cx = 0, cy = 0, rx = 0, ry = 0, cOn = false;
+    var follow = function () {
+      rx += (cx - rx) * .2; ry += (cy - ry) * .2;
+      ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+      if (cOn) requestAnimationFrame(follow);
+    };
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      cx = e.clientX; cy = e.clientY;
+      dot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (!cOn) { cOn = true; rx = cx; ry = cy; root.classList.add('cursor-on'); requestAnimationFrame(follow); }
+    });
+    document.documentElement.addEventListener('mouseleave', function () { cOn = false; root.classList.remove('cursor-on'); });
+    document.addEventListener('pointerover', function (e) {
+      ring.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button, summary, label, [data-tilt], .area, .golpes-track')));
+    });
+    document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); });
+    document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); });
+  }
+
+  /* ---------- Cards com inclinação 3D ---------- */
+  if (finePointer && !reduceMotion) {
+    $$('.area, .article, [data-tilt]').forEach(function (el) {
+      var leaveT = 0;
+      el.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse' || (el.closest('.is-dragging'))) return;
+        clearTimeout(leaveT);
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        el.style.transition = 'transform .2s ease-out';
+        el.style.transform = 'perspective(900px) rotateX(' + (-py * 6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg) translateY(-3px)';
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.transition = 'transform .6s cubic-bezier(.2,.7,.2,1)';
+        el.style.transform = '';
+        leaveT = setTimeout(function () { el.style.transition = ''; }, 650);
+      });
+    });
+  }
+
+  /* ---------- Carrossel "Golpes do momento" ---------- */
+  var track = $('[data-car-track]');
+  if (track) {
+    var gCards = $$('.golpe-card', track);
+    var gCount = $('[data-car-count]'), gBar = $('[data-car-bar]');
+    var gPrev = $('[data-car="-1"]'), gNext = $('[data-car="1"]');
+    var stepW = function () { return gCards[0].getBoundingClientRect().width + 22; };
+    var gRaf = 0;
+    var gUpdate = function () {
+      gRaf = 0;
+      var max = track.scrollWidth - track.clientWidth;
+      var i = Math.min(gCards.length - 1, Math.round(track.scrollLeft / stepW()));
+      if (track.scrollLeft >= max - 4) i = gCards.length - 1;
+      if (gCount) gCount.textContent = pad2(i + 1) + ' / ' + pad2(gCards.length);
+      if (gPrev) gPrev.disabled = track.scrollLeft <= 4;
+      if (gNext) gNext.disabled = track.scrollLeft >= max - 4;
+      if (gBar) {
+        gBar.style.width = (track.clientWidth / track.scrollWidth * 100).toFixed(2) + '%';
+        gBar.style.marginLeft = (track.scrollLeft / track.scrollWidth * 100).toFixed(2) + '%';
+      }
+    };
+    var gGo = function (dir) { track.scrollBy({ left: dir * stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); };
+    [gPrev, gNext].forEach(function (b) { if (b) b.addEventListener('click', function () { gGo(Number(b.dataset.car)); }); });
+    track.addEventListener('scroll', function () { if (!gRaf) gRaf = requestAnimationFrame(gUpdate); }, { passive: true });
+    window.addEventListener('resize', gUpdate);
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); gGo(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); gGo(-1); }
+    });
+    // arrastar com o mouse
+    var dragX = 0, dragSL = 0, dragging = false, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('a, button')) return;
+      dragging = true; moved = false; dragX = e.clientX; dragSL = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - dragX;
+      if (!moved && Math.abs(dx) > 5) { moved = true; track.classList.add('is-dragging'); }
+      if (moved) track.scrollLeft = dragSL - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!dragging) return;
+      dragging = false;
+      if (moved) {
+        track.classList.remove('is-dragging');
+        var target = Math.round(track.scrollLeft / stepW()) * stepW();
+        track.scrollTo({ left: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    });
+    gUpdate();
+  }
+
+  /* ---------- Teste: isso é golpe? ---------- */
+  var quiz = $('[data-quiz]');
+  if (quiz) {
+    var Q = [
+      { ch: 'SMS', from: 'BANCO', av: 'B', ans: 'golpe',
+        msg: 'BANCO: identificamos um acesso suspeito na sua conta. Para evitar o bloqueio, regularize em até 2h: atualiza-cadastro-seguro.com',
+        why: 'Bancos não enviam links para “regularizar” a conta. Urgência, ameaça de bloqueio e endereço estranho são sinais clássicos de golpe.' },
+      { ch: 'WhatsApp', from: '+55 11 9•••• ••••', av: '?', ans: 'golpe',
+        msg: 'Oi mãe, troquei de número 😊 salva esse aqui. Preciso pagar um boleto hoje e meu app travou, consegue fazer um Pix pra mim? Amanhã te devolvo',
+        why: 'É o golpe do “número novo”. Antes de qualquer transferência, ligue para o número antigo ou peça uma chamada de vídeo.' },
+      { ch: 'Notificação', from: 'App do seu banco', av: '✓', ans: 'seguro',
+        msg: 'Compra aprovada no cartão final 4321: R$ 32,50 em PADARIA CENTRAL. Não reconhece? Abra o aplicativo e toque em “Contestar”.',
+        why: 'Notificação informativa, sem link e sem pedir dados. Ela orienta a resolver pelo próprio aplicativo, que é o caminho seguro.' },
+      { ch: 'E-mail', from: 'Suporte de Direitos Autorais', av: 'M', ans: 'golpe',
+        msg: 'Seu perfil do Instagram violou nossas diretrizes de direitos autorais e será excluído em 24 horas. Para recorrer, confirme seus dados: appeal-center-meta.com',
+        why: 'Avisos reais aparecem dentro do aplicativo. O prazo curto e o link externo pedindo login servem para roubar a senha e o código de acesso.' },
+      { ch: 'SMS', from: 'WhatsApp', av: 'W', ans: 'seguro',
+        msg: 'Seu código do WhatsApp: 482-913. Não compartilhe esse código com ninguém.',
+        why: 'Se foi você quem pediu o código (ao instalar o WhatsApp num celular novo), a mensagem é legítima. O perigo está em repassar o código a alguém.' },
+      { ch: 'WhatsApp', from: 'Entregas Express', av: 'E', ans: 'golpe',
+        msg: 'Olá! Enviei por engano um código de 6 dígitos por SMS para o seu número. Pode me dizer qual chegou para eu concluir a sua entrega?',
+        why: 'Ninguém precisa do código que chega no seu celular. Repassá-lo permite que golpistas ativem o seu WhatsApp em outro aparelho.' },
+      { ch: 'Ligação', from: 'Central de Segurança', av: '☎', ans: 'golpe',
+        msg: '“Detectamos uma invasão na sua conta. Para proteger o seu saldo, transfira os valores para a conta segura que vou informar enquanto bloqueamos o acesso.”',
+        why: 'Não existe “conta segura”. Desligue e ligue você mesmo para o número oficial do banco, que está no verso do cartão.' }
+    ];
+    var qi = 0, score = 0;
+    var qs = function (k) { return $('[data-q-' + k + ']', quiz); };
+    var stage = qs('stage'), endEl = qs('end'), fb = qs('feedback'), actions = qs('actions');
+    var dots = $$('[data-q-dots] li', quiz), phone = $('.phone', quiz);
+    var renderQ = function () {
+      var q = Q[qi];
+      qs('channel').textContent = q.ch;
+      qs('count').textContent = (qi + 1) + ' de ' + Q.length;
+      qs('avatar').textContent = q.av;
+      qs('from').textContent = q.from;
+      qs('msg').textContent = q.msg;
+      actions.hidden = false; fb.hidden = true;
+      stage.classList.remove('is-entering'); void stage.offsetWidth; stage.classList.add('is-entering');
+      dots.forEach(function (d, i) { d.classList.toggle('is-current', i === qi); });
+    };
+    var answer = function (val) {
+      var q = Q[qi], right = val === q.ans;
+      if (right) score++;
+      actions.hidden = true; fb.hidden = false;
+      fb.classList.toggle('is-right', right); fb.classList.toggle('is-wrong', !right);
+      qs('verdict').textContent = (right ? 'Acertou! ' : 'Quase. ') + (q.ans === 'golpe' ? 'É golpe.' : 'É seguro.');
+      qs('why').textContent = q.why;
+      qs('next').textContent = qi < Q.length - 1 ? 'Próxima mensagem →' : 'Ver resultado →';
+      dots[qi].classList.add(right ? 'ok' : 'err');
+      if (!right && !reduceMotion) { phone.classList.remove('shake'); void phone.offsetWidth; phone.classList.add('shake'); }
+      qs('next').focus({ preventScroll: true });
+    };
+    var finish = function () {
+      stage.hidden = true; endEl.hidden = false;
+      dots.forEach(function (d) { d.classList.remove('is-current'); });
+      qs('score').textContent = score;
+      var title, text;
+      if (score === Q.length) { title = 'Excelente! Você identificou todas.'; text = 'Compartilhe o teste com quem precisa ficar mais atento.'; }
+      else if (score >= 5) { title = 'Muito bem!'; text = 'Você tem bom olho, mas os golpes são feitos para enganar. Os detalhes fazem diferença.'; }
+      else { title = 'Atenção redobrada.'; text = 'Os golpes são cada vez mais convincentes. Releia os “Golpes do momento” e desconfie de urgência.'; }
+      qs('end-title').textContent = title;
+      qs('end-text').textContent = text;
+      qs('share').href = 'https://wa.me/?text=' + encodeURIComponent('Fiz o teste “Isso é golpe?” e acertei ' + score + ' de ' + Q.length + '. Duvido você acertar todas: https://joaopedrogomesadvhacker.adv.br/#teste');
+      qs('restart').focus({ preventScroll: true });
+    };
+    quiz.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-answer]');
+      if (b) { answer(b.dataset.answer); return; }
+      if (e.target.closest('[data-q-next]')) { if (qi < Q.length - 1) { qi++; renderQ(); } else finish(); return; }
+      if (e.target.closest('[data-q-restart]')) {
+        qi = 0; score = 0; endEl.hidden = true; stage.hidden = false;
+        dots.forEach(function (d) { d.classList.remove('ok', 'err'); });
+        renderQ();
+      }
+    });
+    renderQ();
+  }
+
+  /* ---------- Vídeo de apresentação (aparece só se o arquivo existir) ---------- */
+  var vBtn = $('.video-open'), vModal = $('.video-modal');
+  // para ativar: coloque o nome do arquivo em data-video-src (ex.: video-apresentacao.mp4) no index.html
+  if (vBtn && vModal && vBtn.dataset.videoSrc && /^https?:$/.test(location.protocol) && typeof fetch === 'function' && vModal.showModal) {
+    var vSrc = vBtn.dataset.videoSrc, vEl = $('video', vModal), musicWas = false;
+    fetch(vSrc, { method: 'HEAD' }).then(function (r) { if (r.ok) vBtn.hidden = false; }).catch(function () {});
+    vBtn.addEventListener('click', function () {
+      if (!vEl.getAttribute('src')) vEl.src = vSrc;
+      var amb = $('#ambient');
+      musicWas = !!(amb && !amb.paused);
+      if (musicWas) amb.pause();
+      vModal.showModal();
+      var pr = vEl.play(); if (pr && pr.catch) pr.catch(function () {});
+    });
+    var closeV = function () { vModal.close(); };
+    $('.video-close', vModal).addEventListener('click', closeV);
+    vModal.addEventListener('click', function (e) { if (e.target === vModal) closeV(); });
+    vModal.addEventListener('close', function () {
+      vEl.pause();
+      var amb = $('#ambient');
+      if (musicWas && amb) { var p2 = amb.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+    });
+  }
+
 })();

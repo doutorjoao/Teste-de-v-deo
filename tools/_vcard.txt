@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Santos;João Pedro Gomes dos;;Dr.;
+FN:João Pedro Gomes dos Santos
+ORG:João Pedro Gomes — Direito Digital e Crimes Cibernéticos
+TITLE:Advogado — OAB/SE 17.295
+TEL;TYPE=CELL,VOICE:+5579999100875
+EMAIL;TYPE=INTERNET:joaopedrogomes2322@gmail.com
+URL:https://joaopedrogomesadvhacker.adv.br/
+X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/advogadoohacker
+ADR;TYPE=WORK:;;;Aracaju;SE;;Brasil
+NOTE:Direito Digital e Crimes Cibernéticos
+END:VCARD

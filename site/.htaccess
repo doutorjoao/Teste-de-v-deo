@@ -1,0 +1,11 @@
+# Página de erro personalizada
+ErrorDocument 404 /404.html
+
+# Acentos corretos e tipos de arquivo usados pelo site
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddType audio/mpeg .mp3
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType text/vcard .vcf
+</IfModule>

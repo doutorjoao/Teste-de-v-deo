@@ -8,6 +8,9 @@ Site estático (HTML + CSS + JavaScript puro, sem bibliotecas nem serviços de t
 index.html          Página principal
 treinamento.html    Página do treinamento (separada dos serviços — Código de Ética da OAB, art. 40, IV)
 privacidade.html    Política de privacidade (LGPD)
+404.html            Página de erro (ligada pelo .htaccess)
+.htaccess           Configuração do servidor Apache (HostGator)
+musica-fundo.mp3    Som ambiente (opcional)
 favicon.ico
 assets/
   css/style.css     Estilos de todas as páginas
@@ -45,3 +48,11 @@ Depois de publicar, teste a prévia do link em https://developers.facebook.com/t
 python3 -m http.server 8000
 ```
 e abra http://localhost:8000 (abrir o arquivo direto pelo navegador bloqueia as fontes).
+
+## Extras
+
+- `extras/qr-site.png` / `.svg`: QR code do site, para cartão de visita impresso.
+- `extras/qr-contato.png`: QR code que salva o contato direto na agenda.
+- `python3 tools/gerar_qr.py` gera de novo o cartão de contato (vCard) e os QR codes.
+- Vídeo de apresentação: envie o arquivo para a raiz e preencha `data-video-src` no botão
+  `.video-open` do `index.html` (ex.: `data-video-src="video-apresentacao.mp4"`).

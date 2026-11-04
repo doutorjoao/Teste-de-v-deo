@@ -25,12 +25,12 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 
-for page in ("index.html", "treinamento.html", "privacidade.html"):
+for page in ("index.html", "treinamento.html", "privacidade.html", "404.html"):
     html = (SRC / page).read_text(encoding="utf-8")
     html = re.sub(r'\s*<link rel="preload"[^>]*>', "", html)
-    html = html.replace('<link rel="stylesheet" href="assets/css/style.css">', "<style>\n" + css + "\n</style>")
-    html = html.replace('<script src="assets/js/main.js" defer></script>', "<script>\n" + js + "\n</script>")
-    html = re.sub(r'src="assets/img/([^"]+)"', lambda m: f'src="{data_uri(SRC / "assets/img" / m.group(1))}"', html)
+    html = re.sub(r'<link rel="stylesheet" href="/?assets/css/style.css">', lambda m: "<style>\n" + css + "\n</style>", html)
+    html = re.sub(r'<script src="/?assets/js/main.js" defer></script>', lambda m: "<script>\n" + js + "\n</script>", html)
+    html = re.sub(r'src="/?assets/img/([^"]+)"', lambda m: f'src="{data_uri(SRC / "assets/img" / m.group(1))}"', html)
     # arquivos que precisam continuar como arquivos (prévia de link e ícones) ficam na raiz
     html = html.replace(f"{DOMAIN}/assets/img/", f"{DOMAIN}/").replace('href="/assets/img/', 'href="/')
     assert "assets/" not in html, f"{page}: ainda referencia assets/"
@@ -39,6 +39,7 @@ for page in ("index.html", "treinamento.html", "privacidade.html"):
 for f in ("og-image.jpg", "apple-touch-icon.png", "icon-512.png"):
     shutil.copy(SRC / "assets/img" / f, OUT / f)
 shutil.copy(SRC / "favicon.ico", OUT / "favicon.ico")
+shutil.copy(SRC / ".htaccess", OUT / ".htaccess")
 shutil.copy(Path(__file__).resolve().parent / "LEIA-ME.txt", OUT / "LEIA-ME.txt")
 if (SRC / "musica-fundo.mp3").exists():
     shutil.copy(SRC / "musica-fundo.mp3", OUT / "musica-fundo.mp3")
