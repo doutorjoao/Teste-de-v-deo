@@ -18,6 +18,11 @@ assets/
 
 ## Como publicar
 
+> **Mais simples:** use a pasta `site-arquivo-unico/` (gerada por `python3 tools/gerar_arquivo_unico.py`).
+> Cada página traz CSS, JS, fontes e fotos embutidos, então funciona mesmo se as subpastas não forem enviadas.
+
+Versão em várias pastas (esta):
+
 Envie **todo o conteúdo desta pasta** para a raiz do domínio (`joaopedrogomesadvhacker.adv.br`),
 mantendo a estrutura de pastas. Os arquivos antigos `fundo.png`, `musica-fundo.mp3`, `beep.mp3`,
 `alerta.mp3`, `foto-topo.jpeg`, `foto-joao-pedro.jpeg` e `foto-camila.jpeg` não são mais usados.
