@@ -501,7 +501,7 @@
       </div>
       <div class="container about-grid">
         <figure class="about-photo reveal">
-          <div class="ph"><img src="assets/img/joao-escritorio.webp" width="640" height="640" loading="lazy" decoding="async" alt="Retrato de João Pedro Gomes dos Santos, advogado"></div>
+          <div class="ph"><img src="assets/img/joao-noite.webp" width="540" height="750" loading="lazy" decoding="async" alt="Retrato de João Pedro Gomes dos Santos, advogado, com a cidade iluminada ao fundo"></div>
           <figcaption class="caption">OAB/SE 17.295</figcaption>
         </figure>
         <div class="about-copy reveal" style="--i:1">
@@ -695,6 +695,13 @@
     <a class="btn btn-line" href="#triagem">Triagem</a>
     <a class="btn btn-gold" data-wpp="geral" href="https://wa.me/5579999100875" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-wpp"/></svg> WhatsApp</a>
   </div>
+
+  <!-- Som ambiente: desligado por padrão; o botão só aparece se o arquivo existir -->
+  <audio id="ambient" src="musica-fundo.mp3" preload="metadata" loop></audio>
+  <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Ativar som ambiente">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="sound-label">Som ambiente <span class="state">desligado</span></span>
+  </button>
 
   <script src="assets/js/main.js" defer></script>
 </body>

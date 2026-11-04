@@ -27,6 +27,7 @@
   function onScroll() {
     var y = window.scrollY;
     if (header) header.classList.toggle('is-scrolled', y > 30);
+    document.body.classList.toggle('is-scrolled', y > 30);
     if (mobileBar) {
       var limit = hero ? hero.offsetHeight * 0.6 : 300;
       mobileBar.classList.toggle('is-visible', y > limit);
@@ -201,6 +202,76 @@
     }
   }
   if (steps.length) { window.addEventListener('scroll', updateMethod, { passive: true }); updateMethod(); }
+
+  /* ---------- Som ambiente ----------
+     Desligado por padrão (os navegadores bloqueiam som automático).
+     Entrada e saída suaves, pausa ao trocar de aba e lembra a escolha entre páginas. */
+  var audio = $('#ambient');
+  var soundBtn = $('.sound-toggle');
+  if (audio && soundBtn) {
+    var KEY = 'jp-som';
+    var VOLUME = 0.6; // o arquivo já foi masterizado em volume suave
+    var fadeRaf = 0, resumeOnVisible = false;
+    var getPref = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+    var setPref = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+    var stateEl = $('.state', soundBtn);
+
+    var fade = function (to, ms, done) {
+      cancelAnimationFrame(fadeRaf);
+      var from = audio.volume, t0 = performance.now();
+      var step = function (now) {
+        var k = Math.min(1, (now - t0) / ms);
+        try { audio.volume = from + (to - from) * k; } catch (e) {}
+        if (k < 1) fadeRaf = requestAnimationFrame(step); else if (done) done();
+      };
+      fadeRaf = requestAnimationFrame(step);
+    };
+    var ui = function (on) {
+      soundBtn.setAttribute('aria-pressed', String(on));
+      soundBtn.setAttribute('aria-label', on ? 'Desativar som ambiente' : 'Ativar som ambiente');
+      if (stateEl) stateEl.textContent = on ? 'ligado' : 'desligado';
+    };
+    var start = function () {
+      try { audio.volume = 0; } catch (e) {}
+      var pr = audio.play();
+      ui(true);
+      if (pr && pr.then) pr.then(function () { fade(VOLUME, 1800); }, function () { ui(false); });
+      else fade(VOLUME, 1800);
+    };
+    var stop = function () {
+      ui(false);
+      fade(0, 700, function () { audio.pause(); });
+    };
+
+    soundBtn.addEventListener('click', function () {
+      if (soundBtn.getAttribute('aria-pressed') === 'true') { setPref('off'); stop(); }
+      else { setPref('on'); start(); }
+    });
+
+    // o botão só aparece se o arquivo de áudio existir
+    var ready = function () { soundBtn.classList.add('is-ready'); };
+    if (audio.readyState >= 1) ready(); else audio.addEventListener('loadedmetadata', ready, { once: true });
+    audio.addEventListener('error', function () { soundBtn.remove(); });
+
+    // pausa quando a pessoa troca de aba ou abre o WhatsApp
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        if (!audio.paused) { resumeOnVisible = true; audio.pause(); }
+      } else if (resumeOnVisible) { resumeOnVisible = false; start(); }
+    });
+
+    // quem ligou o som numa página continua ouvindo ao navegar (a partir do primeiro toque)
+    if (getPref() === 'on') {
+      var resume = function (e) {
+        document.removeEventListener('pointerdown', resume, true);
+        document.removeEventListener('keydown', resume, true);
+        if (e.target && e.target.closest && e.target.closest('.sound-toggle')) return;
+        if (audio.paused) start();
+      };
+      document.addEventListener('pointerdown', resume, true);
+      document.addEventListener('keydown', resume, true);
+    }
+  }
 
   /* ---------- Triagem ---------- */
   var triage = $('[data-triage]');

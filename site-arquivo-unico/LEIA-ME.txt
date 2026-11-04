@@ -1,0 +1,19 @@
+VERSÃO DE ARQUIVO ÚNICO — mais fácil de publicar
+
+Cada página (index.html, treinamento.html, privacidade.html) já contém dentro de si
+o estilo, as animações, as fontes e as fotos. Não há subpastas.
+
+COMO PUBLICAR
+1. Apague da hospedagem os arquivos antigos do site.
+2. Envie TODOS os arquivos desta pasta para a pasta principal do domínio
+   (normalmente "public_html" ou "www"), lado a lado, sem criar subpastas.
+3. Abra o site e aperte Ctrl+F5 (ou Ctrl+Shift+R) para limpar o cache do navegador.
+
+Se só o index.html for enviado, o site já aparece completo. Os outros arquivos servem para:
+- og-image.jpg ............ imagem que aparece ao compartilhar o link no WhatsApp/Instagram
+- favicon.ico, icon-512.png, apple-touch-icon.png ... ícone da aba e do celular
+- treinamento.html, privacidade.html ... páginas linkadas no rodapé
+- musica-fundo.mp3 ........ som ambiente (botão no canto da tela; sem o arquivo, o botão não aparece)
+
+Para atualizar a prévia no WhatsApp depois de publicar:
+https://developers.facebook.com/tools/debug/ → cole o endereço do site → "Coletar novamente".

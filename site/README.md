@@ -26,6 +26,7 @@ Versão em várias pastas (esta):
 Envie **todo o conteúdo desta pasta** para a raiz do domínio (`joaopedrogomesadvhacker.adv.br`),
 mantendo a estrutura de pastas. Os arquivos antigos `fundo.png`, `musica-fundo.mp3`, `beep.mp3`,
 `alerta.mp3`, `foto-topo.jpeg`, `foto-joao-pedro.jpeg` e `foto-camila.jpeg` não são mais usados.
+A música fica em `musica-fundo.mp3`, na raiz (se o arquivo não existir, o botão de som não aparece).
 
 Depois de publicar, teste a prévia do link em https://developers.facebook.com/tools/debug/
 (clique em "Coletar novamente" para o WhatsApp atualizar a imagem).
@@ -36,7 +37,7 @@ Depois de publicar, teste a prévia do link em https://developers.facebook.com/t
 - **E-mail profissional**: trocar `joaopedrogomes2322@gmail.com` por um endereço do domínio
   (ex.: `contato@joaopedrogomesadvhacker.adv.br`) em `index.html` (rodapé e JSON-LD) e `privacidade.html`.
 - **Fotos**: `assets/img/joao-estudio.webp` foi recortada de uma captura de tela; o arquivo original
-  do fotógrafo terá mais qualidade. `joao-escritorio.webp` tem apenas 640 px — vale uma versão maior.
+  do fotógrafo terá mais qualidade. `joao-noite.webp` veio de uma captura de tela (540 px) — o original deixa a foto mais nítida.
 
 ## Testar localmente
 

@@ -39,6 +39,9 @@ for page in ("index.html", "treinamento.html", "privacidade.html"):
 for f in ("og-image.jpg", "apple-touch-icon.png", "icon-512.png"):
     shutil.copy(SRC / "assets/img" / f, OUT / f)
 shutil.copy(SRC / "favicon.ico", OUT / "favicon.ico")
+shutil.copy(Path(__file__).resolve().parent / "LEIA-ME.txt", OUT / "LEIA-ME.txt")
+if (SRC / "musica-fundo.mp3").exists():
+    shutil.copy(SRC / "musica-fundo.mp3", OUT / "musica-fundo.mp3")
 
 for p in sorted(OUT.iterdir()):
     print(f"{p.name:24s} {p.stat().st_size / 1024:7.0f} KB")

@@ -81,6 +81,13 @@
       <span><a href="index.html">Início</a> · <a href="treinamento.html">Treinamento</a></span>
     </div>
   </footer>
+  <!-- Som ambiente: desligado por padrão; o botão só aparece se o arquivo existir -->
+  <audio id="ambient" src="musica-fundo.mp3" preload="metadata" loop></audio>
+  <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Ativar som ambiente">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="sound-label">Som ambiente <span class="state">desligado</span></span>
+  </button>
+
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>
