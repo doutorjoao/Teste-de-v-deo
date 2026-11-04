@@ -798,6 +798,146 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 .e404 .hero-bg .net { -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%); }
 .site-footer .brand-sub .long { display: none; }
 
+/* =========================================================
+   CELULAR — versão compacta (página mais curta, contato sempre à vista)
+   ========================================================= */
+@media (max-width: 720px) {
+  /* ritmo geral */
+  .section { padding: 56px 0; }
+  .section-head { margin-bottom: 30px; }
+  .section-title { font-size: 34px; margin-bottom: 14px; }
+  .lead { font-size: 16px; }
+  .text-link { min-height: 44px; }
+
+  /* barra de contato sempre visível, sem cobrir o fim da página */
+  .mobile-bar { transform: none; }
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  .site-footer { padding-bottom: 32px; }
+
+  /* topo: botão de ação na primeira tela */
+  .hero { padding: 96px 0 40px; }
+  .hero-kicker { margin-bottom: 18px; }
+  .hero-title { font-size: clamp(40px, 11vw, 52px); margin-bottom: 18px; }
+  .hero-sub { font-size: 15px; line-height: 1.65; margin-bottom: 18px; }
+  .rotator-line { margin-bottom: 22px; }
+  .rotator { font-size: 24px; }
+  .hero .hero-actions .btn-line { display: none; }
+  .hero-visual { margin-top: 0; max-width: 340px; }
+
+  /* atuação: grade 2×4 com ícone e título (o toque abre a triagem) */
+  .areas { grid-template-columns: 1fr 1fr; }
+  .area { padding: 18px 14px 40px; min-height: 0; }
+  .area-num { margin-bottom: 0; font-size: 12px; }
+  .area-icon { width: 28px; height: 28px; }
+  .area h3 { font-size: 21px; line-height: 1.15; margin: 12px 0 0; }
+  .area p, .area-go { display: none; }
+  .area::after { content: "↗"; position: absolute; right: 14px; bottom: 12px; font-size: 15px; color: var(--gold); }
+  .section-head .side-note { margin-top: 12px; font-size: 13px; }
+
+  /* golpes e teste */
+  .golpe-card { gap: 12px; }
+  .phone { min-height: 520px; padding: 12px 14px 18px; border-radius: 30px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9); }
+  .phone-bar { padding-bottom: 8px; }
+  .q-sender { padding: 12px 4px; }
+  .q-dots { margin-top: 16px; }
+  .quiz-note { margin-top: 10px; }
+
+  /* prazos */
+  .tl-rail { margin-bottom: 24px; }
+  .tl-panel { padding: 22px 20px; }
+
+  /* método: sem o dossiê ilustrativo (repete as etapas) */
+  .method-grid { gap: 20px; }
+  .dossier { display: none; }
+  .method-intro { margin-bottom: 0; }
+  .m-step { padding: 18px 0 26px; }
+  .m-step .num { font-size: 40px; margin-bottom: 4px; }
+  .m-step h3 { font-size: 26px; margin-bottom: 8px; }
+  .m-step p { font-size: 15px; }
+  .m-step::before { top: 28px; }
+
+  /* triagem */
+  .triage-aside .lead { margin-bottom: 16px; }
+  .assurances li { padding: 12px 0; }
+  .triage-body { min-height: 0; padding-top: 22px; }
+
+  /* quem somos: fotos menores, dados em duas colunas */
+  .about-grid { gap: 26px; }
+  .about-grid + .about-grid { margin-top: 44px; padding-top: 44px; }
+  .about-photo { max-width: 250px; }
+  .about-photo::before { inset: 12px -12px -12px 12px; }
+  .about-grid.reverse .about-photo::before { inset: 12px 12px -12px -12px; }
+  .about-photo .caption { padding: 10px 12px; bottom: 22px; }
+  .about-copy .section-title { font-size: 29px; }
+  .about-copy p { font-size: 15px; margin-bottom: 12px; }
+  .quote { margin: 18px 0; padding-left: 18px; font-size: 22px; }
+  .facts { grid-template-columns: 1fr 1fr; margin-bottom: 20px; }
+  .facts div { padding: 12px 0; }
+  .facts div:nth-child(odd) { padding-right: 12px; }
+  .facts dd { font-size: 14px; }
+  .channels .btn { flex: 1 1 auto; }
+
+  /* artigos */
+  .article { padding: 24px 20px; }
+  .article .meta { margin-bottom: 20px; }
+  .article h3 { font-size: 27px; margin-bottom: 12px; }
+  .article p { font-size: 14px; margin-bottom: 18px; }
+
+  /* faixa do Instagram e chamada final */
+  .insta-band { padding: 32px 0; }
+  .final-cta .lead { margin-bottom: 24px; }
+
+  /* rodapé: links com área de toque confortável, em duas colunas */
+  .site-footer { padding-top: 48px; }
+  .footer-grid { gap: 24px; padding-bottom: 28px; }
+  .footer-grid li + li { margin-top: 0; }
+  .footer-grid a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer-grid > div:nth-child(3) ul, .footer-grid > div:nth-child(4) ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+  .footer-grid h2 { margin-bottom: 6px; }
+}
+@media (max-width: 720px) {
+  /* quem somos em formato de perfil: foto pequena ao lado do título */
+  .about-grid, .about-grid.reverse { grid-template-columns: 108px 1fr; column-gap: 18px; row-gap: 0; align-items: center; }
+  .about-copy { display: contents; }
+  .about-photo, .about-grid.reverse .about-photo { grid-column: 1; grid-row: 1 / span 2; width: 108px; max-width: none; justify-self: start; align-self: start; order: 0; }
+  .about-photo::before, .about-photo .caption { display: none; }
+  .about-copy > * { grid-column: 1 / -1; }
+  .about-copy > .eyebrow, .about-copy > .section-title { grid-column: 2; }
+  .about-copy > .eyebrow { margin-bottom: 6px; align-self: end; }
+  .about-copy > .section-title { font-size: 24px; margin-bottom: 0; align-self: start; }
+  .about-copy > .section-title + * { margin-top: 18px; }
+
+  .hero-visual { max-width: 290px; }
+  .options .opt { min-height: 50px; padding-block: 10px; }
+  .assurances li:nth-child(2) { display: none; }
+  .article p { display: none; }
+  .footer-grid > div:nth-child(3) { display: none; } /* "Navegação" já está no menu */
+}
+@media (max-width: 720px) {
+  /* método: número ao lado do título, etapas mais enxutas */
+  .method-steps { padding-left: 0; }
+  .method-rail, .m-step::before, .m-step .eyebrow { display: none; }
+  .m-step { display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; padding: 16px 0 18px; border-top: 1px solid var(--ivory-line); }
+  .m-step > * { grid-column: 2; }
+  .m-step .num { grid-column: 1; grid-row: 1 / span 2; font-size: 38px; margin: 0; }
+  .m-step h3 { font-size: 24px; margin-bottom: 6px; }
+  .m-step .text-link { margin-top: 10px; justify-self: start; }
+}
+@media (max-width: 350px) {
+  /* telas muito estreitas (iPhone SE 1ª geração e similares) */
+  :root { --gutter: 16px; }
+  .header-inner { gap: 8px; }
+  .brand { gap: 8px; }
+  .logo-mark { width: 26px; height: 30px; }
+  .brand-name { font-size: 13px; letter-spacing: .04em; }
+  .brand-sub { letter-spacing: .04em; }
+  .sound-toggle { right: calc(var(--gutter) + 52px); }
+  .hero-title { font-size: 38px; }
+  .area h3 { font-size: 19px; }
+  .about-grid, .about-grid.reverse { grid-template-columns: 90px 1fr; column-gap: 14px; }
+  .about-photo, .about-grid.reverse .about-photo { width: 90px; }
+}
+
 </style>
   <script>document.documentElement.classList.add('js');</script>
 
