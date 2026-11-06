@@ -927,6 +927,8 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   .about-grid, .about-grid.reverse { grid-template-columns: 90px 1fr; column-gap: 14px; }
   .about-photo, .about-grid.reverse .about-photo { width: 90px; }
 }
+/* número ímpar de informações: a última ocupa a linha inteira */
+.facts div:last-child:nth-child(odd) { grid-column: 1 / -1; padding-right: 0; }
 
 </style>
   <script>document.documentElement.classList.add('js');</script>
