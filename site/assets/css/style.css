@@ -909,3 +909,83 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 }
 /* número ímpar de informações: a última ocupa a linha inteira */
 .facts div:last-child:nth-child(odd) { grid-column: 1 / -1; padding-right: 0; }
+
+/* =========================================================
+   QUEM SOMOS — hierarquia: fundadores em destaque, associados em bloco
+   ========================================================= */
+.founders .about-photo { max-width: 500px; }
+
+.associates { margin-top: clamp(80px, 10vw, 140px); padding-top: clamp(72px, 9vw, 120px); border-top: 1px solid var(--line); }
+.assoc-head { margin-bottom: clamp(36px, 5vw, 56px); }
+.assoc-title { font-size: clamp(30px, 3.2vw, 44px); }
+.assoc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; align-items: start; }
+.assoc-card { position: relative; padding: 20px 20px 4px; border: 1px solid var(--line); border-radius: 3px; background: linear-gradient(170deg, var(--ink-3), var(--ink)); transition: border-color .4s; }
+.assoc-card:hover { border-color: var(--line-strong); }
+.assoc-photo { aspect-ratio: 18 / 22; overflow: hidden; border-radius: 170px 170px 3px 3px; background: #1d1d20; margin-bottom: 20px; }
+.assoc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%; transition: transform .8s var(--ease); }
+.assoc-card:hover .assoc-photo img { transform: scale(1.03); }
+.assoc-role { font-family: var(--f-caps); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.assoc-name { font-family: var(--f-display); font-size: 26px; font-weight: 500; line-height: 1.12; text-wrap: balance; }
+.assoc-oab { margin: 6px 0 14px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.assoc-tag { font-family: var(--f-display); font-size: 20px; line-height: 1.3; margin-bottom: 16px; }
+.assoc-tag em { color: var(--gold-hi); }
+.assoc-area { padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.assoc-area span { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.assoc-more { margin-top: 14px; border-top: 1px solid var(--line); }
+.assoc-more summary { display: flex; justify-content: space-between; align-items: center; min-height: 52px; cursor: pointer; list-style: none; font-size: 14px; color: var(--gold-hi); }
+.assoc-more summary::-webkit-details-marker { display: none; }
+.assoc-more summary span { font-size: 20px; transition: transform .3s var(--ease); }
+.assoc-more[open] summary span { transform: rotate(45deg); }
+.assoc-more-body { padding-bottom: 18px; animation: panelIn .45s var(--ease); }
+.assoc-more-body > p { font-size: 14px; line-height: 1.75; color: var(--muted); }
+.assoc-quote { margin: 16px 0; padding-left: 14px; border-left: 1px solid var(--gold); font-family: var(--f-display); font-size: 19px; font-style: italic; line-height: 1.3; color: var(--gold-hi); }
+.assoc-facts div { padding: 10px 0; border-top: 1px solid var(--line); }
+.assoc-facts dt { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+.assoc-facts dd { font-size: 14px; }
+
+@media (max-width: 1100px) {
+  .assoc-grid { gap: 18px; }
+  .assoc-card { padding: 16px 16px 4px; }
+  .assoc-name { font-size: 23px; }
+  .assoc-tag { font-size: 18px; }
+}
+@media (max-width: 960px) {
+  /* associados em lista: foto média à esquerda */
+  .assoc-grid { grid-template-columns: 1fr; }
+  .assoc-card { display: grid; grid-template-columns: 220px 1fr; column-gap: 28px; padding: 22px; }
+  .assoc-photo { margin-bottom: 0; align-self: start; }
+}
+@media (max-width: 720px) {
+  /* fundadores com foto maior que a dos associados */
+  .founders .about-grid, .founders .about-grid.reverse { grid-template-columns: 132px 1fr; }
+  .founders .about-photo, .founders .about-grid.reverse .about-photo { width: 132px; }
+  .associates { margin-top: 48px; padding-top: 44px; }
+  .assoc-title { font-size: 28px; }
+  .assoc-grid { gap: 14px; }
+  .assoc-card { grid-template-columns: 88px 1fr; column-gap: 16px; padding: 16px 16px 2px; }
+  .assoc-body { display: contents; }
+  .assoc-photo { grid-column: 1; grid-row: 1 / span 3; border-radius: 60px 60px 3px 3px; }
+  .assoc-role, .assoc-name, .assoc-oab { grid-column: 2; }
+  .assoc-role { margin-bottom: 4px; align-self: end; }
+  .assoc-name { font-size: 22px; }
+  .assoc-oab { margin: 4px 0 0; font-size: 12px; align-self: start; }
+  .assoc-tag, .assoc-area, .assoc-more { grid-column: 1 / -1; }
+  .assoc-tag { font-size: 19px; margin: 14px 0 12px; }
+}
+@media (max-width: 350px) {
+  .founders .about-grid, .founders .about-grid.reverse { grid-template-columns: 108px 1fr; }
+  .founders .about-photo, .founders .about-grid.reverse .about-photo { width: 108px; }
+  .assoc-card { grid-template-columns: 76px 1fr; }
+}
+@media (max-width: 720px) {
+  /* a coluna do texto nunca empurra a página para o lado */
+  .about-grid, .about-grid.reverse { grid-template-columns: 108px minmax(0, 1fr); }
+  .founders .about-grid, .founders .about-grid.reverse { grid-template-columns: 132px minmax(0, 1fr); }
+  .about-copy > .eyebrow { letter-spacing: .12em; gap: 8px; }
+  .about-copy > .eyebrow::before { width: 16px; }
+  .assoc-card { grid-template-columns: 88px minmax(0, 1fr); }
+}
+@media (max-width: 350px) {
+  .founders .about-grid, .founders .about-grid.reverse { grid-template-columns: 108px minmax(0, 1fr); }
+  .assoc-card { grid-template-columns: 76px minmax(0, 1fr); }
+}
