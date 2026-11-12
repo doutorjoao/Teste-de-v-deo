@@ -1039,6 +1039,27 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 }
 .prose a, .policy-summary a { overflow-wrap: anywhere; }
 
+/* ---------- Destaque para a página de e-book e curso ---------- */
+.main-nav a.nav-cursos { color: var(--gold-hi); padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: 99px; }
+.main-nav a.nav-cursos::after { display: none; }
+.main-nav a.nav-cursos:hover { background: rgba(201, 165, 92, .1); border-color: var(--gold-hi); }
+.mobile-nav li a.mnav-cursos { margin-top: 10px; padding: 16px; border: 1px solid var(--line-strong); background: rgba(201, 165, 92, .07); color: var(--gold-hi); }
+.mnav-cursos em { display: block; font-family: var(--f-text); font-style: normal; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.cursos-band { padding: 56px 0; border-block: 1px solid var(--line); background: radial-gradient(600px 300px at 15% 50%, rgba(201, 165, 92, .14), transparent 70%), var(--ink-2); }
+.cursos-inner { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 36px; }
+.cursos-inner img { width: 110px; height: auto; border: 1px solid var(--line-strong); box-shadow: 10px 14px 28px rgba(0, 0, 0, .55); transform: rotate(-3deg); }
+.cursos-inner .eyebrow { margin-bottom: 8px; }
+.cursos-inner h2 { font-size: clamp(26px, 2.6vw, 36px); margin-bottom: 10px; text-wrap: balance; }
+.cursos-inner p:not(.eyebrow) { color: var(--muted); font-size: 15px; max-width: 620px; }
+@media (max-width: 1280px) { .main-nav ul { gap: 14px; } }
+@media (max-width: 960px) { .cursos-inner { grid-template-columns: 90px 1fr; } .cursos-inner .btn { grid-column: 1 / -1; justify-self: start; } .cursos-inner img { width: 90px; } }
+@media (max-width: 720px) { .cursos-band { padding: 40px 0; } .cursos-inner { gap: 18px 20px; } .cursos-inner img { width: 80px; } .cursos-inner h2 { font-size: 24px; } .cursos-inner .btn { width: 100%; } }
+/* menu em uma linha mesmo com o item "E-book e curso" */
+.main-nav a { white-space: nowrap; }
+.site-header .brand-sub { white-space: nowrap; }
+@media (max-width: 1440px) { .site-header .brand-sub .long { display: none; } .main-nav ul { gap: 16px; } }
+@media (max-width: 1320px) { .main-nav ul { gap: 13px; } .main-nav a { font-size: 12.5px; } .header-cta { padding-inline: 14px; } }
+
 </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
