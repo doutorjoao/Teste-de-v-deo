@@ -1046,3 +1046,10 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 .site-header .brand-sub { white-space: nowrap; }
 @media (max-width: 1440px) { .site-header .brand-sub .long { display: none; } .main-nav ul { gap: 16px; } }
 @media (max-width: 1320px) { .main-nav ul { gap: 13px; } .main-nav a { font-size: 12.5px; } .header-cta { padding-inline: 14px; } }
+/* cabeçalho: botão e marca nunca encolhem; o menu se ajusta ao espaço que sobra */
+.site-header .container { max-width: 1400px; }
+.site-header .brand, .header-cta { flex-shrink: 0; }
+.main-nav { min-width: 0; }
+.main-nav ul { gap: clamp(12px, 1.3vw, 22px); }
+.site-header .brand-sub .long { display: none; }
+@media (min-width: 1600px) { .site-header .brand-sub .long { display: inline; } }
