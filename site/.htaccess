@@ -17,3 +17,12 @@ AddDefaultCharset UTF-8
     Header unset Expires
   </FilesMatch>
 </IfModule>
+
+# Cabeçalhos de segurança (LGPD, art. 46: medidas técnicas de proteção)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+</IfModule>
