@@ -25,7 +25,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 
-for page in ("index.html", "treinamento.html", "privacidade.html", "404.html"):
+for page in ("index.html", "treinamento.html", "privacidade.html", "termos.html", "404.html"):
     html = (SRC / page).read_text(encoding="utf-8")
     html = re.sub(r'\s*<link rel="preload"[^>]*>', "", html)
     html = re.sub(r'<link rel="stylesheet" href="/?assets/css/style.css">', lambda m: "<style>\n" + css + "\n</style>", html)
