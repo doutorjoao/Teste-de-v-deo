@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Direito Digital na Prática — João Pedro Gomes</title>
+<style>
+/* Fontes do site (servido a partir da raiz do repositório) */
+@font-face { font-family: "CG"; font-weight: 500; src: url("../site/assets/fonts/cormorant-garamond-latin-500-normal.woff2"); }
+@font-face { font-family: "CG"; font-weight: 500; font-style: italic; src: url("../site/assets/fonts/cormorant-garamond-latin-500-italic.woff2"); }
+@font-face { font-family: "CG"; font-weight: 600; src: url("../site/assets/fonts/cormorant-garamond-latin-600-normal.woff2"); }
+@font-face { font-family: "CZ"; font-weight: 500; src: url("../site/assets/fonts/cinzel-latin-500-normal.woff2"); }
+@font-face { font-family: "IN"; font-weight: 400; src: url("../site/assets/fonts/inter-latin-400-normal.woff2"); }
+@font-face { font-family: "IN"; font-weight: 500; src: url("../site/assets/fonts/inter-latin-500-normal.woff2"); }
+@font-face { font-family: "IN"; font-weight: 600; src: url("../site/assets/fonts/inter-latin-600-normal.woff2"); }
+
+@page { size: 384pt 600pt; margin: 0; }
+:root {
+  --ink: #0a0a0b; --ink2: #131315; --ink3: #1b1b1e;
+  --gold: #c9a55c; --gold-hi: #ead39b; --gold-lo: #8e6a2f;
+  --paper: #f5f1e8; --paper2: #ebe4d4; --text: #1d1b17; --muted: #5d574b; --line: #d8ceb8;
+  --grad: linear-gradient(100deg, #9a7536, #e9d29a 40%, #c9a55c 60%, #f1dfae 80%, #9a7536);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #555; }
+body { font-family: "IN", Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { position: relative; width: 384pt; height: 600pt; overflow: hidden; page-break-after: always; break-after: page; background: var(--paper); color: var(--text); }
+.page:last-child { page-break-after: auto; }
+
+/* ---------- elementos comuns ---------- */
+.dark { background: radial-gradient(420pt 320pt at 70% 30%, rgba(201,165,92,.16), transparent 70%), var(--ink); color: #f2ede3; }
+.inner { position: absolute; inset: 40pt 34pt 46pt; }
+.runhead { position: absolute; top: 18pt; left: 34pt; right: 34pt; display: flex; justify-content: space-between; font-family: "CZ"; font-size: 6.5pt; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-lo); }
+.folio { position: absolute; bottom: 18pt; left: 0; right: 0; text-align: center; font-family: "CG"; font-size: 9pt; color: var(--muted); }
+.dark .folio, .dark .runhead { color: var(--gold); }
+.eyebrow { display: flex; align-items: center; gap: 8pt; font-family: "CZ"; font-size: 7pt; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lo); margin-bottom: 10pt; }
+.eyebrow::before { content: ""; width: 18pt; height: .6pt; background: currentColor; }
+.dark .eyebrow { color: var(--gold); }
+h1, h2, h3 { font-family: "CG"; font-weight: 500; line-height: 1.05; }
+h1, h2, h3, .toc .n, .opener .num, .folio, .tripod i { font-variant-numeric: lining-nums; }
+h2 { font-size: 25pt; margin-bottom: 12pt; letter-spacing: -.2pt; }
+h2 em, h1 em { font-style: italic; color: var(--gold-lo); }
+.dark h2 em, .dark h1 em, .gold { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
+h3 { font-size: 15pt; margin: 14pt 0 6pt; }
+p { font-size: 8.6pt; line-height: 1.62; margin-bottom: 8pt; text-align: justify; hyphens: auto; }
+.lead { font-size: 10pt; line-height: 1.55; font-weight: 500; text-align: left; }
+.rule { height: .6pt; background: var(--line); margin: 12pt 0; }
+ul.list { list-style: none; margin: 4pt 0 8pt; }
+ul.list li { position: relative; padding-left: 13pt; font-size: 8.4pt; line-height: 1.55; margin-bottom: 6pt; }
+ul.list li::before { content: ""; position: absolute; left: 1pt; top: 4.2pt; width: 4.5pt; height: 4.5pt; border: .7pt solid var(--gold-lo); transform: rotate(45deg); }
+.dark ul.list li::before { border-color: var(--gold); }
+blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var(--gold); font-family: "CG"; font-style: italic; font-size: 12pt; line-height: 1.3; color: var(--gold-lo); }
+.dark blockquote { color: var(--gold-hi); }
+.hex { width: 30pt; height: 35pt; }
+.callout { margin: 12pt 0; padding: 11pt 13pt; background: var(--ink); color: #efe9dc; border-radius: 2pt; }
+.callout p { margin: 0; text-align: left; color: #efe9dc; }
+.callout .k { display: block; font-family: "CZ"; font-size: 6.5pt; letter-spacing: .2em; color: var(--gold); margin-bottom: 5pt; }
+
+/* ---------- capa ---------- */
+.cover .net { position: absolute; inset: 0; opacity: .55; }
+.cover .brand { position: absolute; top: 36pt; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8pt; }
+.cover .brand span { font-family: "CZ"; font-size: 7pt; letter-spacing: .3em; color: var(--gold); }
+.cover .title { position: absolute; left: 30pt; right: 30pt; top: 205pt; text-align: center; }
+.cover .kicker { font-family: "CZ"; font-size: 7.5pt; letter-spacing: .32em; color: var(--gold); margin-bottom: 14pt; }
+.cover h1 { font-size: 50pt; line-height: .92; letter-spacing: -1pt; }
+.cover h1 .gold { display: block; font-size: 54pt; padding-right: 4pt; }
+.cover .sub { margin-top: 18pt; font-family: "CG"; font-style: italic; font-size: 13pt; color: #cfc6b4; text-align: center; }
+.cover .author { position: absolute; bottom: 40pt; left: 0; right: 0; text-align: center; }
+.cover .author b { display: block; font-family: "CZ"; font-weight: 500; font-size: 10pt; letter-spacing: .18em; }
+.cover .author small { display: block; margin-top: 5pt; font-size: 6.8pt; letter-spacing: .24em; color: var(--gold); text-transform: uppercase; }
+.cover .frame { position: absolute; inset: 14pt; border: .6pt solid rgba(201,165,92,.4); }
+
+/* ---------- sumário ---------- */
+.toc li { list-style: none; display: grid; grid-template-columns: 34pt 1fr; gap: 6pt; padding: 11pt 0; border-top: .6pt solid var(--line); }
+.toc li:last-child { border-bottom: .6pt solid var(--line); }
+.toc .n { font-family: "CG"; font-style: italic; font-size: 24pt; line-height: .9; color: var(--gold-lo); }
+.toc b { display: block; font-family: "CG"; font-weight: 600; font-size: 12.5pt; line-height: 1.15; }
+.toc small { display: block; margin-top: 3pt; font-size: 7.4pt; line-height: 1.45; color: var(--muted); }
+
+/* ---------- autor ---------- */
+.author-photo { position: absolute; top: 0; left: 0; right: 0; height: 285pt; overflow: hidden; }
+.author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.author-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, var(--ink) 100%); }
+.author-head { position: absolute; top: 236pt; left: 34pt; right: 34pt; }
+.author-head h2 { font-size: 30pt; margin-bottom: 4pt; }
+.author-head .oab { font-size: 7pt; letter-spacing: .22em; color: var(--gold); text-transform: uppercase; }
+.author-body { position: absolute; top: 312pt; left: 34pt; right: 34pt; }
+.author-body p { color: #d8d1c3; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; }
+.cols h3 { font-size: 13pt; margin-top: 0; border-bottom: .6pt solid var(--line); padding-bottom: 6pt; margin-bottom: 8pt; }
+.mission { position: absolute; left: 0; right: 0; bottom: 0; padding: 20pt 34pt 30pt; background: var(--ink); color: #efe9dc; }
+.mission .k { font-family: "CZ"; font-size: 6.5pt; letter-spacing: .24em; color: var(--gold); margin-bottom: 7pt; display: block; }
+.mission p { color: #efe9dc; font-family: "CG"; font-size: 12pt; line-height: 1.35; text-align: left; margin: 0; }
+
+/* ---------- abertura de módulo ---------- */
+.opener .num { position: absolute; right: 30pt; top: 70pt; font-family: "CG"; font-style: italic; font-size: 260pt; line-height: .8; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .9; }
+.opener .txt { position: absolute; left: 34pt; right: 34pt; bottom: 70pt; }
+.opener h2 { font-size: 33pt; line-height: 1.02; margin-bottom: 12pt; }
+.opener .tagline { font-family: "CG"; font-style: italic; font-size: 13pt; color: #cfc6b4; }
+.opener .circ { position: absolute; left: 0; top: 70pt; width: 230pt; opacity: .7; }
+
+/* ---------- casos ---------- */
+.case { padding: 11pt 12pt 3pt; margin-bottom: 9pt; background: #fffdf8; border: .6pt solid var(--line); border-left: 2pt solid var(--gold); }
+.case .tag { font-family: "CZ"; font-size: 6.2pt; letter-spacing: .2em; color: var(--gold-lo); margin-bottom: 4pt; }
+.case b { display: block; font-family: "CG"; font-weight: 600; font-size: 12.5pt; line-height: 1.15; margin-bottom: 5pt; }
+.case p { font-size: 8pt; line-height: 1.55; }
+
+/* ---------- tripé ---------- */
+.tripod { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7pt; margin: 10pt 0 12pt; }
+.tripod div { padding: 10pt 8pt; background: var(--ink); color: #efe9dc; text-align: center; }
+.tripod i { display: block; font-family: "CG"; font-size: 16pt; color: var(--gold); font-style: italic; line-height: 1; margin-bottom: 4pt; }
+.tripod span { font-family: "CZ"; font-size: 6.4pt; letter-spacing: .14em; }
+</style>
+</head>
+<body>
+
+<!-- Sprite: logo -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8e6a2f"/><stop offset=".45" stop-color="#ead39b"/><stop offset="1" stop-color="#a67f3b"/></linearGradient>
+    <linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1dfae"/><stop offset=".55" stop-color="#c9a55c"/><stop offset="1" stop-color="#8e6a2f"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 100 116">
+    <path d="M50 2 97 29v58l-47 27L3 87V29z" fill="none" stroke="url(#gs)" stroke-width="3"/>
+    <path d="M50 10 90 33v50l-40 23-40-23V33z" fill="none" stroke="url(#gs)" stroke-width="1.2"/>
+    <text x="50" y="75" text-anchor="middle" font-family="CG" font-weight="600" font-size="50" fill="url(#gf)" letter-spacing="-2">JP</text>
+  </symbol>
+</svg>
+
+<!-- ===================== 1. CAPA ===================== -->
+<section class="page dark cover">
+  <svg class="net" viewBox="0 0 512 800" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="#c9a55c" stroke-opacity=".35" stroke-width="1">
+      <path d="M0 330h90l26-26h80"/><path d="M0 370h150"/><path d="M0 410h70l26 26h70"/>
+      <path d="M512 340h-80l-26-26h-70"/><path d="M512 380h-140"/><path d="M512 420h-90l-26 26h-60"/>
+    </g>
+    <g fill="#0a0a0b" stroke="#c9a55c" stroke-opacity=".7"><circle cx="196" cy="304" r="4"/><circle cx="150" cy="370" r="4"/><circle cx="166" cy="436" r="4"/><circle cx="336" cy="314" r="4"/><circle cx="372" cy="380" r="4"/><circle cx="346" cy="446" r="4"/></g>
+    <g fill="#ead39b" fill-opacity=".5">
+      <circle cx="60" cy="120" r="1.6"/><circle cx="120" cy="80" r="1.2"/><circle cx="430" cy="140" r="1.6"/><circle cx="470" cy="90" r="1.2"/><circle cx="390" cy="620" r="1.4"/><circle cx="80" cy="640" r="1.4"/><circle cx="250" cy="700" r="1.2"/>
+    </g>
+    <g fill="none" stroke="#c9a55c" stroke-opacity=".18"><path d="M60 120 120 80M430 140 470 90M80 640 250 700 390 620"/></g>
+  </svg>
+  <div class="frame"></div>
+  <div class="brand"><svg class="hex" style="width:38pt;height:44pt"><use href="#logo"/></svg><span>JOÃO PEDRO GOMES · ADVOCACIA</span></div>
+  <div class="title">
+    <p class="kicker">GUIA PARA ADVOGADOS</p>
+    <h1>Direito Digital <span class="gold">na Prática</span></h1>
+    <p class="sub">Da teoria à atuação: casos, petições, plataformas e posicionamento ético.</p>
+  </div>
+  <div class="author"><b>JOÃO PEDRO GOMES DOS SANTOS</b><small>Advogado · OAB/SE 17.295</small></div>
+</section>
+
+<!-- ===================== 2. SUMÁRIO ===================== -->
+<section class="page">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Sumário</span></div>
+  <div class="inner">
+    <p class="eyebrow">Sumário</p>
+    <h2>O que você vai <em>encontrar.</em></h2>
+    <ul class="toc">
+      <li><span class="n">01</span><span><b>O que é Direito Digital na prática (e o que ele não é)</b><small>Tecnologia, comportamento humano e responsabilização. Casos reais que chegam todo dia ao escritório.</small></span></li>
+      <li><span class="n">02</span><span><b>Como advogados estão faturando com Direito Digital hoje</b><small>Áreas de alta demanda, consultoria em LGPD e estratégias de precificação.</small></span></li>
+      <li><span class="n">03</span><span><b>Petições que funcionam no digital</b><small>Fundamentos, provas, inversão do ônus e a produção antecipada de provas.</small></span></li>
+      <li><span class="n">04</span><span><b>Plataformas digitais: como responsabilizar Instagram, Google, TikTok e OnlyFans</b><small>Marco Civil da Internet, quebra de sigilo e medidas que você pode pedir.</small></span></li>
+      <li><span class="n">05</span><span><b>Publicidade, autoridade e captação com ética no digital</b><small>O que o Provimento 205/2021 permite e como construir autoridade.</small></span></li>
+    </ul>
+  </div>
+  <div class="folio">2</div>
+</section>
+
+<!-- ===================== 3. QUEM É JOÃO PEDRO (1/2) ===================== -->
+<section class="page dark">
+  <div class="author-photo"><img src="img/joao-autor.jpg" alt=""></div>
+  <div class="author-head">
+    <p class="eyebrow">Sobre o autor</p>
+    <h2>Quem é <span class="gold">João Pedro?</span></h2>
+    <p class="oab">Advogado · OAB/SE 17.295</p>
+  </div>
+  <div class="author-body">
+    <blockquote>“Quando comecei no Direito Digital, tudo era mato. Perfis falsos, vazamentos, golpes — ninguém sabia o que fazer. Eu entrei nesse universo não por acaso, mas por ver pessoas reais sofrendo danos reais num ambiente que ninguém queria enfrentar: a internet.”</blockquote>
+    <p>Sou João Pedro Gomes dos Santos, advogado (OAB/SE 17.295), com atuação em Direito Digital, LGPD e Inteligência Artificial aplicada à advocacia. Hoje, atuo diretamente com demandas complexas envolvendo plataformas digitais, crimes cibernéticos, proteção de dados e estratégias jurídicas contra gigantes como Meta (Instagram, Facebook), Google, TikTok, Telegram, OnlyFans e similares.</p>
+  </div>
+  <div class="folio">3</div>
+</section>
+
+<!-- ===================== 4. QUEM É JOÃO PEDRO (2/2) ===================== -->
+<section class="page">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Sobre o autor</span></div>
+  <div class="inner" style="bottom:150pt; display:flex; flex-direction:column; justify-content:space-between">
+    <div class="cols">
+      <div>
+        <h3>Minha atuação na prática</h3>
+        <ul class="list">
+          <li>Represento influenciadores, vítimas de vazamento, empresas e criadores de conteúdo.</li>
+          <li>Já ajuizei dezenas de ações com pedidos de remoção de conteúdo, quebra de sigilo de IP, indenização por danos digitais e produção antecipada de provas.</li>
+          <li>Tenho atuação técnica, estratégica e fundamentada, com foco em resultados práticos, provas robustas e linguagem compatível com a era digital.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Destaques profissionais</h3>
+        <ul class="list">
+          <li>Secretário da Comissão de Inteligência Artificial da OAB/SE.</li>
+          <li>Professor e criador do curso “Direito Digital na Prática”.</li>
+          <li>Advogado atuante em todo o Brasil, com foco em estratégia digital e responsabilidade de plataformas.</li>
+          <li>Criador de conteúdo jurídico com foco em educação digital, ética e posicionamento estratégico.</li>
+        </ul>
+      </div>
+    </div>
+    <blockquote style="font-size:11pt">“Além da prática forense, atendo também em assessoria jurídica contínua para criadores de conteúdo, empresas digitais e startups. Meu trabalho é unir o Direito ao funcionamento real da internet, ajudando colegas advogados a entrarem em uma área que é atual, necessária e rentável — sem prometer fórmulas mágicas, mas com técnica, método e resultados.”</blockquote>
+  </div>
+  <div class="mission">
+    <span class="k">MINHA MISSÃO</span>
+    <p>Tornar o Direito Digital acessível, estratégico e rentável para a advocacia. Mostrar que é possível transformar conhecimento jurídico em poder real de atuação na internet, protegendo vidas, negócios e reputações no ambiente virtual.</p>
+  </div>
+</section>
+
+<!-- ===================== 5. ABERTURA DO MÓDULO 1 ===================== -->
+<section class="page dark opener">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
+  <span class="num">1</span>
+  <div class="txt">
+    <p class="eyebrow">Módulo 1</p>
+    <h2>O que é Direito Digital na prática <span class="gold">(e o que ele não é)</span></h2>
+    <p class="tagline">Desmistificando o termo: não é só LGPD, nem só crimes cibernéticos.</p>
+  </div>
+</section>
+
+<!-- ===================== 6. TEXTO ===================== -->
+<section class="page">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
+  <div class="inner">
+    <p class="lead">Se você ainda acha que Direito Digital é só LGPD, está na hora de atualizar sua visão.</p>
+    <p>Essa percepção, embora comum, limita drasticamente o vasto universo de atuação que essa área oferece. O Direito Digital é muito mais do que um “tema da moda” em eventos acadêmicos. Trata-se de uma área viva, prática e altamente rentável, que aborda diretamente as novas relações humanas, profissionais e comerciais mediadas pela tecnologia.</p>
+    <p>A Lei Geral de Proteção de Dados (LGPD) e os crimes cibernéticos são, sem dúvida, pilares importantes — mas representam apenas uma fração do que o Direito Digital realmente engloba.</p>
+    <div class="rule"></div>
+    <h3>Mas afinal, o que é Direito Digital?</h3>
+    <p>O Direito Digital é o campo que lida com os impactos da tecnologia na sociedade e na vida das pessoas. Ele abrange desde casos de vazamento de conteúdo íntimo, perfis falsos e clonagem de WhatsApp até contratos digitais, assessoria para criadores de conteúdo e a responsabilização de plataformas como Instagram, TikTok, OnlyFans e Google.</p>
+    <p style="margin-bottom:4pt">Para compreender sua essência, é fundamental analisar o seu tripé de sustentação:</p>
+    <div class="tripod">
+      <div><i>i.</i><span>TECNOLOGIA</span></div>
+      <div><i>ii.</i><span>COMPORTAMENTO HUMANO</span></div>
+      <div><i>iii.</i><span>RESPONSABILIZAÇÃO</span></div>
+    </div>
+    <p>Cada um desses elementos é interdependente e crucial para a aplicação eficaz do direito no ambiente digital.</p>
+  </div>
+  <div class="folio">6</div>
+</section>
+
+<!-- ===================== 7. CASOS REAIS ===================== -->
+<section class="page">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
+  <div class="inner">
+    <p class="eyebrow">Na prática</p>
+    <h2>Casos que chegam <em>todo dia</em> ao escritório.</h2>
+    <div class="case">
+      <p class="tag">EXPOSIÇÃO ÍNTIMA</p>
+      <b>Cliente que teve foto íntima vazada por ex-companheiro e quer removê-la da internet</b>
+      <p>Um dos casos mais delicados e urgentes. O advogado digital atua rapidamente para identificar a origem do vazamento, notificar plataformas e provedores para a remoção do conteúdo e buscar a responsabilização civil e criminal do agressor.</p>
+    </div>
+    <div class="case">
+      <p class="tag">PLATAFORMAS</p>
+      <b>Influenciador com conta suspensa sem justificativa clara pelo Instagram</b>
+      <p>A conta de um influenciador é seu principal ativo. O advogado digital atua na negociação com a plataforma, buscando a reativação da conta e, se necessário, ajuizando ações para reparação de danos.</p>
+    </div>
+    <div class="case">
+      <p class="tag">REPUTAÇÃO</p>
+      <b>Empresário vítima de fake news, com ataques pessoais e queda de faturamento</b>
+      <p>A atuação envolve a identificação dos responsáveis pela disseminação, a remoção do conteúdo ofensivo e a busca por indenização pelos danos morais e materiais sofridos.</p>
+    </div>
+  </div>
+  <div class="folio">7</div>
+</section>
+
+</body>
+</html>
