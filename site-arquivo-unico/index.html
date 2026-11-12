@@ -1036,6 +1036,26 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 .policy-table td:first-child { color: var(--text); }
 .r-legal a { color: var(--gold-hi); border-bottom: 1px solid var(--line-strong); }
 
+/* ---------- E-book (página para advogados) ---------- */
+.ebook-cover { max-width: 400px; justify-self: center; filter: drop-shadow(18px 22px 30px rgba(0,0,0,.6)); }
+.ebook-cover img { width: 100%; height: auto; border: 1px solid var(--line-strong); }
+.ebook-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 26px 0 6px; border-block: 1px solid var(--line); }
+.ebook-facts li { padding: 16px 0; text-align: center; }
+.ebook-facts li + li { border-left: 1px solid var(--line); }
+.ebook-facts b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 34px; line-height: 1; color: var(--gold-hi); font-variant-numeric: lining-nums; }
+.ebook-facts span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.course-band { background: var(--ink-2); border-top: 1px solid var(--line); }
+@media (max-width: 720px) { .ebook-cover { max-width: 250px; } .ebook-facts b { font-size: 28px; } }
+/* páginas internas: link de volta compacto no celular, sem disputar espaço com o botão de som */
+.back-short { display: none; }
+@media (max-width: 720px) {
+  .back-long { display: none; }
+  .back-short { display: inline; }
+  .back-link { font-size: 13px; white-space: nowrap; }
+  body:not(:has(.menu-btn)) .sound-toggle { right: calc(var(--gutter) + 72px); }
+}
+.prose a, .policy-summary a { overflow-wrap: anywhere; }
+
 </style>
   <script>document.documentElement.classList.add('js');</script>
 
@@ -1921,7 +1941,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
             <li><a href="privacidade.html">Política de privacidade</a></li>
             <li><a href="termos.html">Termos de uso</a></li>
             <li><a href="privacidade.html#cookies">Cookies</a></li>
-            <li><a href="treinamento.html">Para advogados: treinamento</a></li>
+            <li><a href="treinamento.html">Para advogados: e-book e curso</a></li>
             <li><a href="#artigos">Artigos</a></li>
           </ul>
         </div>

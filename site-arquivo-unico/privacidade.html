@@ -1019,6 +1019,26 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
 .policy-table td:first-child { color: var(--text); }
 .r-legal a { color: var(--gold-hi); border-bottom: 1px solid var(--line-strong); }
 
+/* ---------- E-book (página para advogados) ---------- */
+.ebook-cover { max-width: 400px; justify-self: center; filter: drop-shadow(18px 22px 30px rgba(0,0,0,.6)); }
+.ebook-cover img { width: 100%; height: auto; border: 1px solid var(--line-strong); }
+.ebook-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 26px 0 6px; border-block: 1px solid var(--line); }
+.ebook-facts li { padding: 16px 0; text-align: center; }
+.ebook-facts li + li { border-left: 1px solid var(--line); }
+.ebook-facts b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 34px; line-height: 1; color: var(--gold-hi); font-variant-numeric: lining-nums; }
+.ebook-facts span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.course-band { background: var(--ink-2); border-top: 1px solid var(--line); }
+@media (max-width: 720px) { .ebook-cover { max-width: 250px; } .ebook-facts b { font-size: 28px; } }
+/* páginas internas: link de volta compacto no celular, sem disputar espaço com o botão de som */
+.back-short { display: none; }
+@media (max-width: 720px) {
+  .back-long { display: none; }
+  .back-short { display: inline; }
+  .back-link { font-size: 13px; white-space: nowrap; }
+  body:not(:has(.menu-btn)) .sound-toggle { right: calc(var(--gutter) + 72px); }
+}
+.prose a, .policy-summary a { overflow-wrap: anywhere; }
+
 </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -1043,7 +1063,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
         <svg class="logo-mark" aria-hidden="true"><use href="#logo"/></svg>
         <span><span class="brand-name">João Pedro Gomes</span><span class="brand-sub">Direito Digital<span class="long"> · Crimes Cibernéticos</span></span></span>
       </a>
-      <a class="text-link" href="index.html">← Voltar ao site</a>
+      <a class="text-link back-link" href="index.html"><span aria-hidden="true">←</span> <span class="back-long">Voltar ao site</span><span class="back-short">Início</span></a>
     </div>
   </header>
 
@@ -1112,6 +1132,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
           <li><strong>HostGator</strong>, hospedagem do site: armazena os arquivos do site e registros técnicos de acesso.</li>
           <li><strong>Cloudflare, Inc.</strong>, entrega e proteção do site: trata o endereço IP e dados técnicos da navegação e protege o e-mail exibido no site contra robôs de spam.</li>
           <li><strong>Meta</strong> (WhatsApp e Instagram) e <strong>Google</strong> (e-mail): quando você escolhe falar conosco por esses canais.</li>
+          <li><strong>Hotmart</strong>: quando você compra o e-book ou o curso. A compra é feita na plataforma da Hotmart, que trata os dados de pagamento e de entrega conforme a própria política de privacidade. Recebemos dela apenas os dados necessários para identificar a compra e dar suporte.</li>
           <li><strong>Autoridades públicas</strong>: quando houver obrigação legal ou ordem judicial.</li>
         </ul>
 
@@ -1145,7 +1166,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
         <p>Este site não é direcionado a menores de 18 anos. Quando o caso envolver uma criança ou um adolescente, o contato deve ser feito pelos pais ou pelo responsável legal, e os dados serão tratados no melhor interesse do menor (art. 14 da LGPD).</p>
 
         <h2>10. Links para outros sites</h2>
-        <p>O site contém links para WhatsApp, Instagram e Jusbrasil. Ao acessá-los, valem as políticas de privacidade de cada um desses serviços.</p>
+        <p>O site contém links para WhatsApp, Instagram, Jusbrasil e Hotmart. Ao acessá-los, valem as políticas de privacidade de cada um desses serviços.</p>
 
         <h2>11. Alterações desta política</h2>
         <p>Esta política pode ser atualizada para refletir mudanças no site ou na legislação. A data e a versão no topo da página indicam a última atualização.</p>
@@ -1156,7 +1177,7 @@ h1, h2, h3, h4, .tl-panel .big, .tl-node strong, .m-step .num, .rotator, .quote 
   <footer class="site-footer">
     <div class="container footer-bottom" style="padding-top:0">
       <span>© <span data-year>2026</span> João Pedro Gomes dos Santos · OAB/SE 17.295</span>
-      <span><a href="index.html">Início</a> · <a href="termos.html">Termos de uso</a> · <a href="treinamento.html">Treinamento</a></span>
+      <span><a href="index.html">Início</a> · <a href="termos.html">Termos de uso</a> · <a href="treinamento.html">E-book e curso</a></span>
     </div>
   </footer>
   <!-- Som ambiente: desligado por padrão; o botão só aparece se o arquivo existir -->
