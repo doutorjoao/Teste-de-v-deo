@@ -63,14 +63,14 @@ blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var
 .cover .kicker { font-family: "CZ"; font-size: 7.5pt; letter-spacing: .32em; color: var(--gold); margin-bottom: 14pt; }
 .cover h1 { font-size: 50pt; line-height: .92; letter-spacing: -1pt; }
 .cover h1 .gold { display: block; font-size: 54pt; padding-right: 4pt; }
-.cover .sub { margin-top: 18pt; font-family: "CG"; font-style: italic; font-size: 13pt; color: #cfc6b4; text-align: center; }
+.cover .sub { text-wrap: balance; margin-top: 18pt; font-family: "CG"; font-style: italic; font-size: 13pt; color: #cfc6b4; text-align: center; }
 .cover .author { position: absolute; bottom: 40pt; left: 0; right: 0; text-align: center; }
 .cover .author b { display: block; font-family: "CZ"; font-weight: 500; font-size: 10pt; letter-spacing: .18em; }
 .cover .author small { display: block; margin-top: 5pt; font-size: 6.8pt; letter-spacing: .24em; color: var(--gold); text-transform: uppercase; }
 .cover .frame { position: absolute; inset: 14pt; border: .6pt solid rgba(201,165,92,.4); }
 
 /* ---------- sumário ---------- */
-.toc li { list-style: none; display: grid; grid-template-columns: 34pt 1fr; gap: 6pt; padding: 11pt 0; border-top: .6pt solid var(--line); }
+.toc li { list-style: none; display: grid; grid-template-columns: 34pt 1fr 20pt; gap: 6pt; padding: 11pt 0; border-top: .6pt solid var(--line); }
 .toc li:last-child { border-bottom: .6pt solid var(--line); }
 .toc .n { font-family: "CG"; font-style: italic; font-size: 24pt; line-height: .9; color: var(--gold-lo); }
 .toc b { display: block; font-family: "CG"; font-weight: 600; font-size: 12.5pt; line-height: 1.15; }
@@ -109,6 +109,34 @@ blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var
 .tripod div { padding: 10pt 8pt; background: var(--ink); color: #efe9dc; text-align: center; }
 .tripod i { display: block; font-family: "CG"; font-size: 16pt; color: var(--gold); font-style: italic; line-height: 1; margin-bottom: 4pt; }
 .tripod span { font-family: "CZ"; font-size: 6.4pt; letter-spacing: .14em; }
+
+/* ---------- texto corrido (páginas geradas) ---------- */
+.inner > :first-child { margin-top: 0 !important; }
+h2.sec { font-size: 21pt; line-height: 1.08; margin: 16pt 0 9pt; padding-top: 10pt; border-top: .6pt solid var(--line); }
+.inner > h2.sec:first-child { border-top: 0; padding-top: 0; }
+h3 { font-size: 13.5pt; line-height: 1.15; margin: 13pt 0 6pt; color: #2a251c; }
+ul.list { margin: 0 0 2pt; }
+.lead { margin: 2pt 0 9pt; }
+.callout { break-inside: avoid; }
+.example { margin: 10pt 0; padding: 10pt 12pt; background: #fffdf8; border: .6pt solid var(--line); border-left: 2pt solid var(--gold); }
+.example .k { display: block; font-family: "CZ"; font-size: 6.4pt; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-lo); margin-bottom: 4pt; }
+.example p { margin: 0; font-size: 8.2pt; font-style: italic; line-height: 1.55; }
+.concl { margin: 18pt 0 8pt; padding: 14pt 0 0; border-top: 1.2pt solid var(--gold); }
+.concl .eyebrow { margin-bottom: 6pt; }
+.concl h2 { font-size: 21pt; margin: 0; }
+.case { break-inside: avoid; }
+.toc .pg { font-family: "CG"; font-size: 12pt; color: var(--gold-lo); text-align: right; align-self: start; }
+
+/* ---------- página final ---------- */
+.final .rings { position: absolute; width: 520pt; left: 50%; top: 40pt; transform: translateX(-50%); }
+.final-txt { position: absolute; left: 34pt; right: 34pt; top: 150pt; text-align: center; }
+.final-txt .hex { margin: 0 auto 16pt; display: block; }
+.final-txt h2 { font-size: 38pt; margin-bottom: 12pt; }
+.final-txt p { text-align: center; color: #cfc6b4; font-size: 9.5pt; }
+.final .links { display: flex; flex-direction: column; gap: 10pt; margin-top: 22pt; }
+.final .links span { display: block; padding: 10pt; border: .6pt solid rgba(201,165,92,.45); font-family: "CG"; font-size: 15pt; color: #f2ede3; }
+.final .links small { display: block; font-family: "CZ"; font-size: 6.2pt; letter-spacing: .24em; color: var(--gold); margin-bottom: 3pt; }
+.final-foot { position: absolute; left: 34pt; right: 34pt; bottom: 30pt; text-align: center; font-size: 6.6pt; line-height: 1.6; color: #8f897c; }
 </style>
 </head>
 <body>
@@ -156,11 +184,11 @@ blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var
     <p class="eyebrow">Sumário</p>
     <h2>O que você vai <em>encontrar.</em></h2>
     <ul class="toc">
-      <li><span class="n">01</span><span><b>O que é Direito Digital na prática (e o que ele não é)</b><small>Tecnologia, comportamento humano e responsabilização. Casos reais que chegam todo dia ao escritório.</small></span></li>
-      <li><span class="n">02</span><span><b>Como advogados estão faturando com Direito Digital hoje</b><small>Áreas de alta demanda, consultoria em LGPD e estratégias de precificação.</small></span></li>
-      <li><span class="n">03</span><span><b>Petições que funcionam no digital</b><small>Fundamentos, provas, inversão do ônus e a produção antecipada de provas.</small></span></li>
-      <li><span class="n">04</span><span><b>Plataformas digitais: como responsabilizar Instagram, Google, TikTok e OnlyFans</b><small>Marco Civil da Internet, quebra de sigilo e medidas que você pode pedir.</small></span></li>
-      <li><span class="n">05</span><span><b>Publicidade, autoridade e captação com ética no digital</b><small>O que o Provimento 205/2021 permite e como construir autoridade.</small></span></li>
+      <li><span class="n">01</span><span><b>O que é Direito Digital na prática (e o que ele não é)</b><small>Tecnologia, comportamento humano e responsabilização. Casos reais que chegam todo dia ao escritório.</small></span><span class="pg" data-mod="1"></span></li>
+      <li><span class="n">02</span><span><b>Como advogados estão faturando com Direito Digital hoje</b><small>Áreas de alta demanda, consultoria em LGPD e estratégias de precificação.</small></span><span class="pg" data-mod="2"></span></li>
+      <li><span class="n">03</span><span><b>Petições que funcionam no digital</b><small>Fundamentos, provas, inversão do ônus e a produção antecipada de provas.</small></span><span class="pg" data-mod="3"></span></li>
+      <li><span class="n">04</span><span><b>Plataformas digitais: como responsabilizar Instagram, Google, TikTok e OnlyFans</b><small>Marco Civil da Internet, quebra de sigilo e medidas que você pode pedir.</small></span><span class="pg" data-mod="4"></span></li>
+      <li><span class="n">05</span><span><b>Publicidade, autoridade e captação com ética no digital</b><small>O que o Provimento 205/2021 permite e como construir autoridade.</small></span><span class="pg" data-mod="5"></span></li>
     </ul>
   </div>
   <div class="folio">2</div>
@@ -212,8 +240,7 @@ blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var
   </div>
 </section>
 
-<!-- ===================== 5. ABERTURA DO MÓDULO 1 ===================== -->
-<section class="page dark opener">
+<section class="page dark opener" data-mod-start="1">
   <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
   <span class="num">1</span>
   <div class="txt">
@@ -221,52 +248,420 @@ blockquote { margin: 10pt 0; padding: 2pt 0 2pt 11pt; border-left: 1pt solid var
     <h2>O que é Direito Digital na prática <span class="gold">(e o que ele não é)</span></h2>
     <p class="tagline">Desmistificando o termo: não é só LGPD, nem só crimes cibernéticos.</p>
   </div>
+  <div class="folio"></div>
 </section>
 
-<!-- ===================== 6. TEXTO ===================== -->
-<section class="page">
-  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
-  <div class="inner">
-    <p class="lead">Se você ainda acha que Direito Digital é só LGPD, está na hora de atualizar sua visão.</p>
-    <p>Essa percepção, embora comum, limita drasticamente o vasto universo de atuação que essa área oferece. O Direito Digital é muito mais do que um “tema da moda” em eventos acadêmicos. Trata-se de uma área viva, prática e altamente rentável, que aborda diretamente as novas relações humanas, profissionais e comerciais mediadas pela tecnologia.</p>
-    <p>A Lei Geral de Proteção de Dados (LGPD) e os crimes cibernéticos são, sem dúvida, pilares importantes — mas representam apenas uma fração do que o Direito Digital realmente engloba.</p>
-    <div class="rule"></div>
-    <h3>Mas afinal, o que é Direito Digital?</h3>
-    <p>O Direito Digital é o campo que lida com os impactos da tecnologia na sociedade e na vida das pessoas. Ele abrange desde casos de vazamento de conteúdo íntimo, perfis falsos e clonagem de WhatsApp até contratos digitais, assessoria para criadores de conteúdo e a responsabilização de plataformas como Instagram, TikTok, OnlyFans e Google.</p>
-    <p style="margin-bottom:4pt">Para compreender sua essência, é fundamental analisar o seu tripé de sustentação:</p>
-    <div class="tripod">
-      <div><i>i.</i><span>TECNOLOGIA</span></div>
-      <div><i>ii.</i><span>COMPORTAMENTO HUMANO</span></div>
-      <div><i>iii.</i><span>RESPONSABILIZAÇÃO</span></div>
-    </div>
-    <p>Cada um desses elementos é interdependente e crucial para a aplicação eficaz do direito no ambiente digital.</p>
+<div class="flow" data-mod="1">
+<p class="lead">Se você ainda acha que Direito Digital é só LGPD, está na hora de atualizar sua visão.</p>
+<p>Essa percepção, embora comum, limita drasticamente o vasto universo de atuação que essa área oferece.</p>
+<p>O Direito Digital é muito mais do que uma moda passageira ou um “tema da moda” em eventos acadêmicos. Trata-se de uma área viva, prática e altamente rentável, que aborda diretamente as novas relações humanas, profissionais e comerciais mediadas pela tecnologia.</p>
+<p>A Lei Geral de Proteção de Dados (LGPD) e os crimes cibernéticos são, sem dúvida, pilares importantes — mas representam apenas uma fração do que o Direito Digital realmente engloba. A complexidade e a dinamicidade do ambiente digital exigem uma compreensão muito mais ampla e multifacetada.</p>
+<h2 class="sec keep">Mas afinal, o que é Direito Digital?</h2>
+<p class="lead">O Direito Digital é o campo que lida com os impactos da tecnologia na sociedade e na vida das pessoas.</p>
+<p>Ele abrange desde casos de vazamento de conteúdo íntimo, perfis falsos e clonagem de WhatsApp até contratos digitais, assessoria para criadores de conteúdo e a responsabilização de plataformas como Instagram, TikTok, OnlyFans e Google.</p>
+<p>O Direito Digital não se restringe a um conjunto isolado de leis, mas sim a uma abordagem jurídica que se adapta e evolui com o avanço tecnológico. Ele representa a intersecção entre o direito tradicional e as inovações digitais, buscando regulamentar e proteger as interações que acontecem no ciberespaço.</p>
+<p>Isso significa que advogados que atuam nessa área precisam ter um conhecimento aprofundado não apenas das leis, mas também das tecnologias e do comportamento humano no ambiente online.</p>
+<h2 class="sec keep">O tripé do Direito Digital</h2>
+<p class="keep">Para compreender a essência do Direito Digital, é fundamental analisar o seu tripé de sustentação:</p>
+<div class="tripod"><div><i>i.</i><span>TECNOLOGIA</span></div><div><i>ii.</i><span>COMPORTAMENTO HUMANO</span></div><div><i>iii.</i><span>RESPONSABILIZAÇÃO</span></div></div>
+<p><b>Tecnologia, comportamento humano e responsabilização.</b> Cada um desses elementos é interdependente e crucial para a aplicação eficaz do direito no ambiente digital.</p>
+<h3 class="keep">i. Tecnologia</h3>
+<p>A tecnologia é o <b>motor</b> que impulsiona o Direito Digital.</p>
+<p>A constante evolução de ferramentas, plataformas e sistemas cria cenários jurídicos inéditos. Compreender como essas tecnologias funcionam — desde a arquitetura de redes sociais até os algoritmos de inteligência artificial — é essencial para o advogado digital. Não se trata de se tornar um especialista em TI, mas de adquirir um conhecimento funcional que permita entender as nuances técnicas dos casos.</p>
+<p>Por exemplo, saber como um dado é armazenado, como uma comunicação é transmitida ou como um perfil falso é criado é fundamental para a construção de uma estratégia jurídica sólida. A tecnologia não é apenas o objeto de regulamentação, mas também uma ferramenta crucial para a coleta de provas e a aplicação da lei.</p>
+<h3 class="keep">ii. Comportamento humano</h3>
+<p><b>O comportamento humano no ambiente digital é o segundo pilar do Direito Digital.</b> As interações online, muitas vezes desprovidas das barreiras sociais do mundo físico, podem dar origem a condutas que vão da inovação à ilicitude.</p>
+<p>O Direito Digital atua diretamente sobre a forma como as pessoas se relacionam, consomem, produzem conteúdo e se expressam nas redes. A proteção da honra, da imagem, da privacidade e dos dados pessoais é uma necessidade constante, diante da facilidade com que informações podem ser compartilhadas e manipuladas.</p>
+<p>Compreender a psicologia por trás do uso das redes sociais, a viralização de conteúdos e a formação de comunidades online é fundamental para antecipar problemas e desenvolver soluções jurídicas eficazes. O advogado digital precisa ser um observador atento das tendências comportamentais no ciberespaço.</p>
+<h3 class="keep">iii. Responsabilização</h3>
+<p><b>A responsabilização é o terceiro pilar do Direito Digital — e talvez o mais crítico.</b></p>
+<p>No ambiente digital, identificar os autores de atos ilícitos e atribuir responsabilidades pode ser um grande desafio, principalmente devido ao anonimato e à transnacionalidade da internet.</p>
+<p>O Direito Digital busca estabelecer mecanismos para responsabilizar civil e penalmente indivíduos, empresas e plataformas por atos cometidos online. Isso envolve tanto a aplicação de leis já existentes quanto a criação de novas regulamentações para enfrentar questões como a disseminação de fake news, a violação de direitos autorais, crimes de ódio online e a responsabilidade das plataformas por conteúdos gerados por terceiros.</p>
+<div class="callout"><span class="k">EM RESUMO</span><p>A capacidade de rastrear, identificar e responsabilizar é o que garante efetividade à atuação do advogado digital.</p></div>
+<h2 class="sec keep">A importância da atuação prática e estratégica</h2>
+<p>O Direito Digital não é uma área puramente teórica — é prática, estratégica e urgente.</p>
+<p>A velocidade com que os fatos ocorrem no ambiente digital exige uma atuação jurídica ágil e assertiva. Não basta conhecer a lei; é preciso saber aplicá-la de forma eficaz em situações complexas e, muitas vezes, inéditas.</p>
+<p>A estratégia é fundamental, pois cada caso digital apresenta particularidades que demandam soluções criativas e personalizadas. A capacidade de antecipar riscos, desenvolver planos de ação e negociar com plataformas e provedores de serviços é o que diferencia o advogado digital de sucesso.</p>
+<p>A prática contenciosa — que envolve remoção de conteúdo, identificação de autores anônimos e defesa em casos de crimes cibernéticos — é um exemplo claro da necessidade de uma atuação prática e orientada para resultados.</p>
+<p>Além disso, a assessoria preventiva para empresas, startups e influenciadores digitais é igualmente essencial, ajudando a evitar problemas antes que eles surjam.</p>
+<h2 class="sec keep">E o que o Direito Digital <em>não</em> é?</h2>
+<p>É importante desmistificar algumas concepções errôneas sobre o Direito Digital para que se tenha uma compreensão completa de sua abrangência e relevância.</p>
+<h3 class="keep">Não é só sobre tecnologia</h3>
+<p>Embora a tecnologia seja o pano de fundo, o Direito Digital não se limita a ela.</p>
+<p>O foco está nas relações humanas e nos impactos sociais, econômicos e jurídicos que a tecnologia provoca. O Direito Digital concentra-se nas pessoas, nas empresas e nas interações que ocorrem por meio da tecnologia — e não na tecnologia em si.</p>
+<p>Um advogado digital não precisa ser programador, mas deve compreender como a tecnologia afeta a vida das pessoas e as relações jurídicas, para então atuar com efetividade e responsabilidade nesse cenário em constante transformação.</p>
+<h3 class="keep">Não é um ramo “do futuro”: ele já é uma realidade judicial</h3>
+<p>Por muito tempo, o Direito Digital foi visto como uma área emergente, algo que só seria relevante no futuro. No entanto, essa visão está completamente desatualizada.</p>
+<p>O Direito Digital já é uma realidade consolidada nos tribunais brasileiros e internacionais. Casos envolvendo questões digitais chegam diariamente ao Judiciário, exigindo que advogados e juízes estejam preparados para lidar com as complexidades desse novo ambiente.</p>
+<p>A jurisprudência se forma rapidamente, e a legislação — embora, por vezes, defasada — está em constante atualização para acompanhar o ritmo das inovações tecnológicas. Ignorar o Direito Digital hoje é ignorar uma parte significativa da prática jurídica contemporânea.</p>
+<h3 class="keep">Não é uma área puramente teórica: é prática, estratégica e urgente</h3>
+<p>Ao contrário de algumas áreas do direito que podem ter um caráter mais acadêmico ou teórico, o Direito Digital é intrinsecamente prático. Os problemas que surgem no ambiente digital exigem soluções rápidas e eficazes.</p>
+<p>A urgência é uma característica marcante, pois a disseminação de informações, a ocorrência de golpes e a violação de direitos podem acontecer em questão de segundos, causando danos irreversíveis. A atuação do advogado digital é, portanto, altamente estratégica, demandando a capacidade de analisar cenários complexos, identificar as melhores ferramentas jurídicas e agir com celeridade para proteger os interesses de seus clientes.</p>
+<h2 class="sec keep">Casos reais que chegam todo dia ao escritório</h2>
+<p class="keep">A melhor forma de ilustrar a relevância e a praticidade do Direito Digital é por meio de exemplos concretos de casos que chegam diariamente aos escritórios de advocacia. Esses casos demonstram a diversidade de situações e a urgência que caracterizam a atuação nessa área:</p>
+<div class="case"><p class="tag">EXPOSIÇÃO ÍNTIMA</p><b>Cliente que teve foto íntima vazada por ex-companheiro e quer removê-la da internet</b><p>Este é um dos casos mais delicados e urgentes no Direito Digital. O vazamento de conteúdo íntimo sem consentimento, muitas vezes motivado por vingança (pornografia de vingança), causa danos psicológicos e sociais imensuráveis à vítima. O advogado digital atua rapidamente para identificar a origem do vazamento, notificar plataformas e provedores para a remoção do conteúdo e buscar a responsabilização civil e criminal do agressor. A agilidade é crucial para minimizar a disseminação e o sofrimento da vítima.</p></div>
+<div class="case"><p class="tag">PLATAFORMAS</p><b>Influenciador com conta suspensa sem justificativa clara pelo Instagram</b><p>Com a crescente profissionalização das redes sociais, a conta de um influenciador digital é seu principal ativo. A suspensão indevida de uma conta pode gerar prejuízos financeiros significativos e danos à reputação. O advogado digital atua na negociação com a plataforma, buscando a reativação da conta e, se necessário, ajuizando ações para reparação de danos. A compreensão das políticas de uso das plataformas e da legislação aplicável é fundamental para o sucesso nesses casos.</p></div>
+<div class="case"><p class="tag">REPUTAÇÃO</p><b>Empresário vítima de fake news, com ataques pessoais e queda de faturamento</b><p>A disseminação de fake news e ataques difamatórios online pode ter um impacto devastador na imagem e nos negócios de um empresário. O advogado digital atua na identificação dos responsáveis pela disseminação, na remoção do conteúdo ofensivo e na busca por indenização pelos danos morais e materiais sofridos. A complexidade reside muitas vezes na identificação do autor e na rapidez com que a informação se espalha.</p></div>
+<div class="case"><p class="tag">GOLPES</p><b>Golpistas usando o nome e a foto de advogados para aplicar golpes no WhatsApp</b><p>Este é um exemplo de crime cibernético que afeta diretamente a reputação e a credibilidade de profissionais liberais. Golpistas se utilizam da imagem de advogados para enganar terceiros, causando prejuízos financeiros e danos à imagem do profissional. O advogado digital atua na denúncia do crime, na busca pela identificação dos golpistas e na adoção de medidas para proteger a imagem do profissional lesado.</p></div>
+<div class="case"><p class="tag">EXPOSIÇÃO ÍNTIMA</p><b>Pessoas ameaçadas ou expostas em grupos do Telegram por pornografia de vingança</b><p>Similar ao vazamento de fotos íntimas, a exposição em grupos de mensagens como o Telegram, muitas vezes com ameaças e chantagens, é uma prática criminosa que exige ação imediata. O advogado digital atua na identificação dos grupos e dos responsáveis, na solicitação de remoção do conteúdo e na busca por medidas protetivas para a vítima. A natureza criptografada de algumas plataformas pode apresentar desafios adicionais, exigindo estratégias jurídicas inovadoras.</p></div>
+<p>Esses casos estão explodindo no Brasil — e é justamente aí que o advogado digital se posiciona com relevância e resultado. A demanda por profissionais especializados em Direito Digital é crescente, e a capacidade de oferecer soluções eficazes para esses problemas reais é o que garante o sucesso na área.</p>
+<div class="concl keep"><p class="eyebrow">Conclusão do módulo</p><h2>Reflexão final do módulo</h2></div>
+<p>O Direito Digital não é uma nova “disciplina” no sentido tradicional. Não é apenas mais uma cadeira na faculdade de direito ou um novo código a ser memorizado. É, na verdade, um novo ambiente jurídico. É a reconfiguração do que você já sabe, agora aplicada ao mundo virtual.</p>
+<p>As bases do direito civil, penal, do consumidor, entre outros, continuam válidas, mas sua aplicação e interpretação precisam ser adaptadas à realidade digital. As interações, os contratos, os crimes, as provas — tudo ganha uma nova dimensão quando mediado pela tecnologia.</p>
+<p>Compreender essa mudança de paradigma é o primeiro passo para se tornar um advogado digital de sucesso. Quem entende isso antes dos outros sai na frente, pois estará apto a navegar por esse novo cenário com autoridade e oferecer soluções que o mercado e a sociedade demandam com urgência.</p>
+<blockquote>A advocacia do futuro já é o presente, e o Direito Digital é o seu principal catalisador.</blockquote>
+</div>
+
+<section class="page dark opener" data-mod-start="2">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 2</span></div>
+  <span class="num">2</span>
+  <div class="txt">
+    <p class="eyebrow">Módulo 2</p>
+    <h2>Como advogados estão faturando <span class="gold">com Direito Digital hoje</span></h2>
+    <p class="tagline">A nova fronteira da advocacia: transformando problemas digitais em oportunidades.</p>
   </div>
-  <div class="folio">6</div>
+  <div class="folio"></div>
 </section>
 
-<!-- ===================== 7. CASOS REAIS ===================== -->
-<section class="page">
-  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 1</span></div>
-  <div class="inner">
-    <p class="eyebrow">Na prática</p>
-    <h2>Casos que chegam <em>todo dia</em> ao escritório.</h2>
-    <div class="case">
-      <p class="tag">EXPOSIÇÃO ÍNTIMA</p>
-      <b>Cliente que teve foto íntima vazada por ex-companheiro e quer removê-la da internet</b>
-      <p>Um dos casos mais delicados e urgentes. O advogado digital atua rapidamente para identificar a origem do vazamento, notificar plataformas e provedores para a remoção do conteúdo e buscar a responsabilização civil e criminal do agressor.</p>
-    </div>
-    <div class="case">
-      <p class="tag">PLATAFORMAS</p>
-      <b>Influenciador com conta suspensa sem justificativa clara pelo Instagram</b>
-      <p>A conta de um influenciador é seu principal ativo. O advogado digital atua na negociação com a plataforma, buscando a reativação da conta e, se necessário, ajuizando ações para reparação de danos.</p>
-    </div>
-    <div class="case">
-      <p class="tag">REPUTAÇÃO</p>
-      <b>Empresário vítima de fake news, com ataques pessoais e queda de faturamento</b>
-      <p>A atuação envolve a identificação dos responsáveis pela disseminação, a remoção do conteúdo ofensivo e a busca por indenização pelos danos morais e materiais sofridos.</p>
+<div class="flow" data-mod="2">
+<p class="lead">Enquanto muitos ainda tentam entender o que é Direito Digital, há advogados que já estão ganhando dinheiro resolvendo problemas reais de clientes no ambiente online.</p>
+<p>Essa disparidade entre a percepção geral e a realidade do mercado revela uma lacuna significativa: a falta de profissionais qualificados para atender a uma demanda crescente e urgente. O Direito Digital não é apenas uma área de estudo; é um campo de atuação concreto e dinâmico, onde conflitos surgem a cada nova interação tecnológica — exigindo respostas jurídicas rápidas, eficazes e, acima de tudo, éticas.</p>
+<p>A grande chave aqui não está apenas no domínio da teoria, mas na capacidade de identificar a dor do cliente e transformá-la em um serviço jurídico legítimo, rentável e responsável. Isso implica ir além do conhecimento legislativo e jurisprudencial, mergulhando na compreensão das dinâmicas das plataformas digitais, do comportamento dos usuários e das tecnologias subjacentes.</p>
+<p>O advogado digital de sucesso é aquele que antecipa problemas, oferece soluções proativas e atua estrategicamente para mitigar riscos e garantir a proteção dos direitos de seus clientes no vasto e complexo universo digital.</p>
+<h2 class="sec keep">Áreas de atuação com alta demanda (e pouca oferta qualificada)</h2>
+<p>O mercado do Direito Digital é vasto e diversificado, apresentando diversas frentes de atuação com alta demanda e, paradoxalmente, pouca oferta de profissionais verdadeiramente qualificados. Essa escassez cria um cenário ideal para advogados que buscam se especializar e se destacar, oferecendo serviços que abordam as dores mais prementes de indivíduos e empresas no ambiente online.</p>
+<p class="keep">Abaixo, detalhamos algumas das áreas mais lucrativas e estratégicas:</p>
+<h3 class="keep">1. Remoção de conteúdo em redes sociais: a proteção da imagem e da honra no ciberespaço</h3>
+<p class="keep">O vazamento de informações, a disseminação de notícias falsas e a publicação de conteúdos ofensivos são, infelizmente, uma realidade constante nas redes sociais. Para indivíduos e empresas, a exposição indevida pode causar danos irreparáveis à imagem, à reputação e até mesmo à saúde mental. É nesse cenário que a atuação do advogado digital se torna crucial, oferecendo soluções para a remoção de conteúdo em plataformas como Instagram, Facebook, TikTok, X (antigo Twitter) e Google. Os casos mais comuns incluem:</p>
+<ul class="list"><li><b>Vídeos íntimos vazados por ex-parceiros:</b> a chamada “pornografia de vingança” é um crime grave que exige ação imediata. O advogado atua na identificação do agressor, na notificação das plataformas para remoção do conteúdo e na busca por responsabilização civil e criminal.</li></ul>
+<ul class="list"><li><b>Fake news em páginas de fofoca:</b> a disseminação de informações falsas pode destruir reputações e causar prejuízos financeiros. A atuação jurídica visa à remoção do conteúdo difamatório e à responsabilização dos divulgadores.</li></ul>
+<ul class="list"><li><b>Imagens indevidas publicadas por terceiros:</b> fotos ou vídeos publicados sem consentimento, violando o direito à imagem e à privacidade, demandam intervenção legal para sua remoção e reparação de danos.</li></ul>
+<ul class="list"><li><b>Comentários ofensivos que prejudicam a imagem de pessoas ou empresas:</b> a liberdade de expressão não é absoluta e não ampara condutas como difamação, injúria ou calúnia. O advogado atua para remover esses comentários e responsabilizar seus autores.</li></ul>
+<p>Com base no Marco Civil da Internet (Lei nº 12.965/2014) e no Código Civil, o advogado pode ajuizar ações com pedido de tutela de urgência, buscando a remoção imediata do conteúdo e a responsabilização das plataformas em casos de inércia ou falha na remoção após notificação judicial. A agilidade é um fator determinante para o sucesso nesses casos, minimizando a propagação do dano.</p>
+<h3 class="keep">2. Assessoria jurídica para criadores de conteúdo e influenciadores digitais</h3>
+<p>Com o crescimento exponencial da economia dos criadores, influenciadores digitais e produtores de conteúdo se tornaram verdadeiras empresas, com necessidades jurídicas complexas que vão muito além do senso comum. A assessoria jurídica para esse público é uma área com altíssimo potencial financeiro e forte fidelização de clientes, pois o advogado se torna um parceiro estratégico na construção e proteção da carreira digital.</p>
+<p class="keep">Os serviços incluem:</p>
+<ul class="list"><li><b>Contratos de parcerias, publis e agenciamentos:</b> elaboração e revisão de contratos que regulam as relações entre influenciadores, marcas, agências e plataformas, garantindo clareza nas obrigações, direitos autorais, remuneração e responsabilidades.</li></ul>
+<ul class="list"><li><b>Proteção contra uso indevido de imagem:</b> atuação preventiva e contenciosa para proteger a imagem e a voz do influenciador contra usos não autorizados em campanhas publicitárias, produtos ou serviços de terceiros.</li></ul>
+<ul class="list"><li><b>Monitoramento jurídico para remoção de vazamentos (Privacy, OnlyFans etc.):</b> com a popularização de plataformas de conteúdo exclusivo, o risco de vazamentos e pirataria é real. O advogado atua no monitoramento e na remoção rápida de conteúdos vazados, protegendo a privacidade e os direitos autorais do criador.</li></ul>
+<ul class="list"><li><b>Atendimento preventivo com foco em reputação digital:</b> consultoria contínua para orientar o influenciador sobre as melhores práticas de conduta online, gestão de crises de imagem, compliance com as regras do CONAR e das plataformas, e prevenção de litígios.</li></ul>
+<p>Essa área exige do advogado não apenas conhecimento jurídico, mas também uma compreensão aprofundada do ecossistema do marketing de influência, das tendências de consumo de conteúdo e das particularidades de cada plataforma. A capacidade de antecipar problemas e oferecer soluções proativas é o que gera valor e fideliza o cliente.</p>
+<h3 class="keep">3. Golpes com uso de nome e imagem de terceiros: a luta contra a fraude digital</h3>
+<p class="keep">A sofisticação dos golpes digitais tem crescido exponencialmente, e muitos deles se utilizam indevidamente do nome e da imagem de pessoas e empresas para conferir credibilidade às fraudes. Advogados, em particular, são alvos frequentes, tendo seus nomes e fotos usados em perfis falsos para aplicar golpes. A atuação aqui é multidisciplinar e envolve uma série de medidas jurídicas e investigativas:</p>
+<ul class="list"><li><b>Perfis falsos de escritório de advocacia aplicando golpes:</b> criação de perfis falsos em redes sociais ou WhatsApp para enganar vítimas, prometendo serviços jurídicos inexistentes ou cobrando valores indevidos. O advogado atua na denúncia, na remoção do perfil e na busca pela identificação dos fraudadores.</li></ul>
+<ul class="list"><li><b>Contas bancárias em nome de “laranjas” recebendo Pix:</b> utilização de contas de terceiros para receber valores de golpes, dificultando o rastreamento. A atuação jurídica busca o bloqueio das contas e a recuperação dos valores, além da responsabilização dos envolvidos.</li></ul>
+<ul class="list"><li><b>Vazamento de dados de clientes:</b> dados pessoais de clientes podem ser vazados e utilizados em golpes de phishing ou engenharia social. O advogado atua na notificação das autoridades, na mitigação dos danos e na busca por reparação.</li></ul>
+<ul class="list"><li><b>Sites falsos e e-mails clonados:</b> criação de sites e e-mails que simulam instituições ou empresas legítimas para roubar dados ou aplicar golpes. A atuação envolve a remoção desses domínios e a identificação dos responsáveis.</li></ul>
+<p>A atuação aqui envolve a combinação de um boletim de ocorrência detalhado, produção antecipada de provas (para garantir a validade das evidências digitais), ações contra as plataformas para remoção do conteúdo fraudulento e, crucialmente, pedidos de quebra de IP e identificação dos responsáveis. A colaboração com autoridades policiais e peritos em informática é muitas vezes necessária para o sucesso desses casos. É uma área de atuação que exige agilidade, persistência e conhecimento técnico para desvendar as complexidades das fraudes digitais.</p>
+<h3 class="keep">4. Consultoria em LGPD para pequenas e médias empresas: a demanda crescente por conformidade</h3>
+<p>A Lei Geral de Proteção de Dados (LGPD) trouxe um novo paradigma para a forma como empresas e organizações lidam com dados pessoais. Embora a lei já esteja em vigor há alguns anos, muitas pequenas e médias empresas (PMEs) ainda não estão totalmente em conformidade, criando uma vasta oportunidade para advogados especializados em proteção de dados. Essa é uma área ainda pouco explorada por advogados, mas em franca expansão, pois a necessidade de adequação é uma realidade para qualquer negócio que trate dados pessoais.</p>
+<p class="keep">A consultoria em LGPD para PMEs envolve:</p>
+<ul class="list"><li><b>Diagnóstico de riscos:</b> análise detalhada dos processos de tratamento de dados da empresa para identificar vulnerabilidades e pontos de não conformidade com a LGPD.</li></ul>
+<ul class="list"><li><b>Termos de consentimento:</b> elaboração de termos de consentimento claros, específicos e informados para a coleta e o tratamento de dados pessoais, garantindo a legalidade das operações.</li></ul>
+<ul class="list"><li><b>Política de privacidade e contratos com base legal:</b> criação ou revisão da política de privacidade da empresa e de contratos com fornecedores, clientes e parceiros, assegurando que todas as operações de tratamento de dados estejam amparadas por uma base legal adequada.</li></ul>
+<ul class="list"><li><b>Treinamento interno e assessoria recorrente:</b> capacitação dos colaboradores da empresa sobre as diretrizes da LGPD e as melhores práticas de proteção de dados, além de assessoria contínua para dúvidas e novas demandas que surgirem.</li></ul>
+<div class="callout"><span class="k">PARCEIRO ESTRATÉGICO</span><p>O advogado que atua nessa frente se torna um parceiro estratégico da empresa, ajudando-a a evitar multas, sanções e danos reputacionais decorrentes do descumprimento da LGPD. A demanda por essa consultoria é constante, pois a conformidade com a lei não é um evento único, mas um processo contínuo de adaptação e melhoria.</p></div>
+<h2 class="sec keep">Estratégias de precificação: como cobrar por serviços em Direito Digital</h2>
+<p>Uma das grandes vantagens do Direito Digital é a flexibilidade nos modelos de precificação, permitindo que o advogado adapte seus honorários à complexidade do caso e ao perfil do cliente. O Direito Digital permite tanto a atuação por processo (contencioso) quanto modelos de assessoria contínua (consultivo), o que oferece diversas fontes de receita. A precificação deve levar em conta o valor agregado ao cliente, a complexidade técnica e jurídica do caso, o tempo dedicado e a expertise do profissional.</p>
+<p class="keep">Abaixo, alguns exemplos de como advogados estão cobrando por seus serviços:</p>
+<h3 class="keep">Honorários por processo (contencioso)</h3>
+<p>Para casos específicos que envolvem litígios, como remoção de conteúdo ou responsabilização de fraudadores, a cobrança pode ser feita por processo, com um valor fixo inicial e, em alguns casos, um percentual sobre o êxito (cláusula quota litis). É comum a prática de cobrar um valor de entrada para cobrir os custos iniciais e o trabalho de análise e propositura da ação, e um valor complementar ao final, em caso de sucesso. Isso alinha os interesses do advogado com os do cliente, incentivando a busca por resultados efetivos.</p>
+<div class="example"><span class="k">Exemplo</span><p>R$ 3.000 a R$ 6.000 por ação com pedido de remoção de conteúdo + danos morais. Esse valor pode variar significativamente dependendo da complexidade do caso, da urgência e da reputação da plataforma envolvida. Casos que exigem produção antecipada de provas ou quebra de sigilo podem ter honorários mais elevados.</p></div>
+<h3 class="keep">Honorários por consultoria pontual</h3>
+<p>Para demandas específicas que não envolvem um processo judicial, como a elaboração de um parecer, a revisão de um contrato ou um diagnóstico inicial de LGPD, a cobrança pode ser feita por consultoria pontual. Esse modelo é ideal para clientes que precisam de uma orientação específica e não desejam um compromisso de longo prazo. O valor é definido com base na complexidade da demanda e no tempo estimado para sua execução.</p>
+<div class="example"><span class="k">Exemplo</span><p>R$ 1.500 a R$ 5.000 por consultoria pontual em LGPD. Esse valor pode incluir a análise de documentos, a elaboração de um relatório de diagnóstico e a apresentação de recomendações para adequação à lei. A variação depende do tamanho da empresa e da profundidade da análise.</p></div>
+<h3 class="keep">Honorários por assessoria contínua (retainer)</h3>
+<p>Para clientes que demandam um acompanhamento jurídico constante, como influenciadores digitais, startups ou PMEs em processo de adequação à LGPD, o modelo de assessoria contínua, ou <em>retainer</em>, é o mais indicado. Nesse formato, o cliente paga um valor fixo mensal em troca de um pacote de serviços jurídicos pré-definidos, que podem incluir consultoria, elaboração de contratos, monitoramento e atuação preventiva. Esse modelo garante uma receita recorrente para o advogado e oferece ao cliente a segurança de ter um suporte jurídico sempre à disposição.</p>
+<div class="example"><span class="k">Exemplo</span><p>R$ 2.000 mensais por assessoria para influenciadores ou empresas digitais. Esse pacote pode incluir a revisão de contratos de parceria, o monitoramento de conteúdo online, a consultoria sobre questões de imagem e reputação, e o suporte em caso de crises. Para empresas, pode abranger a manutenção da conformidade com a LGPD, a revisão de políticas internas e o treinamento de equipes.</p></div>
+<h3 class="keep">Pacotes de serviços: maximizando o valor e a receita</h3>
+<p>Uma estratégia eficaz para aumentar a rentabilidade e a fidelização de clientes é a criação de pacotes de serviços personalizados. Você pode aplicar a lógica do pacote de serviços, combinando diferentes modalidades de atuação para oferecer uma solução completa e integrada. Por exemplo, um pacote para influenciadores pode incluir assessoria mensal, plantão emergencial para casos de vazamento, elaboração de contratos de publicidade e monitoramento contínuo de conteúdo. Essa abordagem permite ao advogado oferecer um valor percebido maior ao cliente, ao mesmo tempo em que otimiza sua própria gestão de tempo e recursos.</p>
+<div class="concl keep"><p class="eyebrow">Conclusão do módulo</p><h2>O advogado digital como estrategista e solucionador de problemas</h2></div>
+<p>O Direito Digital não é uma área para advogados passivos, que esperam o cliente no escritório. Pelo contrário, o advogado digital se antecipa ao problema, entende o ambiente onde o conflito ocorre e atua com agilidade, estratégia e linguagem adequada ao mundo virtual. Ele é um solucionador de problemas, um estrategista e um parceiro essencial para quem vive e trabalha no ambiente digital.</p>
+<p>A capacidade de identificar as dores do cliente, traduzi-las em soluções jurídicas eficazes e comunicá-las de forma clara e acessível é o que diferencia o profissional de sucesso.</p>
+<p>É por isso que quem se especializa na prática do Direito Digital está faturando — e, mais importante: fazendo a diferença na vida de quem vive do digital. A advocacia digital não é apenas uma profissão; é uma missão de proteger direitos e garantir a segurança jurídica em um mundo cada vez mais conectado.</p>
+<blockquote>Ao abraçar essa nova fronteira, o advogado não apenas expande suas oportunidades de negócio, mas também contribui para a construção de um ambiente digital mais justo, seguro e ético para todos.</blockquote>
+</div>
+
+<section class="page dark opener" data-mod-start="3">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 3</span></div>
+  <span class="num">3</span>
+  <div class="txt">
+    <p class="eyebrow">Módulo 3</p>
+    <h2>Petições que funcionam no digital: <span class="gold">fundamentos, provas e técnicas</span></h2>
+    <p class="tagline">A arte de peticionar no cenário digital: conectando a tecnologia ao Judiciário.</p>
+  </div>
+  <div class="folio"></div>
+</section>
+
+<div class="flow" data-mod="3">
+<p class="lead">No Direito Digital, não basta peticionar — é preciso saber como falar com o Judiciário sobre tecnologia.</p>
+<p>Essa é uma das maiores barreiras e, ao mesmo tempo, uma das maiores oportunidades para o advogado que atua nessa área.</p>
+<p>Muitos advogados, acostumados com a linguagem e as práticas do direito tradicional, cometem o erro de usar petições genéricas, mal fundamentadas ou com excesso de juridiquês, achando que isso transmite autoridade. No entanto, quando se trata de plataformas digitais, conteúdo online, perfis falsos e dados de IP, a clareza, a estratégia e a fundamentação técnica são as chaves para o sucesso.</p>
+<p>O Judiciário, em sua maioria, ainda está se adaptando às complexidades do ambiente digital, e cabe ao advogado ser o elo entre a realidade tecnológica e a compreensão jurídica — traduzindo conceitos complexos em uma linguagem acessível e persuasiva.</p>
+<p>Uma petição eficaz no Direito Digital não é apenas um documento legal; é uma ferramenta de comunicação que deve educar o julgador sobre as nuances tecnológicas do caso, ao mesmo tempo em que apresenta os fundamentos jurídicos de forma impecável.</p>
+<p>A capacidade de articular a dor do cliente, as especificidades técnicas do problema e a solução jurídica de forma coesa e compreensível é o que diferencia uma petição comum de uma petição que realmente funciona. Isso exige do advogado uma imersão no universo digital — não para se tornar um expert em TI, mas para entender o suficiente para argumentar com propriedade e convencer o juiz da necessidade de uma intervenção judicial.</p>
+<h2 class="sec keep">Como estruturar petições eficazes: um guia passo a passo</h2>
+<p class="keep">Para que uma petição no Direito Digital seja verdadeiramente eficaz, ela precisa ser construída com uma lógica clara e uma apresentação impecável. A seguir, detalhamos os elementos essenciais para estruturar petições que geram resultados:</p>
+<h3 class="keep">1. Comece com o cenário fático bem delimitado</h3>
+<p>O primeiro passo para uma petição de sucesso é apresentar o cenário fático de forma clara, concisa e objetiva. Evite narrativas longas e rebuscadas, que podem confundir o julgador. Seja direto ao ponto, utilizando uma linguagem que permita ao juiz compreender rapidamente o cerne do problema. A cronologia dos fatos é fundamental para demonstrar a sequência dos eventos e a urgência da situação.</p>
+<p class="keep">Perguntas-chave a serem respondidas:</p>
+<ul class="list"><li><b>Qual foi o conteúdo publicado?</b> Descreva o conteúdo de forma precisa, sem rodeios. Se for uma imagem, descreva-a. Se for um texto, transcreva-o ou anexe-o integralmente.</li></ul>
+<ul class="list"><li><b>Onde? Quando?</b> Indique a plataforma (Instagram, TikTok, Google, WhatsApp, Telegram, OnlyFans etc.) e a data e hora exatas da publicação ou do evento. A precisão temporal é crucial no ambiente digital.</li></ul>
+<ul class="list"><li><b>Qual a consequência concreta?</b> Demonstre o impacto real do ato ilícito na vida do cliente. Isso pode ser dano moral, prejuízo financeiro, abalo à reputação, sofrimento psicológico etc. Quantifique o dano sempre que possível.</li></ul>
+<ul class="list"><li><b>Houve tentativa de contato com a plataforma?</b> Informe se o cliente ou o advogado tentou contato prévio com a plataforma para a remoção do conteúdo ou solução do problema, e qual foi a resposta (ou a ausência dela). Isso demonstra a boa-fé e a tentativa de resolução extrajudicial.</li></ul>
+<div class="example"><span class="k">Exemplo prático</span><p>“A autora teve sua intimidade violada ao ter vídeos íntimos publicados sem consentimento no Instagram, por perfil anônimo, em 23/04/2025, às 19h12. Desde então, foi alvo de ameaças, mensagens ofensivas e perdeu contratos profissionais, resultando em um prejuízo financeiro estimado em R$ 50.000,00 e grave abalo psicológico. Tentativas de contato com o Instagram para remoção do conteúdo foram infrutíferas, conforme e-mails anexos.”</p></div>
+<p>Essa abordagem direta e factual permite que o juiz compreenda a gravidade da situação e a necessidade de uma intervenção judicial imediata.</p>
+<h3 class="keep">2. Use fundamentos jurídicos reais e atualizados</h3>
+<p>Após apresentar o cenário fático, é crucial fundamentar a petição em bases jurídicas sólidas e atualizadas. O Direito Digital se apoia em um conjunto de leis e princípios que, embora não sejam exclusivos dessa área, ganham novas interpretações e aplicações no ambiente virtual.</p>
+<p class="keep">Os pilares fundamentais para a argumentação jurídica incluem:</p>
+<ul class="list"><li><b>Marco Civil da Internet (Lei nº 12.965/2014):</b> esta lei é a “Constituição da Internet” no Brasil, estabelecendo princípios, garantias, direitos e deveres para o uso da internet. É essencial citar os artigos pertinentes que tratam da liberdade de expressão, privacidade, responsabilidade dos provedores de aplicação e de conexão, e a necessidade de ordem judicial para a remoção de conteúdo. O art. 19, por exemplo, que trata da responsabilidade dos provedores de aplicação por conteúdo gerado por terceiros, é frequentemente utilizado em ações de remoção.</li></ul>
+<ul class="list"><li><b>Código Civil (Lei nº 10.406/2002):</b> os artigos 186 (ato ilícito) e 927 (obrigação de reparar o dano) são a base para a busca de indenização por danos morais e materiais decorrentes de atos ilícitos praticados no ambiente digital. A responsabilidade civil, seja ela subjetiva ou objetiva, deve ser claramente demonstrada.</li></ul>
+<ul class="list"><li><b>Constituição Federal:</b> os direitos fundamentais previstos no art. 5º da Constituição são frequentemente violados no ambiente digital. Os incisos X (inviolabilidade da intimidade, vida privada, honra e imagem das pessoas) e V (direito de resposta e indenização por dano material, moral ou à imagem) são especialmente relevantes em casos de vazamento de conteúdo íntimo, difamação e fake news.</li></ul>
+<ul class="list"><li><b>Jurisprudência atualizada e contextualizada:</b> a jurisprudência dos tribunais superiores (STJ, STF) e dos tribunais estaduais e federais é de suma importância. Cite decisões que reconhecem o dever de remoção de conteúdo, a responsabilidade solidária das plataformas em casos específicos, a violação de direitos fundamentais no ambiente digital e a necessidade de proteção da vítima. É fundamental que a jurisprudência citada seja recente e se aplique ao caso concreto, demonstrando que o advogado está atualizado com os entendimentos dos tribunais.</li></ul>
+<div class="example"><span class="k">Exemplo de fundamentação</span><p>“A conduta do réu, ao vazar conteúdo íntimo da autora, configura ato ilícito nos termos do art. 186 do Código Civil, violando diretamente os direitos fundamentais à intimidade, vida privada, honra e imagem, garantidos pelo art. 5º, X, da Constituição Federal. A responsabilidade da plataforma Instagram, por sua vez, decorre da sua inércia em remover o conteúdo após notificação judicial, conforme entendimento consolidado pelo Superior Tribunal de Justiça (REsp XXXXX/XX, Rel. Min. YYYY, DJe DD/MM/AAAA), que reconhece a responsabilidade subsidiária dos provedores de aplicação por conteúdo de terceiros quando não cumprem ordem judicial de remoção.”</p></div>
+<h3 class="keep">3. A prova digital: coleta e preservação</h3>
+<p class="keep">No ambiente digital, a prova é a espinha dorsal da petição. No entanto, a simples captura de tela (print screen) pode ser facilmente contestada e, muitas vezes, não é suficiente para comprovar a autenticidade e a integridade do conteúdo. É ideal utilizar métodos mais robustos para a coleta e preservação das provas digitais:</p>
+<ul class="list"><li><b>Captura de tela com metadados (data/hora + URL):</b> ferramentas específicas ou extensões de navegador podem capturar a tela e incluir automaticamente metadados como data, hora e URL da página. Isso confere maior credibilidade à prova, pois dificulta a alegação de adulteração.</li></ul>
+<ul class="list"><li><b>Ata notarial (quando possível):</b> a ata notarial, lavrada por um tabelião, é um instrumento público que confere fé pública ao conteúdo digital. O tabelião acessa o site ou a plataforma, descreve o conteúdo e certifica sua existência em determinado momento. Embora represente um custo adicional, a ata notarial é a prova mais robusta e dificilmente contestável.</li></ul>
+<ul class="list"><li><b>Print + link + dados do perfil:</b> ao apresentar um print, sempre inclua o link direto para o conteúdo e, se aplicável, os dados do perfil (nome de usuário, @, número de seguidores, fotos, descrição). Isso permite que o juiz ou perito verifique a autenticidade do conteúdo e do perfil.</li></ul>
+<ul class="list"><li><b>Cabeçalho de e-mail ou logs do WhatsApp (headers):</b> em casos de golpes por e-mail ou WhatsApp, o cabeçalho completo do e-mail (headers) ou os logs de conversas do WhatsApp podem conter informações cruciais sobre a origem da mensagem, IPs e servidores envolvidos. Essas informações são técnicas e exigem conhecimento para serem interpretadas, mas são provas valiosas.</li></ul>
+<ul class="list"><li><b>Vídeos com número de visualizações, comentários e reações:</b> em casos de vídeos ofensivos ou vazados, registrar o número de visualizações, comentários e reações é importante para demonstrar a dimensão do dano e a viralização do conteúdo.</li></ul>
+<div class="callout"><span class="k">PLATAFORMAS ARMAZENAM LOGS E IPS</span><p>Instagram, TikTok, Telegram e OnlyFans armazenam logs e IPs. É possível requerer a produção antecipada de prova ou tutela com quebra de dados. O Marco Civil da Internet (art. 15) obriga os provedores de aplicação a guardar os registros de acesso a aplicações de internet por 6 (seis) meses, e os provedores de conexão (art. 13) por 1 (um) ano. Essa é uma ferramenta poderosa para identificar autores anônimos ou perfis falsos.</p></div>
+<h3 class="keep">4. Inversão do ônus da prova: a dinâmica da evidência no digital</h3>
+<p>Um dos grandes desafios no Direito Digital é a assimetria de informações: as plataformas digitais detêm o controle dos dados internos, dos logs de acesso e das informações técnicas dos perfis. Diante dessa realidade, a inversão do ônus da prova é uma estratégia processual fundamental para garantir a efetividade da justiça.</p>
+<p class="keep">Isso pode ser fundamentado com base em:</p>
+<ul class="list"><li><b>Art. 6º, VIII, do Código de Defesa do Consumidor (CDC):</b> quando a relação entre o usuário e a plataforma é de consumo, é possível aplicar o CDC, que prevê a inversão do ônus da prova em favor do consumidor quando, a critério do juiz, for verossímil a alegação ou quando ele for hipossuficiente. A hipossuficiência técnica do usuário em relação à plataforma é um argumento forte.</li></ul>
+<ul class="list"><li><b>Teoria da carga dinâmica da prova (art. 373, § 1º, do CPC):</b> o Código de Processo Civil permite que o juiz distribua o ônus da prova de forma diversa, considerando as peculiaridades do caso concreto e a maior facilidade de obtenção da prova por uma das partes. No Direito Digital, a plataforma tem muito mais facilidade em apresentar os logs de acesso, IPs e vinculações técnicas de um perfil anônimo do que o usuário.</li></ul>
+<div class="example"><span class="k">Exemplo de requerimento</span><p>“O réu [nome da plataforma] detém os registros de acesso, IPs e vinculações técnicas do perfil anônimo que publicou o conteúdo ofensivo. Diante da hipossuficiência técnica da autora e da maior facilidade do réu em produzir tal prova, requer-se a inversão do ônus da prova, com base no art. 6º, VIII, do CDC e/ou art. 373, § 1º, do CPC, determinando-se que apresente os dados técnicos do perfil, sob pena de confissão.”</p></div>
+<p>Essa estratégia pressiona a plataforma a colaborar com a justiça, fornecendo os dados necessários para a identificação do responsável pelo ato ilícito.</p>
+<h3 class="keep">5. Use a linguagem do juiz e traduza a tecnologia</h3>
+<p>Um dos maiores erros que um advogado pode cometer no Direito Digital é assumir que o magistrado tem conhecimento aprofundado sobre termos e conceitos tecnológicos. Não espere que o juiz entenda automaticamente o que é “engajamento orgânico”, “header”, “mirror site”, “domínio alternativo”, “deepfake” ou “phishing”.</p>
+<p>É sua responsabilidade traduzir a tecnologia para a linguagem jurídica, explicando como funciona, em linguagem acessível — mas sem perder a precisão técnica.</p>
+<ul class="list"><li><b>Explique os termos técnicos:</b> sempre que utilizar um termo técnico, forneça uma breve e clara explicação. Por exemplo, ao mencionar “IP”, explique que se trata de um “endereço de protocolo de internet, um identificador único para cada dispositivo conectado à rede”.</li></ul>
+<ul class="list"><li><b>Use analogias:</b> analogias com o mundo físico podem ser úteis para ilustrar conceitos complexos. Por exemplo, um “perfil falso” pode ser comparado a uma “identidade falsa” no mundo real.</li></ul>
+<ul class="list"><li><b>Demonstre a relevância:</b> explique por que aquela informação técnica é relevante para o deslinde do caso. Como o IP pode levar à identificação do autor? Como o header de um e-mail comprova a fraude?</li></ul>
+<ul class="list"><li><b>Seja didático:</b> pense como se estivesse explicando para alguém que não tem familiaridade com o assunto. Utilize gráficos simples, se necessário, ou organize as informações em tópicos para facilitar a compreensão.</li></ul>
+<div class="callout"><span class="k">DICA ESTRATÉGICA</span><p>Use petições personalizadas, com blocos modulares. Você pode reaproveitar trechos que já funcionaram em outros casos, adaptando para cada plataforma, tipo de conteúdo e prova. E sempre salve modelos eficazes com jurisprudência válida. Isso otimiza o tempo e garante a qualidade das petições, criando um banco de dados de sucesso para o seu escritório.</p></div>
+<h2 class="sec keep">A importância do Marco Civil da Internet na prática processual</h2>
+<p>O Marco Civil da Internet (MCI) é a lei que estabelece os princípios, garantias, direitos e deveres para o uso da internet no Brasil. Para o advogado digital, o MCI é uma ferramenta essencial na construção de petições eficazes, especialmente no que tange à responsabilidade dos provedores e à proteção da privacidade e dos dados pessoais. Compreender a fundo seus artigos e como eles se aplicam aos casos concretos é um diferencial.</p>
+<h3 class="keep">Responsabilidade dos provedores de aplicação (art. 19 do MCI)</h3>
+<p>Um dos artigos mais importantes do MCI para a prática contenciosa é o art. 19, que estabelece que o provedor de aplicações de internet somente poderá ser responsabilizado civilmente por danos decorrentes de conteúdo gerado por terceiros se, após ordem judicial específica, não tomar as providências para, no âmbito e nos limites técnicos do seu serviço, tornar indisponível o conteúdo apontado como infringente.</p>
+<p>Isso significa que, para responsabilizar uma plataforma por um conteúdo ilícito de terceiro, é necessário primeiro obter uma ordem judicial de remoção. A petição deve, portanto, demonstrar a ilicitude do conteúdo e a necessidade da remoção, para então, em caso de descumprimento, buscar a responsabilização da plataforma.</p>
+<h3 class="keep">Guarda de registros de acesso (art. 15 do MCI)</h3>
+<p>O art. 15 do MCI obriga os provedores de aplicações de internet a guardar os registros de acesso a aplicações de internet, sob sigilo, em ambiente controlado e de segurança, pelo prazo de 6 (seis) meses. Essa é a base legal para requerer a quebra de sigilo de dados e a identificação de usuários anônimos.</p>
+<p>A petição deve justificar a necessidade da quebra, demonstrando que a informação é indispensável para a investigação ou para a propositura da ação, e que não há outros meios de obtê-la.</p>
+<h3 class="keep">Privacidade e proteção de dados (art. 7º do MCI)</h3>
+<p>O MCI também garante a inviolabilidade e o sigilo do fluxo de comunicações pela internet, salvo por ordem judicial, bem como a inviolabilidade e o sigilo de registros, dados pessoais e comunicações privadas armazenadas, também ressalvadas por ordem judicial.</p>
+<p>Esses dispositivos são fundamentais para proteger a privacidade dos usuários e para fundamentar pedidos de remoção de conteúdo que violem esses direitos.</p>
+<h2 class="sec keep">A produção antecipada de provas: antecipando a vitória</h2>
+<p>A produção antecipada de provas, prevista nos artigos 381 a 383 do Código de Processo Civil (CPC), é uma ferramenta estratégica no Direito Digital. Ela permite que o advogado obtenha provas antes mesmo de iniciar a ação principal, garantindo que as evidências digitais não se percam ou sejam alteradas. No ambiente digital, onde a informação é volátil, essa medida é de extrema importância.</p>
+<h3 class="keep">Quando utilizar a produção antecipada de provas?</h3>
+<ul class="list"><li><b>Risco de perda da prova:</b> quando há o risco de que o conteúdo seja removido, alterado ou que os logs de acesso expirem (lembrando que o MCI estabelece um prazo de 6 meses para guarda de registros de acesso por provedores de aplicação).</li></ul>
+<ul class="list"><li><b>Necessidade de identificar o autor:</b> quando o autor do ato ilícito é anônimo ou utiliza um perfil falso, a produção antecipada de provas pode ser utilizada para requerer a quebra de sigilo de dados e a identificação do IP e dos dados cadastrais do usuário.</li></ul>
+<ul class="list"><li><b>Comprovação da extensão do dano:</b> em casos de fake news ou difamação, a produção antecipada pode ser usada para registrar o alcance da publicação, o número de visualizações, compartilhamentos e comentários, demonstrando a dimensão do dano.</li></ul>
+<h3 class="keep">Como requerer a produção antecipada de provas?</h3>
+<p>A petição de produção antecipada de provas deve demonstrar a urgência e a necessidade da medida, fundamentando-se nos artigos do CPC e na legislação específica do Direito Digital (como o MCI).</p>
+<p>É fundamental descrever detalhadamente a prova que se pretende produzir e sua relevância para o caso. O pedido pode incluir a determinação para que a plataforma forneça os logs de acesso, IPs e dados cadastrais do usuário, ou que um perito judicial realize a coleta e a preservação do conteúdo.</p>
+<div class="concl keep"><p class="eyebrow">Conclusão do módulo</p><h2>A petição como ponte para a justiça digital</h2></div>
+<p>A petição no Direito Digital precisa ser uma ponte: entre a tecnologia e o juiz, entre a dor do cliente e a reparação, entre a narrativa clara e a estratégia processual.</p>
+<p>Não se trata apenas de escrever bonito ou usar termos jurídicos complexos. Trata-se de comunicar com precisão, traduzir a complexidade do mundo digital para o entendimento do Judiciário e, acima de tudo, provocar uma decisão judicial que seja ágil, justa e eficaz.</p>
+<p>O advogado digital que domina a arte de peticionar no ambiente virtual não apenas garante o sucesso de seus clientes, mas também contribui para a construção de uma jurisprudência mais robusta e adaptada aos desafios da era digital.</p>
+<blockquote>A sua petição é a sua voz no tribunal digital — e ela precisa ser ouvida com clareza e autoridade.</blockquote>
+</div>
+
+<section class="page dark opener" data-mod-start="4">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 4</span></div>
+  <span class="num">4</span>
+  <div class="txt">
+    <p class="eyebrow">Módulo 4</p>
+    <h2>Plataformas digitais: como responsabilizar <span class="gold">Instagram, Google, TikTok e OnlyFans</span></h2>
+    <p class="tagline">A responsabilidade das gigantes digitais: desvendando a jurisprudência brasileira.</p>
+  </div>
+  <div class="folio"></div>
+</section>
+
+<div class="flow" data-mod="4">
+<p class="lead">Hoje, boa parte dos conflitos jurídicos começa ou explode nas redes sociais.</p>
+<p>A velocidade da informação, a facilidade de criação de conteúdo e a interconexão global transformaram as plataformas digitais em palcos de disputas que vão desde a difamação e o vazamento de dados até golpes e crimes cibernéticos.</p>
+<p>No entanto, muitos advogados ainda sentem insegurança quando o réu não é uma pessoa física, mas uma plataforma global com sede no exterior. Essa hesitação é compreensível, dada a complexidade de litigar contra empresas multinacionais e a percepção de que elas estariam acima da lei.</p>
+<p>Contudo, a boa notícia é que a jurisprudência brasileira já reconhece a responsabilidade das plataformas quando elas falham no dever de moderação, identificação de usuários ou retirada de conteúdo. O Judiciário brasileiro tem se mostrado cada vez mais atento à necessidade de proteger os direitos dos usuários no ambiente digital, adaptando as leis existentes e criando novos entendimentos para garantir a efetividade da justiça.</p>
+<p>É fundamental que o advogado digital compreenda que, embora essas plataformas tenham alcance global, elas operam no Brasil, têm representação legal no país e, portanto, estão sujeitas à lei brasileira. A ideia de que são entidades intocáveis é um mito que precisa ser desfeito.</p>
+<p>O papel do advogado é justamente conectar a dor do cliente à responsabilidade da plataforma — com clareza, estratégia e fundamentação jurídica sólida. Isso exige não apenas o conhecimento da legislação, mas também a capacidade de navegar pelas políticas de uso das plataformas, entender seus mecanismos de funcionamento e identificar os pontos de falha que configuram a responsabilidade legal.</p>
+<h2 class="sec keep">Quando a plataforma pode ser responsabilizada? O Marco Civil da Internet como guia</h2>
+<p>A responsabilidade das plataformas digitais no Brasil é regida principalmente pelo Marco Civil da Internet (Lei nº 12.965/2014), que estabelece um regime de responsabilidade subsidiária para os provedores de aplicações de internet por conteúdo gerado por terceiros.</p>
+<p>Isso significa que, em regra, a plataforma não é responsável pelo conteúdo ilícito publicado por seus usuários, a menos que, após ser notificada judicialmente, não tome as providências para remover o conteúdo. No entanto, a jurisprudência tem evoluído, e, em alguns casos, a responsabilidade pode ser solidária ou até mesmo objetiva, dependendo da natureza da falha da plataforma.</p>
+<p class="keep">As situações que podem gerar a responsabilização incluem:</p>
+<ul class="list"><li><b>Notificação formal do conteúdo ilícito:</b> para que a plataforma seja responsabilizada, é imprescindível que ela seja formalmente notificada sobre a existência do conteúdo ilícito. Essa notificação, em geral, deve ser judicial, conforme o art. 19 do Marco Civil da Internet. A notificação extrajudicial, embora útil para tentar uma solução amigável, não é suficiente para configurar a responsabilidade da plataforma por conteúdo de terceiros — salvo exceções, como no caso de pornografia de vingança (art. 21 do MCI).</li></ul>
+<ul class="list"><li><b>Inércia ou falha em tempo razoável:</b> após a notificação judicial, a plataforma tem o dever de agir em tempo razoável para remover o conteúdo. O que é “tempo razoável” pode ser debatido judicialmente, mas a inércia ou a demora injustificada na remoção do conteúdo ilícito pode configurar a responsabilidade da plataforma pela perpetuação do dano.</li></ul>
+<ul class="list"><li><b>Contribuição para a perpetuação do dano:</b> a responsabilidade da plataforma pode ser configurada quando ela contribui ativamente para a continuidade do dano. Isso ocorre, por exemplo, ao manter o conteúdo ilícito online mesmo após a notificação judicial, ao recusar a identificação do usuário responsável (quando há ordem judicial para tanto) ou ao dificultar o acesso à justiça por parte da vítima. Em casos de falha sistemática na moderação de conteúdo que cause danos graves e recorrentes, a jurisprudência tem se inclinado a reconhecer uma responsabilidade mais ampla da plataforma.</li></ul>
+<h3 class="keep">Base legal</h3>
+<p class="keep">O principal fundamento legal para a responsabilização das plataformas é o Marco Civil da Internet — Lei nº 12.965/2014, art. 19. Este artigo estabelece que:</p>
+<blockquote>O provedor de aplicações de internet somente poderá ser responsabilizado civilmente por danos decorrentes de conteúdo gerado por terceiros se, após ordem judicial específica, não tomar as providências para, no âmbito e nos limites técnicos do seu serviço, tornar indisponível o conteúdo apontado como infringente.</blockquote>
+<p>No entanto, é crucial entender que a interpretação e a aplicação deste artigo têm evoluído constantemente na jurisprudência, especialmente diante da complexidade e diversidade dos casos que surgem no ambiente digital.</p>
+<h2 class="sec keep">Quais plataformas mais enfrentam ações judiciais?</h2>
+<p class="keep">Diversas plataformas digitais são alvo frequente de ações judiciais no Brasil, cada uma com suas particularidades e desafios. A compreensão dos tipos de casos mais comuns em cada plataforma é essencial para o advogado digital, pois permite antecipar problemas e desenvolver estratégias mais eficazes. As principais plataformas que enfrentam litígios são:</p>
+<h3 class="keep">Instagram (Meta Platforms)</h3>
+<p class="keep">O Instagram, parte do conglomerado Meta Platforms, é uma das redes sociais mais populares e, consequentemente, uma das que mais geram conflitos jurídicos. Os casos mais frequentes envolvem:</p>
+<ul class="list"><li><b>Perfis falsos:</b> criação de perfis que se passam por outras pessoas (famosos, advogados, empresas) para aplicar golpes, difamar ou assediar. A identificação do autor e a remoção do perfil falso são as principais demandas.</li></ul>
+<ul class="list"><li><b>Vazamento de fotos e vídeos íntimos:</b> casos de “pornografia de vingança” ou exposição indevida de conteúdo íntimo sem consentimento. A urgência na remoção e a responsabilização do agressor são cruciais.</li></ul>
+<ul class="list"><li><b>Banimento sem explicação:</b> contas de usuários ou influenciadores banidas sem justificativa clara, causando prejuízos financeiros e danos à reputação. Ações buscam a reativação da conta e indenização.</li></ul>
+<ul class="list"><li><b>Shadowban e restrição indevida de conta:</b> práticas que limitam o alcance de publicações ou restringem funcionalidades da conta sem aviso prévio, afetando a visibilidade e o engajamento. Ações buscam a normalização da conta e reparação de danos.</li></ul>
+<h3 class="keep">TikTok</h3>
+<p class="keep">O TikTok, com seu formato de vídeos curtos e alta viralização, também é palco de diversos conflitos. Os casos mais comuns incluem:</p>
+<ul class="list"><li><b>Conteúdos viralizados com difamações ou bullying:</b> vídeos ofensivos, difamatórios ou de bullying que se espalham rapidamente pela plataforma. A remoção do conteúdo e a identificação do autor são as principais demandas.</li></ul>
+<ul class="list"><li><b>Perfis falsos de adolescentes ou influenciadores:</b> criação de perfis falsos para assediar, enganar ou explorar a imagem de menores ou influenciadores. Ações buscam a remoção e a responsabilização.</li></ul>
+<ul class="list"><li><b>Desafios perigosos com danos à integridade física:</b> desafios virais que incentivam práticas perigosas, resultando em lesões ou até mortes. A responsabilidade da plataforma pela moderação e remoção de tais conteúdos é frequentemente questionada.</li></ul>
+<h3 class="keep">OnlyFans, Privacy e similares</h3>
+<p class="keep">Plataformas de conteúdo adulto ou exclusivo, como OnlyFans e Privacy, têm gerado uma nova onda de litígios relacionados à privacidade e aos direitos autorais. Os casos mais comuns são:</p>
+<ul class="list"><li><b>Publicação não autorizada de conteúdo íntimo:</b> vazamento de fotos ou vídeos íntimos de criadores de conteúdo sem o seu consentimento, muitas vezes por meio de pirataria ou acesso indevido. Ações buscam a remoção urgente e a responsabilização.</li></ul>
+<ul class="list"><li><b>Criação de perfis fakes com nome, imagem ou material roubado:</b> perfis falsos que utilizam a identidade ou o conteúdo de criadores legítimos para enganar assinantes ou disseminar material roubado. Ações buscam a remoção e a identificação dos fraudadores.</li></ul>
+<ul class="list"><li><b>Venda indevida de pacotes vazados em sites espelho:</b> conteúdo exclusivo de criadores vazado e vendido em sites paralelos ou “sites espelho”. Ações buscam a remoção desses sites e a responsabilização dos infratores.</li></ul>
+<h3 class="keep">Google (YouTube, Blogspot, Pesquisa)</h3>
+<p class="keep">O Google, com seu vasto ecossistema de serviços (incluindo YouTube, Blogspot e o motor de busca), é uma das plataformas mais acionadas judicialmente, dada a sua abrangência e o volume de conteúdo que indexa e hospeda. Os casos mais comuns envolvem:</p>
+<ul class="list"><li><b>Difamações indexadas no mecanismo de busca:</b> conteúdos difamatórios ou ofensivos que aparecem nos resultados de busca do Google, prejudicando a reputação de indivíduos ou empresas. Ações buscam a desindexação ou remoção do conteúdo.</li></ul>
+<ul class="list"><li><b>Vídeos ofensivos no YouTube:</b> vídeos que contêm discurso de ódio, difamação, bullying ou violação de direitos autorais. Ações buscam a remoção do vídeo e a identificação do uploader.</li></ul>
+<ul class="list"><li><b>Sites falsos ou ofensivos hospedados na plataforma:</b> sites criados no Blogspot ou em outros serviços de hospedagem do Google que disseminam informações falsas, aplicam golpes ou contêm conteúdo ilícito. Ações buscam a remoção do site e a identificação do responsável.</li></ul>
+<h2 class="sec keep">Quais medidas você pode pedir contra a plataforma?</h2>
+<p class="keep">Para atuar de forma eficaz contra as plataformas digitais, o advogado precisa dominar as ferramentas jurídicas disponíveis para proteger os direitos de seus clientes. As principais medidas que podem ser solicitadas judicialmente incluem:</p>
+<h3 class="keep">1. Remoção imediata do conteúdo (tutela de urgência)</h3>
+<p>Em casos de violação de direitos fundamentais como imagem, honra, intimidade e privacidade, a remoção imediata do conteúdo ilícito é crucial para evitar a propagação do dano. A tutela de urgência (liminar) é a medida mais adequada para esses casos, pois permite que o juiz determine a remoção do conteúdo antes mesmo da citação da plataforma.</p>
+<p class="keep">Para obter a liminar, é necessário demonstrar:</p>
+<ul class="list"><li>a probabilidade do direito (a ilicitude do conteúdo); e</li></ul>
+<ul class="list"><li>o perigo de dano ou o risco ao resultado útil do processo (a rápida disseminação do conteúdo e os prejuízos que ela causa).</li></ul>
+<h3 class="keep">2. Identificação do autor (quebra de IP, logs, cadastro)</h3>
+<p>Em muitos casos, o autor do ato ilícito está oculto por trás de um perfil anônimo ou falso. A identificação do responsável é fundamental para buscar a responsabilização civil e criminal.</p>
+<p class="keep">Com base no art. 22 do Marco Civil da Internet, é possível requerer:</p>
+<ul class="list"><li>a produção antecipada de prova; ou</li></ul>
+<ul class="list"><li>um pedido incidental, para que a plataforma forneça os dados de conexão (IP, data e hora de acesso) e os dados cadastrais do usuário.</li></ul>
+<p>Essa medida é essencial para desvendar o anonimato e garantir que o infrator seja levado à justiça.</p>
+<h3 class="keep">3. Bloqueio preventivo de contas e perfis</h3>
+<p>Em situações onde o dano é contínuo ou há risco iminente de novas publicações ilícitas, o bloqueio preventivo da conta ou perfil do usuário responsável pode ser solicitado.</p>
+<p>Essa medida visa cessar o dano enquanto o processo se desenvolve, impedindo que o infrator continue a praticar atos ilícitos por meio da plataforma. O bloqueio pode ser temporário ou definitivo, dependendo da gravidade e da reincidência da conduta.</p>
+<h3 class="keep">4. Indenização por dano moral pela omissão da plataforma</h3>
+<p>Quando a plataforma, após ser notificada judicialmente, se omite injustificadamente em remover o conteúdo ilícito ou em fornecer os dados do usuário, ela pode ser responsabilizada solidariamente pelos danos morais causados à vítima.</p>
+<p class="keep">A indenização visa compensar:</p>
+<ul class="list"><li>o sofrimento;</li></ul>
+<ul class="list"><li>o abalo à imagem e à honra; e</li></ul>
+<ul class="list"><li>os prejuízos decorrentes da inércia da plataforma.</li></ul>
+<p class="keep">É fundamental demonstrar:</p>
+<ul class="list"><li>a notificação judicial;</li></ul>
+<ul class="list"><li>a inércia da plataforma; e</li></ul>
+<ul class="list"><li>o nexo causal entre essa omissão e o dano sofrido pelo cliente.</li></ul>
+<h2 class="sec keep">Dicas práticas para advogar contra plataformas</h2>
+<p class="lead">Advogar contra gigantes da tecnologia exige estratégia, organização e atenção aos detalhes.</p>
+<p class="keep">Algumas dicas práticas podem fazer a diferença no sucesso de suas ações:</p>
+<ul class="list"><li><b>Sempre junte prints com data/hora e link do conteúdo (a URL é essencial):</b> a prova digital é volátil. Um print sem metadados ou sem a URL pode ser facilmente contestado. Utilize ferramentas que capturem esses dados automaticamente. A URL é a “identidade” do conteúdo na internet e é indispensável para a sua localização e remoção.</li></ul>
+<ul class="list"><li><b>Se possível, faça ata notarial:</b> a ata notarial confere fé pública ao conteúdo digital, tornando-o praticamente incontestável. Embora tenha um custo, é um investimento que pode evitar discussões sobre a autenticidade da prova e acelerar o processo.</li></ul>
+<ul class="list"><li><b>Aponte claramente qual é o conteúdo, por que ele é ilícito e qual é o dever da plataforma:</b> seja didático em sua petição. Explique ao juiz, de forma clara e objetiva, qual é o conteúdo ofensivo, por que ele viola a lei (citando os artigos específicos) e qual era o dever da plataforma (remover o conteúdo, identificar o usuário etc.).</li></ul>
+<ul class="list"><li><b>Cite a sede da empresa no Brasil:</b> indicar o endereço da sede da empresa no Brasil facilita a citação e demonstra que a plataforma tem representação legal no país, sujeitando-se à jurisdição brasileira. Para a Meta (Facebook, Instagram, WhatsApp), o endereço é: <em>Av. Brigadeiro Faria Lima, 3477, 10º andar, Itaim Bibi, São Paulo/SP — CEP 04538-133.</em></li></ul>
+<ul class="list"><li><b>Use jurisprudência real e atualizada que reconhece a responsabilidade:</b> a jurisprudência é sua maior aliada. Cite decisões de tribunais superiores e estaduais que já reconheceram a responsabilidade das plataformas em casos semelhantes.</li></ul>
+<div class="callout"><span class="k">BANCO DE MODELOS</span><p>Isso fortalece sua argumentação e demonstra que seu pedido está alinhado com o entendimento do Judiciário. Mantenha um banco de dados de modelos de petições e jurisprudências para agilizar seu trabalho.</p></div>
+<div class="concl keep"><p class="eyebrow">Conclusão do módulo</p><h2>O poder do advogado digital na era das plataformas</h2></div>
+<p class="lead">Você não precisa ter medo de processar gigantes da tecnologia.</p>
+<p>Elas operam no Brasil, têm representação aqui e estão sujeitas à lei brasileira.</p>
+<p>O papel do advogado é conectar a dor do cliente à responsabilidade da plataforma — com clareza, estratégia e fundamentação. O Direito Digital não é apenas sobre tecnologia; é sobre justiça, proteção de direitos e responsabilização em um ambiente que, embora virtual, tem impactos muito reais na vida das pessoas.</p>
+<blockquote>Ao dominar as estratégias e ferramentas para litigar contra as plataformas digitais, o advogado se posiciona como um defensor essencial na era digital, garantindo que a internet seja um espaço mais seguro e justo para todos.</blockquote>
+</div>
+
+<section class="page dark opener" data-mod-start="5">
+  <div class="runhead"><span>Direito Digital na Prática</span><span>Módulo 5</span></div>
+  <span class="num">5</span>
+  <div class="txt">
+    <p class="eyebrow">Módulo 5</p>
+    <h2>Publicidade, autoridade e captação <span class="gold">com ética no digital</span></h2>
+    <p class="tagline">A visibilidade estratégica na advocacia digital: construindo autoridade com ética.</p>
+  </div>
+  <div class="folio"></div>
+</section>
+
+<div class="flow" data-mod="5">
+<p class="lead">Se você quer advogar com Direito Digital, precisa estar visível no mundo digital.</p>
+<p>Em um cenário onde a informação flui em alta velocidade e a busca por soluções jurídicas muitas vezes começa online, a presença digital deixou de ser um diferencial para se tornar uma necessidade estratégica.</p>
+<p>Não se trata de ser um “influencer” ou “advogado blogueiro” no sentido pejorativo, mas de usar a internet como uma vitrine de autoridade, respeitando os limites éticos estabelecidos pela OAB e atraindo os clientes certos com o conteúdo certo.</p>
+<p>A advocacia digital exige uma abordagem proativa na comunicação, onde o profissional se posiciona como uma referência acessível e confiável, capaz de resolver problemas complexos do mundo virtual.</p>
+<p>A presença digital não é mais opcional; é estratégica. Ignorar o ambiente online é abrir mão de um vasto campo de oportunidades e de uma forma eficaz de se conectar com um público que busca ativamente por soluções jurídicas.</p>
+<p>No entanto, essa presença deve ser construída sobre pilares éticos sólidos, garantindo que a busca por visibilidade não comprometa a dignidade da profissão. O desafio está em equilibrar a necessidade de se comunicar de forma eficaz com as restrições impostas pela OAB, transformando essas limitações em diretrizes para uma publicidade jurídica responsável e impactante.</p>
+<blockquote>O advogado digital de sucesso entende que a autoridade é construída com consistência, verdade e resultados, e que a ética é o alicerce de qualquer estratégia de captação de clientes.</blockquote>
+<h2 class="sec keep">O que é permitido na publicidade jurídica?</h2>
+<p>O Provimento 205/2021 da OAB trouxe importantes atualizações e flexibilizações para a publicidade na advocacia, buscando adequar as normas à realidade digital, sem desvirtuar os princípios éticos da profissão.</p>
+<p>Compreender o que é permitido e o que é vedado é o primeiro passo para uma presença digital eficaz e em conformidade com as regras.</p>
+<h3 class="keep">Publicação de conteúdos informativos e educativos</h3>
+<p>O advogado pode — e deve — produzir conteúdo que informe e eduque o público sobre seus direitos e deveres, sobre as leis e sobre as áreas de atuação do Direito. Isso inclui artigos, posts em blogs, vídeos, e-books, podcasts, entre outros formatos.</p>
+<p>O objetivo é compartilhar conhecimento relevante, demonstrando expertise e auxiliando o público a compreender questões jurídicas complexas. Esse tipo de conteúdo não deve ter caráter mercantilista, mas sim informativo e didático, contribuindo para a conscientização jurídica da sociedade.</p>
+<h3 class="keep">Falar sobre sua área de atuação, sem prometer resultado</h3>
+<p>É permitido ao advogado divulgar suas áreas de atuação, sua experiência profissional e suas qualificações. No entanto, é expressamente proibido prometer resultados ou garantir o êxito de uma causa.</p>
+<p>A publicidade deve ser informativa, e não persuasiva, focando na capacidade técnica do profissional, e não em promessas irrealizáveis. A discrição e a moderação são palavras-chave nesse contexto, evitando qualquer tipo de sensacionalismo ou autopromoção exagerada.</p>
+<h3 class="keep">Utilizar redes sociais, blogs e vídeos, desde que com sobriedade</h3>
+<p>As redes sociais, blogs e plataformas de vídeo são ferramentas poderosas para a comunicação e a construção de autoridade. O Provimento 205/2021 da OAB permite o uso desses canais, desde que a comunicação seja feita com sobriedade, discrição e moderação.</p>
+<p>Isso significa evitar ostentação, fotos e vídeos que não condizem com a dignidade da profissão e qualquer tipo de conteúdo que possa denegrir a imagem da advocacia. A linguagem deve ser clara e acessível, mas sempre mantendo o decoro e o respeito inerentes à atividade jurídica.</p>
+<h3 class="keep">Anunciar seus contatos profissionais e canais de atendimento</h3>
+<p>É fundamental que o público consiga encontrar e contatar o advogado. Por isso, é permitido anunciar os contatos profissionais (telefone, e-mail, endereço do escritório) e os canais de atendimento (site, redes sociais).</p>
+<p>Essas informações devem ser apresentadas de forma clara e discreta, sem qualquer apelo comercial excessivo. O objetivo é facilitar o acesso do público aos serviços jurídicos, e não promover uma venda agressiva.</p>
+<h2 class="sec keep">O que você não pode fazer: as linhas vermelhas da publicidade jurídica</h2>
+<p class="keep">Assim como há permissões, existem proibições claras que visam preservar a ética e a dignidade da advocacia. Ignorar essas vedações pode resultar em sanções disciplinares por parte da OAB. As principais proibições incluem:</p>
+<ul class="list"><li><b>Prometer ganho de causa:</b> é expressamente proibido prometer resultados ou garantir o êxito de uma causa. A advocacia é uma atividade de meio, e não de fim. O advogado se compromete a empregar todos os seus conhecimentos e esforços para defender os interesses do cliente, mas não pode assegurar um resultado favorável, pois este depende de diversos fatores alheios à sua atuação.</li></ul>
+<ul class="list"><li><b>Divulgar honorários em valores específicos:</b> a divulgação de valores específicos de honorários advocatícios na publicidade é vedada. A precificação dos serviços jurídicos deve ser feita de forma individualizada, considerando a complexidade do caso, o tempo dedicado, a experiência do profissional e a capacidade econômica do cliente. A publicidade de valores pode levar à mercantilização da profissão e à concorrência desleal.</li></ul>
+<ul class="list"><li><b>Abusar de linguagem sensacionalista ou desrespeitosa:</b> qualquer tipo de linguagem sensacionalista, vulgar, desrespeitosa ou que utilize termos que possam denegrir a imagem da advocacia é proibida. A comunicação deve ser sempre pautada pela ética, pelo decoro e pelo respeito à profissão e aos colegas. Evite títulos chamativos, promessas exageradas ou qualquer conteúdo que possa induzir o público ao erro.</li></ul>
+<ul class="list"><li><b>Comprar seguidores ou impulsionar posts com “promoções”:</b> a compra de seguidores ou o uso de estratégias de impulsionamento de posts que promovam “promoções” ou descontos excessivos são práticas vedadas. A captação de clientes deve ser feita de forma ética e orgânica, baseada na qualidade do conteúdo e na autoridade do profissional, e não em artifícios que visam apenas o aumento artificial da visibilidade ou a atração de clientes por preço.</li></ul>
+<h2 class="sec keep">Como gerar autoridade e atrair clientes reais?</h2>
+<p>Gerar autoridade e atrair clientes reais no ambiente digital é um processo que exige estratégia, consistência e, acima de tudo, ética.</p>
+<p class="keep">Não se trata de ser o mais popular, mas de ser o mais relevante para o seu público-alvo. As estratégias a seguir podem auxiliar o advogado digital a construir uma presença sólida e a atrair os clientes certos:</p>
+<h3 class="keep">1. Escolha um nicho e foque nele: a especialização como diferencial</h3>
+<p>Em um mercado cada vez mais competitivo, a especialização é a chave para o sucesso. Evite tentar ser tudo para todo mundo. Ao escolher um nicho específico dentro do Direito Digital, você se torna uma referência naquela área, atraindo clientes que buscam soluções para problemas muito específicos.</p>
+<p class="keep">Exemplos de nichos com alta demanda:</p>
+<ul class="list"><li><b>Remoção de conteúdo:</b> especialize-se em casos de vazamento de conteúdo íntimo, fake news, difamação e bullying online.</li></ul>
+<ul class="list"><li><b>Golpes digitais:</b> atue na recuperação de valores, identificação de golpistas e responsabilização em casos de estelionato digital, clonagem de WhatsApp, entre outros.</li></ul>
+<ul class="list"><li><b>Proteção de influenciadores:</b> ofereça assessoria jurídica completa para criadores de conteúdo, abrangendo contratos, direitos de imagem, privacidade e monitoramento de vazamentos.</li></ul>
+<ul class="list"><li><b>LGPD para pequenas empresas:</b> foque em consultoria e adequação de pequenas e médias empresas à Lei Geral de Proteção de Dados, um mercado com grande potencial de crescimento.</li></ul>
+<h3 class="keep">2. Resolva dúvidas com conteúdo útil: a educação como ferramenta de captação</h3>
+<p>A melhor forma de atrair clientes é oferecendo valor. Produza conteúdo que resolva as dúvidas e dores do seu público-alvo. Pense nas perguntas que seus potenciais clientes fariam — e responda-as de forma clara, didática e acessível.</p>
+<p class="keep">Exemplos de temas que geram engajamento e atraem clientes:</p>
+<ul class="list"><li>“Meu ex vazou vídeo íntimo no Instagram. O que eu faço?”</li></ul>
+<ul class="list"><li>“Sofri golpe pelo WhatsApp de um advogado. Tenho direito à indenização?”</li></ul>
+<ul class="list"><li>“A plataforma me baniu sem motivo. Como recuperar a conta?”</li></ul>
+<div class="callout"><span class="k">FORMATOS</span><p>Responda a essas perguntas em formato de post, carrossel, vídeo curto, live, e-book ou podcast.</p></div>
+<p>Ao educar seu público, você demonstra conhecimento, constrói autoridade e se posiciona como a solução para os problemas deles. Você está educando e captando ao mesmo tempo, de forma ética, relevante e natural.</p>
+<h3 class="keep">3. Tenha identidade visual e narrativa coerente: a marca do advogado digital</h3>
+<p>Sua presença digital deve refletir profissionalismo e coerência. Invista em uma identidade visual que transmita os valores do seu escritório e utilize uma narrativa consistente em todos os seus canais de comunicação.</p>
+<p>Use cores, fontes e linguagem que comuniquem profissionalismo, empatia e seriedade. Crie um padrão visual para suas publicações, de forma que sua marca seja facilmente reconhecida e lembrada. Uma marca forte e coerente gera confiança e diferencia você da concorrência.</p>
+<p class="lead">Lembre-se: sua marca é a sua reputação no ambiente digital.</p>
+<h3 class="keep">4. Utilize gatilhos éticos: a psicologia da persuasão na advocacia</h3>
+<p>Os gatilhos mentais são ferramentas psicológicas que influenciam a tomada de decisão. No entanto, na advocacia, seu uso deve ser pautado pela ética e pela transparência.</p>
+<p>O objetivo não é manipular, mas sim orientar o potencial cliente para a melhor decisão, demonstrando com clareza o valor do seu serviço.</p>
+<p class="keep">Alguns gatilhos éticos que podem ser utilizados:</p>
+<ul class="list"><li><b>Gatilho da autoridade:</b> use sua experiência, conhecimento e casos de sucesso (sem identificar clientes) para demonstrar sua expertise. Cite jurisprudência, publique artigos e participe de eventos para reforçar sua autoridade no nicho.</li></ul>
+<ul class="list"><li><b>Gatilho da urgência:</b> destaque a importância de agir rapidamente em casos que envolvem prazos legais ou a rápida disseminação de danos no ambiente digital. Explique as consequências da demora, sem criar pânico ou pressão indevida.</li></ul>
+<ul class="list"><li><b>Gatilho da reciprocidade:</b> ofereça conteúdo de valor, informações úteis e orientações gratuitas, sem esperar um retorno imediato. Ao ajudar seu público, você cria um senso de gratidão e reciprocidade, o que pode levá-lo a buscar seus serviços quando a necessidade surgir.</li></ul>
+<h2 class="sec keep">Ferramentas essenciais para a gestão da presença digital</h2>
+<p class="keep">Para otimizar sua presença digital e gerenciar a produção de conteúdo, algumas ferramentas podem ser grandes aliadas do advogado digital:</p>
+<ul class="list"><li><b>Canva:</b> uma ferramenta de design gráfico online que permite criar posts, carrosséis, infográficos e outros materiais visuais de forma rápida e intuitiva, mesmo sem conhecimento prévio em design. Possui diversos modelos prontos que podem ser adaptados à identidade visual do seu escritório.</li></ul>
+<ul class="list"><li><b>CapCut ou InShot:</b> aplicativos de edição de vídeo para celular que permitem criar vídeos curtos e dinâmicos para redes sociais, com legendas, trilhas sonoras e efeitos. Essenciais para quem deseja explorar o formato de vídeo, que tem alto engajamento.</li></ul>
+<ul class="list"><li><b>Google Agenda:</b> uma ferramenta simples e eficaz para organizar seu calendário de publicações, agendar lives, webinars e outros eventos, garantindo consistência na sua presença digital.</li></ul>
+<ul class="list"><li><b>Manus.ai:</b> ferramenta de inteligência artificial que pode auxiliar na criação de e-books, artigos e outros conteúdos, otimizando o tempo e a qualidade da produção.</li></ul>
+<h2 class="sec keep">Importante: ser visto com respeito é diferente de ser visto a qualquer custo</h2>
+<p>É crucial reiterar que a busca por visibilidade e clientes não deve, em hipótese alguma, comprometer a ética e a dignidade da advocacia. Ser visto com respeito é diferente de ser visto a qualquer custo.</p>
+<p>A autoridade é construída com consistência, verdade e resultados, e não com atalhos ou práticas antiéticas. A reputação de um advogado é seu maior ativo, e ela deve ser protegida e cultivada com zelo.</p>
+<p>A publicidade jurídica deve ser um reflexo da excelência profissional e do compromisso com a justiça — e não uma ferramenta de marketing agressivo.</p>
+<div class="concl keep"><p class="eyebrow">Conclusão do módulo</p><h2>A publicidade ética como ponte para o sucesso</h2></div>
+<p>A publicidade jurídica ética não é inimiga da advocacia tradicional; ela é a ponte entre você e quem precisa da sua atuação. Em um mundo cada vez mais conectado, a capacidade de se comunicar de forma eficaz e ética no ambiente digital é um diferencial competitivo.</p>
+<p>Quando bem feita, a publicidade jurídica não atrai apenas visualizações — atrai confiança. Ela constrói relacionamentos, gera autoridade e, consequentemente, atrai clientes que buscam soluções para seus problemas jurídicos no ambiente digital.</p>
+<blockquote>O advogado digital que domina essa arte se posiciona na vanguarda da profissão, pronto para enfrentar os desafios e aproveitar as oportunidades da era digital, sempre com ética, responsabilidade e excelência.</blockquote>
+</div>
+
+<section class="page dark final">
+  <svg class="rings" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="#c9a55c" stroke-opacity=".22"><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="110"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="210"/></g></svg>
+  <div class="final-txt">
+    <svg class="hex" style="width:40pt;height:46pt"><use href="#logo"/></svg>
+    <h2>Quer aprender <span class="gold">mais?</span></h2>
+    <p>Conteúdo sobre Direito Digital, provas, plataformas e advocacia ética toda semana.</p>
+    <div class="links">
+      <span><small>INSTAGRAM</small>@advogadoohacker</span>
+      <span><small>SITE</small>joaopedrogomesadvhacker.adv.br</span>
     </div>
   </div>
-  <div class="folio">7</div>
+  <div class="final-foot">João Pedro Gomes dos Santos · Advogado · OAB/SE 17.295<br>
+  Conteúdo informativo e educativo. Não substitui a análise individual de cada caso.<br>
+  © Todos os direitos reservados. Proibida a reprodução sem autorização.</div>
 </section>
 
 </body>
